@@ -1,0 +1,15 @@
+.pauthSignin{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:5px;
+    color:#0d47a1;
+    background-color: white;
+    text-align:center;
+    border:2px solid white;
+    border-radius:20px;
+    cursor:pointer;
+    width:120px;
+    font-family:NexaTextLight;
+    margin-left:5px
+}
