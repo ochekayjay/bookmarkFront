@@ -3,7 +3,7 @@ import {Statecontext} from '../../ContextBookmark'
 import Foldersection from './Foldersection'
 import Contentsection from './Contentsection'
 
-function FolderContent() {
+function FolderContent({setfolderSelector}) {
     const [folderContent,setfolderContent] = useContext(Statecontext).folderContent
     const [folderColors,setfolderColors] = useContext(Statecontext).folderColors
     
@@ -16,7 +16,7 @@ function FolderContent() {
     const linkIcon = <svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" fill='#FFFFFF'><path d="M18.625 28.333h-6.958q-3.459 0-5.896-2.437Q3.333 23.458 3.333 20q0-3.458 2.438-5.896 2.437-2.437 5.896-2.437h6.958v2.791h-6.958q-2.334 0-3.938 1.604Q6.125 17.667 6.125 20q0 2.292 1.604 3.917t3.938 1.625h6.958Zm-5.167-6.958v-2.75h13.084v2.75Zm7.917 6.958v-2.791h6.958q2.334 0 3.938-1.604 1.604-1.605 1.604-3.938 0-2.292-1.604-3.917t-3.938-1.625h-6.958v-2.791h6.958q3.459 0 5.896 2.437 2.438 2.438 2.438 5.896 0 3.458-2.438 5.896-2.437 2.437-5.896 2.437Z"/></svg>
     const addIcon = <svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" fill='#FFFFFF'><path d="M18.625 31.667V21.375H8.333v-2.75h10.292V8.333h2.75v10.292h10.292v2.75H21.375v10.292Z"/></svg>;
     return (<div style={{width:'100%',height:'100%'}}>
-  {triggerSection==='folder'?<Foldersection folderContent={folderContent}/>:<Contentsection/>}
+  {triggerSection==='folder'?<Foldersection setfolderSelector={setfolderSelector} folderContent={folderContent}/>:<Contentsection/>}
   </div>
   )
 }

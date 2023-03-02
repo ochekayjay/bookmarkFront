@@ -17,6 +17,8 @@ export const StateHolder = (props)=> {
     const [selectedFolder,setselectedFolder] = useState()
     const [triggerSection,settriggerSection]  = useState('folder')
     const [folderId,setfolderId] = useState('')
+    const [textArray, setTextArray] = useState([])
+    const [linkArray, setLinkArray] = useState([])
 
     const [folders,setfolders] = useState()
     
@@ -24,7 +26,7 @@ export const StateHolder = (props)=> {
     return(
         <Statecontext.Provider value={{
      userObject:[userObject,setuserObject],addItemToShow:[addItemToShow,setaddItemToShow],triggerSection:[triggerSection,settriggerSection],folderContent:[folderContent,setfolderContent],folders:[folders,setfolders],folderExists:[folderExists,setfolderExists],alertobj:[alertobj,setalertobj],userPayload:[userPayload,setuserPayload],
-     folderColors:[folderColors,setfolderColors],folderId:[folderId,setfolderId],selectedFolder:[selectedFolder,setselectedFolder]}}>
+     folderColors:[folderColors,setfolderColors],folderId:[folderId,setfolderId],selectedFolder:[selectedFolder,setselectedFolder],textArray:[textArray, setTextArray],linkArray:[linkArray, setLinkArray]}}>
             {props.children}
         </Statecontext.Provider>
     )

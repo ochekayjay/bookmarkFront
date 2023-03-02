@@ -18,12 +18,13 @@ function Additem({setaddItemToShow}) {
       else{
         console.log(linkState)
       try{
-      const linkObjectCreated = await fetch(`https://savemyfile.onrender.com/folder/${folderId}/links?folder=${folderId}`,{
+      const linkObjectCreated = await fetch('https://savemyfile.onrender.com/link/createLink',{
         method:'POST',
         headers:{
                   'Accept': 'application/json',
                   'Content-Type': 'application/json',
-                  Authorization: `Bearer ${userPayload.token}`
+                  Authorization: `Bearer ${userPayload.token}`,
+                  headers: folderId
                 },
                 body: JSON.stringify(linkdata)
                 })
@@ -101,12 +102,13 @@ export function Addtexts({setaddItemToShow}) {
     else{
 
     try{
-    const textObjectCreated = await fetch(`https://savemyfile.onrender.com/folder/${folderId}/texts?folder=${folderId}`,{
+    const textObjectCreated = await fetch('https://savemyfile.onrender.com/text/createText',{
       method:'POST',
       headers:{
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${userPayload.token}`
+                Authorization: `Bearer ${userPayload.token}`,
+                headers: folderId
               },
               body: JSON.stringify(textState)
               })

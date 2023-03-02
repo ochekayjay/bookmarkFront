@@ -6,6 +6,7 @@ function BioSection() {
     const [biodata,setbiodata] = useState({imageLink:'',collectionName:''})
     const [showsave,setshowsave] = useState(false)
     const [rerender,setrerender] = useState(false)
+    const [projectTitle,setprojectTitle] = useState({projectTitle:'',})
     const [imageObj,setimageObj] = useState({myFile:''})
 
     
@@ -54,8 +55,42 @@ function BioSection() {
 }
 
 const setTitle = (event)=>{
-  setbiodata({...biodata,...{collectionName:event.target.value}})
+  //setbiodata({...biodata,...{collectionName:event.target.value}})
+  console.log(projectTitle)
+  setprojectTitle({projectTitle:event.target.value})
 }
+
+
+
+
+
+const setProTitle = async() =>{
+    try{
+      console.log(projectTitle)
+      const userTitle = await fetch('https://savemyfile.onrender.com/bio/usernamePush', {
+              method: 'POST',
+              headers: {
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/json',
+                      Authorization: `Bearer ${userPayload.token}`
+                      },
+                      body: JSON.stringify(projectTitle)
+   })
+   console.log(`a in ${userTitle}`)
+   const userHolder = await userTitle.json()
+   console.log(`b in ${userHolder.projectTitle}`)
+      
+      setbiodata({...biodata,...{collectionName:userHolder.projectTitle}})
+    }
+
+    catch(error){
+      throw new Error(error)
+    }
+
+}
+
+
+
 
 
     const loadFunction = async ()=>{
@@ -101,8 +136,8 @@ const setTitle = (event)=>{
         </div>
       </div>
       <div style={{borderRadius:'10px',border:'1.5px solid white',height:'50px',boxShadow: '0px 0px 15px #0b1f36',width:'250px',margin:'15px auto',display:'flex'}}>
-          <input placeholder='Project title...' onChange ={(event)=>setTitle(event)} style={{boxSizing : 'border-box',height:'100%',paddingLeft:'7px',borderRadius:'10px',width:'70%',outline:'none',fontSize:'15px',backgroundColor:'transparent',borderWidth:'0px 0px 0px' ,color:'white'}}/>
-          <span onClick={()=> console.log(biodata)} style={{border:'1.5px solid white',height:'100%',width:'30%',borderWidth:'0px 0px 0px 1.5px',boxSizing:'border-box',display:'flex',alignItems:'center',justifyContent:'center'}}>{editCoin}</span>
+          <input placeholder='Project title...' value = {biodata.collectionName} onChange ={(event)=>setTitle(event)} style={{boxSizing : 'border-box',height:'100%',paddingLeft:'7px',borderRadius:'10px',width:'70%',outline:'none',fontSize:'15px',backgroundColor:'transparent',borderWidth:'0px 0px 0px' ,color:'white'}}/>
+          <span onClick={()=> setProTitle()} style={{border:'1.5px solid white',height:'100%',width:'30%',borderWidth:'0px 0px 0px 1.5px',boxSizing:'border-box',display:'flex',alignItems:'center',justifyContent:'center'}}>{editCoin}</span>
       </div>
 
       <div style={{fontFamily:'NexaTextLight',marginTop:'65px',paddingLeft:'30px',color:'white',fontSize:'20px'}}>

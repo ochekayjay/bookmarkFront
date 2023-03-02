@@ -7,6 +7,7 @@ import { Statecontext } from '../ContextBookmark';
 function SignIn() {
   const [formObject,setformObject] = useState({Password:'',Email:''})
   const [userPayload,setuserPayload] = useContext(Statecontext).userPayload
+  const [loading,setLoading] = useState(false)
   const navigate = useNavigate()
 
   const changeFieldData = (event)=>{
@@ -20,6 +21,7 @@ function SignIn() {
 
     }
     else{
+      setLoading(true)
       try{
     console.log('a')
     const addCoinCredentials = await fetch('https://savemyfile.onrender.com/auth/login', {
@@ -36,6 +38,7 @@ function SignIn() {
  window.localStorage.setItem('Userdata',JSON.stringify(payloadData))
  setuserPayload({id:payloadData._id,userName:payloadData.Username,email:payloadData.Email,token:payloadData.Token})
  navigate('/landingpage')
+ 
   }
   catch(error){
 
@@ -62,7 +65,7 @@ function SignIn() {
             <div style={{height:'80%'}}>
               <div style={{height:"33.3%",width:'100%',margin:'0px auto',border:'1px solid white',borderWidth:'0px 0px 1px',display:'flex',justifyContent:'center',alignItems:'flex-end',position:'relative'}}><p style={{position:'absolute',color:'white',fontSize:'18px',fontFamily:'NexaTextLight',top:'5px',left:'5px'}}>Enter Email:</p><input onChange={(event)=> changeFieldData(event)} name="Email" value={formObject.Email} style={{width:'100%',fontSize:'25px',color:'white',height:'60%',backgroundColor:'transparent',borderWidth:'0px',paddingLeft:"15px",outline:'none'}} type="email"/></div>
               <div style={{height:"33.3%",width:'100%',margin:'0px auto',border:'1px solid white',borderWidth:'0px 0px 1px',display:'flex',justifyContent:'center',alignItems:'flex-end',position:'relative'}}><p style={{position:'absolute',color:'white',fontSize:'18px',fontFamily:'NexaTextLight',top:'5px',left:'5px'}}>Enter Password:</p><input onChange={(event)=> changeFieldData(event)} name="Password" value={formObject.Password} style={{width:'100%',fontSize:'25px',color:'white',height:'60%',paddingLeft:"15px",backgroundColor:'transparent',borderWidth:'0px',outline:'none'}} type="password"/></div>
-              <div style={{height:"33.3%",display:"flex",justifyContent:'center',alignItems:"center"}}><input type='button'  onClick={(event)=>submitreg(event)} value='Sign in' style={{width:'80px',height:'30px',borderRadius:"15px",borderWidth:'0px'}}/></div>
+              <div style={{height:"33.3%",display:"flex",justifyContent:'center',alignItems:"center"}}>{ loading=== false?<input type='button'  onClick={(event)=>submitreg(event)} value='Sign in' style={{width:'80px',height:'30px',borderRadius:"15px",borderWidth:'0px'}}/>:<i class="fa fa-spinner fa-spin" style={{fontSize:'20px',color:'white'}}></i>}</div>
             </div>
         </div>
 
