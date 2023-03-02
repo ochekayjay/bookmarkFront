@@ -49,6 +49,7 @@ function Contentsection() {
     console.log('babab')
     const textjson = await GetFolderTexts(folderId,userPayload)
     const linkjson = await GetFolderLinks(folderId,userPayload)
+    console.log(linkjson)
     setTextArray(textjson.folderTexts)
     setLinkArray(linkjson.folderLinks)
     }
@@ -76,7 +77,7 @@ function Contentsection() {
                     <div style={{width:"100%",padding:'15px',boxSizing:"border-box",display:'flex',flexDirection:"column",alignItems:"center"}}>
                   {linkArray.map(linkObj => <div style={{width:'95%',padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
                     <p style={{fontFamily:"NexaTextBold",marginBottom:"10px"}}>{linkObj.title}</p>
-                    <p>{linkObj.link}</p>
+                    <p><a href={linkObj.link} style={{textDecoration:'none',color:"white"}}>Visit Site</a></p>
                     <p>{linkObj.source}</p>
                     <p>{linkObj.description}</p>
                   </div>)}
