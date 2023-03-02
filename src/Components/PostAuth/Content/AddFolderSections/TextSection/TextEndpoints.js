@@ -29,7 +29,7 @@ export async function GetFolderTexts(folderId,userPayload){
  
 
 
-export async function GetAllTexts(){
+/*export async function GetAllTexts(){
 
     try{
         const textObjectCreated = await fetch(`https://savemyfile.onrender.com/text/getAllTexts`,{
@@ -65,5 +65,5 @@ export async function DeleteText(){
 
 const getText = async()=>{
 
-}
+}*/
 
