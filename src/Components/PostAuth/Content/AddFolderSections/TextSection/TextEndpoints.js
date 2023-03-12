@@ -55,15 +55,32 @@ export async function GetFolderTexts(folderId,userPayload){
       }
 
       return null
-}
+}*/
 
 
 
-export async function DeleteText(){
-
+export async function DeleteFolderText(userPayload,delid,folderId){
+  try{
+    const textDeleted = await fetch(`https://savemyfile.onrender.com/text/${delid}`,{
+      method:'DELETE',
+      headers:{
+                
+                Authorization: `Bearer ${userPayload.token}`,
+                folderid: folderId
+              
+              },
+            
+              })
+     const textjson = await textDeleted.json()
+     return textjson
+    
+  }
+  catch(error){
+      console.log(error)
+  }
 }
 
 const getText = async()=>{
 
-}*/
+}
 

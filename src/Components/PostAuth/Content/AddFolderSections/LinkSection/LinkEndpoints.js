@@ -22,3 +22,23 @@ export async function GetFolderLinks(folderId,userPayload){
         }
         
   }
+
+  export async function DeleteFolderLink(userPayload,delid,folderId){
+    try{
+      const linkDeleted = await fetch(`https://savemyfile.onrender.com/link/${delid}`,{
+        method:'DELETE',
+        headers:{
+                  
+                  Authorization: `Bearer ${userPayload.token}`,
+                  folderid: folderId
+                },
+              
+                })
+      const linkjson = await linkDeleted.json()
+      return linkjson
+      
+    }
+    catch(error){
+        console.log(error)
+    }
+  }
