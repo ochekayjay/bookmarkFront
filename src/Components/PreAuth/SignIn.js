@@ -15,50 +15,6 @@ function SignIn() {
 }
 
 
-const tester = async()=>{
-  const addCoinCredentials = await fetch('https://savemyfile.onrender.com/filegetter', {
-            method: 'GET',
-            headers: {
-                    'Accept': 'application/json',
-                  
-                    },
-            
- })
- console.log('b')
- const payloadData = await addCoinCredentials.json()
- console.log(payloadData)
-}
-
-
-const testertwo = async()=>{
-  const addCoinCredentials = await fetch('https://savemyfile.onrender.com/biogetter', {
-            method: 'GET',
-            headers: {
-                    'Accept': 'application/json',
-                  
-                    },
-            
- })
- console.log('b')
- const payloadData = await addCoinCredentials.json()
- console.log(payloadData)
-}
-
-
-const testerthree = async()=>{
-  const addCoinCredentials = await fetch('https://savemyfile.onrender.com/foldergetter', {
-            method: 'GET',
-            headers: {
-                    'Accept': 'application/json',
-                  
-                    },
-            
- })
- console.log('b')
- const payloadData = await addCoinCredentials.json()
- console.log(payloadData)
-}
-
 
 
   const submitreg = async(event)=>{
@@ -100,9 +56,6 @@ const testerthree = async()=>{
 
   return (
     <div><div style={{padding:'15px',backgroundColor:'#0d47a1',zIndex:"2",color:'white',boxSizing:"border-box",width:"100vw",height:"100vh",margin:'0px auto'}}>
-    <p onClick={()=>tester()} style={{backgroundColor:'green',border:'3px solid red',color:'yellow',padding:"10px"}}>tester</p>
-    <p onClick={()=>testertwo()} style={{backgroundColor:'orange',border:'3px solid red',color:'yellow',padding:"10px"}}>tester</p>
-    <p onClick={()=>testerthree()} style={{backgroundColor:'purple',border:'3px solid red',color:'yellow',padding:"10px"}}>tester</p>
     <div className='topSectionland'>
       <div style={{fontFamily:"NexaTextBold",display:"flex",alignItems:"center",justifyContent:"center",fontSize:'35px'}}>BookMark</div>
       <div className='authholder'><p className='pauth'><NavLink to='/' style={{textDecoration:'none',color:'white'}}>Home</NavLink></p><p  className='pauth'><NavLink to='/signup' style={{textDecoration:'none',color:'white'}}>Register</NavLink></p></div>
