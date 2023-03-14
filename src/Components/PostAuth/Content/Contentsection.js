@@ -57,7 +57,7 @@ function Contentsection() {
     const linkjson = await GetFolderLinks(folderId,userPayload)
     const imagejson = await GetFolderImage(folderId,userPayload)
     //console.log(`trying out in images ${imagejson.folderImages[0].nameofimage}`)
-    console.log(`images here ${imagejson.folderImages[0].image}`)
+    //console.log(`images here ${imagejson.folderImages[0].image}`)
     setTextArray(textjson.folderTexts)
     setLinkArray(linkjson.folderLinks)
     setImageArray(imagejson.folderImages)
@@ -70,23 +70,24 @@ function Contentsection() {
 
 //delete function
 
-const deleteItem = async(item,id)=>{
+const deleteItem = async(item,obj)=>{
     if(item==='link'){
       setItemState({...itemState,...{link:true}})
-      const newLinks = await DeleteFolderLink(userPayload,id,folderId)
+      const newLinks = await DeleteFolderLink(userPayload,obj._id,folderId)
       setItemState({...itemState,...{link:false}})
       setLinkArray(newLinks.folderLinks)
     }
     else if(item==='text'){
       setItemState({...itemState,...{text:true}})
-      const newTexts = await DeleteFolderText(userPayload,id,folderId)
+      const newTexts = await DeleteFolderText(userPayload,obj._id,folderId)
       setItemState({...itemState,...{text:false}})
       setTextArray(newTexts.folderTexts)
     }
 
     else if(item==='image'){
       setItemState({...itemState,...{image:true}})
-      const newImages = await DeleteFolderImage(userPayload,id,folderId)
+      let identity = obj?.id?obj.id:obj._id
+      const newImages = await DeleteFolderImage(userPayload,identity,folderId)
       setItemState({...itemState,...{image:false}})
       console.log(`checkout ${ImageArray}`)
       setImageArray(newImages.folderImages)
@@ -101,17 +102,7 @@ const backToFolder = ()=>{
   setTextArray([])
 }
   
-const imageGetter = async(id)=>{
- return `https://savemyfile.onrender.com/image/getImage/${id}`
-  await fetch(`https://savemyfile.onrender.com/image/getImage/${id}`,{
-    method:'GET',
-    headers:{
-              Authorization: `Bearer ${userPayload.token}`,
-              folderid : folderId
-            },
-            
-            })
-}
+
   
   
     return (
@@ -133,7 +124,7 @@ const imageGetter = async(id)=>{
                   {linkArray.map(linkObj => <div key={linkObj._id} style={{width:'95%',padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
                     <div style={{display:"flex",justifyContent:"space-between"}}>
                       <p style={{fontFamily:"NexaTextBold",marginBottom:"10px"}}>{linkObj.title}</p>
-                      <p style={{cursor:"pointer"}}><span onClick={()=>deleteItem('link',linkObj._id)} style={{cursor:'pointer'}}>{del}</span>&nbsp; &nbsp;&nbsp;<span style={{cursor:'pointer'}}>{forward}</span></p>
+                      <p style={{cursor:"pointer"}}><span onClick={()=>deleteItem('link',linkObj)} style={{cursor:'pointer'}}>{del}</span>&nbsp; &nbsp;&nbsp;<span style={{cursor:'pointer'}}>{forward}</span></p>
                     </div>
                     <p><a  target="_blank" href={linkObj.link} style={{textDecoration:'none',color:"white"}}>Visit Site</a></p>
                     <p>{linkObj.source}</p>
@@ -148,7 +139,7 @@ const imageGetter = async(id)=>{
                   {textArray.map(textObj => <div style={{width:'95%',padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
                      <div style={{display:'flex',justifyContent:"space-between"}}>
                       <p style={{fontFamily:"NexaTextBold",marginBottom:"10px"}}>{textObj.title}</p>
-                      <p style={{cursor:"pointer"}}><span style={{cursor:'pointer'}} onClick={()=>deleteItem('text',textObj._id)} >{del}</span>&nbsp; &nbsp;&nbsp;<span style={{cursor:'pointer'}}>{forward}</span></p>
+                      <p style={{cursor:"pointer"}}><span style={{cursor:'pointer'}} onClick={()=>deleteItem('text',textObj)} >{del}</span>&nbsp; &nbsp;&nbsp;<span style={{cursor:'pointer'}}>{forward}</span></p>
                      </div>
                     <p>{textObj.text}</p>
                     <p>{textObj.source}</p>
@@ -163,11 +154,11 @@ const imageGetter = async(id)=>{
                   {ImageArray.map(imgObj => <div style={{width:'95%',height:"auto",padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
                     <div style={{display:'flex',justifyContent:"space-between"}}>
                       <p style={{fontFamily:"NexaTextBold",marginBottom:"10px"}}>{imgObj.title}</p>
-                      <p style={{cursor:"pointer"}}><span onClick={()=>deleteItem('image',imgObj._id)}  style={{cursor:'pointer'}}>{del}</span>&nbsp; &nbsp;&nbsp;<span style={{cursor:'pointer'}}>{forward}</span></p>
+                      <p style={{cursor:"pointer"}}><span onClick={()=>deleteItem('image',imgObj)}  style={{cursor:'pointer'}}>{del}</span>&nbsp; &nbsp;&nbsp;<span style={{cursor:'pointer'}}>{forward}</span></p>
                       
                     </div>
                     <p style={{textAlign:"left",}}>{imgObj.source}</p>
-                    <p style={{width:'100%',marginTop:"15px"}}><img src = {`https://savemyfile.onrender.com/image/getImage/${imgObj._id}`} style={{width:"100%",borderRadius:'15px',height:"150px",objectFit:"cover"}}/></p>
+                    <p style={{width:'100%',marginTop:"15px"}}><img src = {`https://savemyfile.onrender.com/image/getImage/${imgObj?.id?imgObj.id:imgObj._id}`} style={{width:"100%",borderRadius:'15px',height:"150px",objectFit:"cover"}}/></p>
                   </div>)}
                 </div>
                 </div>

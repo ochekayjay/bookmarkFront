@@ -52,6 +52,7 @@ export function ImageSection({setaddItemToShow,ImageArray,setImageArray}) {
       else{
         console.log(formData)
       try{
+        console.log('in posting image')
       const imageObjectCreated = await fetch(`https://savemyfile.onrender.com/image/imagePush`,{
         method:'POST',
         headers:{
