@@ -1,15 +1,20 @@
 import React,{useContext,useEffect,useState,useRef} from 'react'
 import {Statecontext} from '../ContextBookmark'
-
+import useWindowResize from '../../hooks/useWindowSize'
 function BioSection() {
     const [userPayload,setuserPayload] = useContext(Statecontext).userPayload
     const [biodata,setbiodata] = useState({imageLink:'',collectionName:''})
     const [showsave,setshowsave] = useState(false)
     const [rerender,setrerender] = useState(false)
     const [projectTitle,setprojectTitle] = useState({projectTitle:'',})
+    const [menuMobile, setMenuMobile] = useContext(Statecontext).menuMobile
+    const [biowidth,setbiowidth] = useState(0)
     const [imageObj,setimageObj] = useState({myFile:''})
-
     
+    const { width } = useWindowResize()
+    
+    
+  const closeicon = <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="#FFFFFF"><path d="M6.4 19 5 17.6l5.6-5.6L5 6.4 6.4 5l5.6 5.6L17.6 5 19 6.4 13.4 12l5.6 5.6-1.4 1.4-5.6-5.6Z"/></svg>
 
     const fileref = useRef();
 
@@ -20,6 +25,13 @@ function BioSection() {
       setimageObj({[event.target.name] : event.target.files[0]})
   }
 
+
+  //set biowidth
+
+  const scrollbio = ()=>{
+    console.log(biowidth)
+    setbiowidth(-200)
+  }
 
 
     const uploadImage = async(event)=>{
@@ -114,9 +126,10 @@ const setProTitle = async() =>{
     }
     
     const urlHolder = 'https://savemyfile.onrender.com'
-    useEffect( ()=>{loadFunction() },[userPayload.token,rerender])
+    useEffect( ()=>{loadFunction() },[userPayload.token,rerender,width])
   return (
-    <div style={{backgroundColor:'#0d47a1',width:'25%',boxShadow: '0px 0px 50px #0b1f36',border:'0.5px solid #0d47a1',height:'100%'}}>
+    <div style={{backgroundColor:'#0d47a1',position:width>700?"relative":'absolute',transition:"width 1s ease2-in-out",display:width>700?'block':menuMobile?'block':'none',left:'0px',zIndex:"300",width:width>700?'25%':menuMobile?"65%":'0px',boxShadow: '0px 0px 50px #0b1f36',border:'0.5px solid #0d47a1',height:'100%'}}>
+      <p onClick={()=>setMenuMobile(!menuMobile)} style={{padding:"10px",display:width>700?"none":'flex',justifyContent:"center",alignItems:"center",boxSizing:"border-box",position:'absolute',top:"10px",right:'10px',borderRadius:"50%",boxShadow: '0px 0px 50px #0b1f36'}}>{closeicon}</p>
       <p style={{margin:'15px',textAlign:'left',paddingLeft:"15px",fontFamily:'NexaTextBold',fontSize:'30px',color:'white'}}>buukmark</p>
       <div style={{width:'100%',boxSizing:'border-box',textAlign:'center'}}>
         <p onClick={(event)=>{uploadImage(event);setshowsave(false)}} style={{display:showsave?'block':'none',padding:"5px",backgroundColor:'#0d47a1',boxShadow: '0px 0px 50px #0b1f36',width:'35px',margin:'5px auto',textAlign:'center',color:'white',borderRadius:'7px'}}>Save</p>

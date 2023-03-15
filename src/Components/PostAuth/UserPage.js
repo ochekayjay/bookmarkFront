@@ -14,6 +14,7 @@ function UserPage() {
   const [folderExists,setfolderExists] = useContext(Statecontext).folderExists
   const [folderContent,setfolderContent] = useContext(Statecontext).folderContent
   
+  
   const [foldercalltrigger,setfoldercalltrigger] = useState(false)
   const newfoldericon = <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M28.5 32h3v-4.5H36v-3h-4.5V20h-3v4.5H24v3h4.5ZM7.05 40q-1.2 0-2.1-.925-.9-.925-.9-2.075V11q0-1.15.9-2.075Q5.85 8 7.05 8h14l3 3h17q1.15 0 2.075.925.925.925.925 2.075v23q0 1.15-.925 2.075Q42.2 40 41.05 40Zm0-29v26h34V14H22.8l-3-3H7.05Zm0 0v26Z"/></svg>;
   
@@ -35,6 +36,8 @@ useEffect(()=>{
 
   const folderCallFunc = async()=>{
  
+    
+
     try{
     const folderObj = await fetch('https://savemyfile.onrender.com/folder',{
       method:'GET',
@@ -121,12 +124,17 @@ useEffect(()=>{
 
 
   return (
-    <div style={{ height:'100vh',display:'flex',position:'relative',boxSizing:'border-box'}}>
-        <BioSection />
-    
-        {folderExists ? <FolderContent setfolderSelector={setfolderSelector}/>: <NoFolders folderSelector={folderSelector} setfolderSelector={setfolderSelector}/>}
-        { folderSelector && <Addfolder setfolderContent={setfolderContent} folderContent={folderContent} setfolderSelector={setfolderSelector} changeFieldData={changeFieldData} foldertitle={foldertitle} createFolder={createFolder} />}
-       
+    <div style={{ height:'100vh',display:'flex',position:'relative',boxSizing:'border-box'}}>{
+        folderExists==='none'?
+        <div style={{width:"100%",height:'100%',display:"flex",justifyContent:'center',alignItems:"center"}}>
+            <i class="fa fa-spinner fa-spin" style={{fontSize:'200px',color:'#0d47a1'}}></i>
+        </div>:
+        <div style={{width:"100%",height:'100%',display:'flex'}}>
+            <BioSection />
+            
+            {folderExists ? <FolderContent setfolderSelector={setfolderSelector}/>: <NoFolders folderSelector={folderSelector} setfolderSelector={setfolderSelector}/>}
+            { folderSelector && <Addfolder setfolderContent={setfolderContent} folderContent={folderContent} setfolderSelector={setfolderSelector} changeFieldData={changeFieldData} foldertitle={foldertitle} createFolder={createFolder} />}
+            </div>}
     </div>
   )
 }

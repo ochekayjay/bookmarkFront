@@ -7,6 +7,7 @@ import { ImageSection } from './AddFolderSections/ImageSection/ImageSection'
 import {GetFolderTexts,DeleteFolderText,GetAllTexts} from './AddFolderSections/TextSection/TextEndpoints'
 import {GetFolderLinks,DeleteFolderLink} from './AddFolderSections/LinkSection/LinkEndpoints'
 import { GetFolderImage, DeleteFolderImage } from './AddFolderSections/ImageSection/ImageEndpoints'
+import useWindowResize from '../../../hooks/useWindowSize'
 
 function Contentsection() {
   const [userPayload,setuserPayload] = useContext(Statecontext).userPayload
@@ -14,6 +15,7 @@ function Contentsection() {
     const [selectedFolder,setselectedFolder] = useContext(Statecontext).selectedFolder
     const [triggerSection,settriggerSection] = useContext(Statecontext).triggerSection
     const [addItemToShow,setaddItemToShow] = useContext(Statecontext).addItemToShow
+    const [contentMobile, setContentMobile] = useState({link:true,text:false,image:false})
     const [textArray, setTextArray] = useContext(Statecontext).textArray
     const [linkArray, setLinkArray] = useContext(Statecontext).linkArray
     const [itemState,setItemState] = useState({link:false,text:false,image:false})
@@ -24,7 +26,7 @@ function Contentsection() {
     const addIcon = <svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" fill='#FFFFFF'><path d="M18.625 31.667V21.375H8.333v-2.75h10.292V8.333h2.75v10.292h10.292v2.75H21.375v10.292Z"/></svg>;
     const forward = <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 96 960 960" fill='#FFFFFF' width="25"><path d="M120 856V682q0-79 56-134.5T310 492h416L572 338l42-42 226 226-226 226-42-42 154-154H310q-54 0-92 38t-38 92v174h-60Z"/></svg>
     const del = <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 96 960 960" fill='#FFFFFF' width="25"><path d="M261 936q-24.75 0-42.375-17.625T201 876V306h-41v-60h188v-30h264v30h188v60h-41v570q0 24-18 42t-42 18H261Zm438-630H261v570h438V306ZM367 790h60V391h-60v399Zm166 0h60V391h-60v399ZM261 306v570-570Z"/></svg>
-
+    const { width } = useWindowResize()
   //function to add link to folder
   const linkAdder = ()=>{
       setaddItemToShow('link')
@@ -126,10 +128,15 @@ const backToFolder = ()=>{
         </div>
     </div>
     
-    <div style={{display:'flex',justifyContent:'space-between',position:'absolute',bottom:'0px',left:'0px',boxSizing:'border-box',height:'70%',borderRadius:'20px 20px 0px 0px',boxShadow: '0px 0px 15px #0b1f36',width:'100%'}}>
-        
-                <div style={{width:'33.3%',border:'1px solid black',borderWidth:'0px 1px 0px 0px',height:'100%',overflow:'auto',position:'relative'}}>
-                    <p style={{display:'flex',color:'white',alignItems:'center',justifyContent:'space-around',fontSize:'25px',width:'100%',height:'50px',border:'1px solid black',borderRadius:'20px 0px 0px 0px',borderWidth:'0px 0px 1px 0px',backgroundColor:'#0d47a1',position:'sticky',top:'0px',left:'0px',zIndex:'10'}}><span style={{display:'flex',alignItems:'center',justifyContent:'space-around'}}><span>Links</span><span style={{display:'flex',alignItems:'center',justifyContent:'center'}}>{linkIcon}</span></span><span onClick={()=>linkAdder()} style={{display:'flex',alignItems:'center',justifyContent:'center',cursor:'pointer'}}>{addIcon}</span></p>
+    <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',position:'absolute',bottom:'0px',left:'0px',boxSizing:'border-box',height:'70%',borderRadius:'20px 20px 0px 0px',boxShadow: '0px 0px 15px #0b1f36',width:'100%'}}>
+                <div style={{width:"100%",height:'50px',display:"flex"}}>
+                    <p  style={{display:'flex',cursor:'pointer',color:'white',alignItems:'center',justifyContent:'space-around',fontSize:'25px',width:'100%',height:'50px',border:'1px solid black',borderRadius:'20px 0px 0px 0px',borderWidth:'0px 0px 1px 0px',backgroundColor:'#0d47a1',position:'sticky',top:'0px',left:'0px',zIndex:'10'}}><span  onClick={()=>{setContentMobile({link:true,text:false,image:false})}} style={{display:'flex',alignItems:'center',justifyContent:'space-around'}}><span>Links</span><span style={{display:width>700?'flex':"none",alignItems:'center',justifyContent:'center'}}>{linkIcon}</span></span><span onClick={()=>linkAdder()} style={{display:width>700?'flex':contentMobile.link?"flex":"none",alignItems:'center',justifyContent:'center',cursor:'pointer'}}>{addIcon}</span></p>
+                    <p style={{display:'flex',cursor:'pointer',border:'1px solid black',borderWidth:"0px 1px 1px 1px",color:'white',alignItems:'center',justifyContent:'space-around',fontSize:'25px',width:'100%',height:'50px',borderRadius:'0px 0px 0px 0px',backgroundColor:'#0d47a1',position:'sticky',top:'0px',left:'0px',zIndex:'10'}}><span onClick={()=>{setContentMobile({link:false,text:true,image:false})}} style={{display:'flex',alignItems:'center',justifyContent:'space-around'}}><span>Texts</span><span style={{display:width>700?'flex':"none",alignItems:'center',justifyContent:'center'}}>{textIcon}</span></span><span onClick={()=>textAdder()} style={{display:width>700?'flex':contentMobile.text?"flex":'none',alignItems:'center',justifyContent:'center',cursor:'pointer'}}>{addIcon}</span></p>
+                    <p  style={{display:'flex',cursor:'pointer',color:'white',alignItems:'center',justifyContent:'space-around',fontSize:'25px',width:'100%',height:'50px',border:'1px solid black',borderRadius:' 0px 20px 0px 0px',borderWidth:'0px 0px 1px 0px',backgroundColor:'#0d47a1',position:'sticky',top:'0px',left:'0px',zIndex:'10'}}><span onClick={()=>{setContentMobile({link:false,text:false,image:true})}} style={{display:'flex',alignItems:'center',justifyContent:'space-around'}}><span>Images</span><span style={{display:width>700?'flex':"none",alignItems:'center',justifyContent:'center'}}>{imageIcon}</span></span><span onClick={()=>imageAdder()} style={{display:width>700?'flex':contentMobile.image?"flex":"none",alignItems:'center',justifyContent:'center',cursor:'pointer'}}>{addIcon}</span></p>
+                </div>
+                <div style={{width:"100%",display:'flex',height:'100%'}}>
+                <div style={{width:width>700?'33.3%':"100%",display:width>700?'block':contentMobile.link?"block":"none",border:'1px solid black',borderWidth:'0px 1px 0px 0px',height:'100%',overflow:'auto',position:'relative'}}>
+                    
                     <div style={{width:"100%",padding:'15px',boxSizing:"border-box",display:'flex',flexDirection:"column",alignItems:"center"}}>
                     {itemState.link && <p style={{width:"100%",boxSizing:'border-box',display:"flex",justifyContent:'center',alignItems:"center"}}><i class="fa fa-spinner fa-spin" style={{fontSize:'20px',color:'blue'}}></i></p>}
                   {linkArray.map(linkObj => <div key={linkObj._id} style={{width:'95%',padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
@@ -143,8 +150,8 @@ const backToFolder = ()=>{
                   </div>)}
                 </div>
                 </div>
-                <div style={{width:'33.3%',border:'1px solid black',borderWidth:'0px 1px 0px 0px',height:'100%',overflow:'auto'}}>
-                <p style={{display:'flex',color:'white',alignItems:'center',justifyContent:'space-around',fontSize:'25px',width:'100%',height:'50px',border:'1px solid black',borderRadius:'0px 0px 0px 0px',borderWidth:'0px 0px 1px 0px',backgroundColor:'#0d47a1',position:'sticky',top:'0px',left:'0px',zIndex:'10'}}><span style={{display:'flex',alignItems:'center',justifyContent:'space-around'}}><span>Texts</span><span style={{display:'flex',alignItems:'center',justifyContent:'center'}}>{textIcon}</span></span><span onClick={()=>textAdder()} style={{display:'flex',alignItems:'center',justifyContent:'center',cursor:'pointer'}}>{addIcon}</span></p>
+                <div style={{width:width>700?'33.3%':"100%",display:width>700?'block':contentMobile.text?"block":"none",border:'1px solid black',borderWidth:'0px 1px 0px 0px',height:'100%',overflow:'auto'}}>
+                
                 <div style={{width:"100%",padding:'15px',boxSizing:"border-box",display:'flex',flexDirection:"column",alignItems:"center"}}>
                 {itemState.text && <p style={{width:"100%",boxSizing:'border-box',display:"flex",justifyContent:'center',alignItems:"center"}}><i class="fa fa-spinner fa-spin" style={{fontSize:'20px',color:'blue'}}></i></p>}
                   {textArray.map(textObj => <div style={{width:'95%',padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
@@ -158,8 +165,9 @@ const backToFolder = ()=>{
                   </div>)}
                 </div>
                 </div>
-                <div style={{width:'33.3%',height:'100%',overflow:'auto'}}>
-                    <p style={{display:'flex',color:'white',alignItems:'center',justifyContent:'space-around',fontSize:'25px',width:'100%',height:'50px',border:'1px solid black',borderRadius:' 0px 20px 0px 0px',borderWidth:'0px 0px 1px 0px',backgroundColor:'#0d47a1',position:'sticky',top:'0px',left:'0px',zIndex:'10'}}><span style={{display:'flex',alignItems:'center',justifyContent:'space-around'}}><span>Images</span><span style={{display:'flex',alignItems:'center',justifyContent:'center'}}>{imageIcon}</span></span><span onClick={()=>imageAdder()} style={{display:'flex',alignItems:'center',justifyContent:'center',cursor:'pointer'}}>{addIcon}</span></p>
+                
+                <div style={{width:width>700?'33.3%':"100%",display:width>700?'block':contentMobile.image?"block":"none",height:'100%',overflow:'auto'}}>
+                    
                     <div style={{width:"100%",padding:'15px',boxSizing:"border-box",display:'flex',flexDirection:"column",alignItems:"center"}}>
                     {itemState.image && <p style={{width:"100%",boxSizing:'border-box',display:"flex",justifyContent:'center',alignItems:"center"}}><i class="fa fa-spinner fa-spin" style={{fontSize:'20px',color:'blue'}}></i></p>}
                   {ImageArray.map(imgObj => <div style={{width:'95%',height:"auto",padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
@@ -171,6 +179,7 @@ const backToFolder = ()=>{
                     <p style={{textAlign:"left",}}>{imgObj.source}</p>
                     <p style={{width:'100%',marginTop:"15px"}}><img src = {`https://savemyfile.onrender.com/image/getImage/${imgObj?.id?imgObj.id:imgObj._id}`} style={{width:"100%",borderRadius:'15px',height:"150px",objectFit:"cover"}}/></p>
                   </div>)}
+                </div>
                 </div>
                 </div>
       </div>
