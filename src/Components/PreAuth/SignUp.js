@@ -4,12 +4,15 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import './signin.css';
 import { Statecontext } from '../ContextBookmark';
 import useWindowResize from '../../hooks/useWindowSize';
+import ErrorPage from '../errorHolder/ErrorPage';
 
 function Signup() {
   const navigate = useNavigate()
     const [formObject,setformObject] = useState({Username:'',Password:'',Email:''})
     const [loading,setLoading] = useState(false)
     const [userPayload,setuserPayload] = useContext(Statecontext).userPayload
+    const [showError,setShowError] = useState(false)
+    const [errObj,setErrObj] = useContext(Statecontext).errObj
     const { width } = useWindowResize()
     const submitreg = async (event)=>{
         event.preventDefault()
@@ -29,12 +32,19 @@ function Signup() {
             body: JSON.stringify(formObject)
  })
 const payloadData = await addCoinCredentials.json();
+if(payloadData?.status==='error'){
+  setErrObj(payloadData)
+  setShowError(!showError)
+ }
+ else{
 window.localStorage.setItem('Userdata',JSON.stringify(payloadData))
  setuserPayload({id:payloadData._id,userName:payloadData.Username,email:payloadData.Email,token:payloadData.Token})
  navigate('/landingpage')
+ }
     }
     catch(error){
-
+      setErrObj({status:'poor Internet',message:'poor internet connection.'})
+      setShowError(!showError)
     }
   }}
 
@@ -45,7 +55,8 @@ window.localStorage.setItem('Userdata',JSON.stringify(payloadData))
 
 
   return (
-    <div style={{backgroundColor:'#0d47a1'}}><div style={{padding:'15px',zIndex:"2",color:'white',boxSizing:"border-box",width:"100vw",height:"100vh",margin:'0px auto'}}>
+    <div style={{position:"relative",zIndex:"2",backgroundColor:'#0d47a1',color:'white',boxSizing:"border-box",width:"100vw",height:"100vh",margin:'0px auto'}}>
+    {showError && <ErrorPage status={errObj.status} message={errObj.message} />}
     <div className='topSectionland'>
       <div style={{fontFamily:"NexaTextBold",display:"flex",alignItems:"center",justifyContent:"center",fontSize:'35px'}}>BookMark</div>
       <div className='authholder'><p className='pauth'><NavLink to='/' style={{textDecoration:'none',color:'white'}}>Home</NavLink></p><p  className='pauth'><NavLink to='/signin' style={{textDecoration:'none',color:'white'}}>Sign in</NavLink></p></div>
@@ -64,7 +75,7 @@ window.localStorage.setItem('Userdata',JSON.stringify(payloadData))
 
     </div>
 </div>
-</div>
+
   )
 }
 

@@ -1,0 +1,59 @@
+.bioMainClass{
+    background-color:#0d47a1;
+    position:relative;
+    display:block;
+    left: 0px;
+    z-index:300;
+    width: 25%;
+    box-shadow: 0px 0px 50px #0b1f36;
+    border: 0.5px solid #0d47a1;
+    height: 100vh
+}
+
+
+
+
+
+
+@media(max-width:700px){
+    .bioMobileOff{
+        animation-name: menuClose;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+        background-color:#0d47a1;
+        position:absolute;
+        display: block;
+        left:0px;
+        z-index:300;
+        width:85%;
+        box-shadow: 0px 0px 50px #0b1f36;
+        border:0.5px solid #0d47a1;
+        height:100vh
+    }
+
+    .bioMainMobile{
+        animation-name: menuOption;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+        background-color:#0d47a1;
+        position:absolute;
+        display:block;
+        left:0px;
+        z-index:300;
+        width:85%;
+        box-shadow: 0px 0px 50px #0b1f36;
+        border:0.5px solid #0d47a1;
+        height:100vh
+    }
+}
+
+
+@keyframes menuOption{
+    from{ transform: translateX(-400px)}
+    to{ transform: translateX(0px)}
+  }
+
+  @keyframes menuClose{
+    from{ transform: translateX(0px)}
+    to{ transform: translateX(-400px)}
+  }

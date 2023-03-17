@@ -4,11 +4,14 @@ import { NavLink,useNavigate} from 'react-router-dom';
 import './signin.css'
 import { Statecontext } from '../ContextBookmark';
 import useWindowResize from '../../hooks/useWindowSize';
+import ErrorPage from '../errorHolder/ErrorPage';
 
 function SignIn() {
   const [formObject,setformObject] = useState({Password:'',Email:''})
   const [userPayload,setuserPayload] = useContext(Statecontext).userPayload
   const [loading,setLoading] = useState(false)
+  const [showError,setShowError] = useState(false)
+  const [errObj,setErrObj] = useContext(Statecontext).errObj
   const navigate = useNavigate()
   const { width } = useWindowResize()
 
@@ -39,13 +42,21 @@ function SignIn() {
  console.log('b')
  const payloadData = await addCoinCredentials.json()
  console.log(payloadData)
+ if(payloadData?.status==='error'){
+  setErrObj(payloadData)
+  setShowError(!showError)
+ }
+ else{
  window.localStorage.setItem('Userdata',JSON.stringify(payloadData))
  setuserPayload({id:payloadData._id,userName:payloadData.Username,email:payloadData.Email,token:payloadData.Token})
  navigate('/landingpage')
+ }
  
   }
   catch(error){
-
+    
+      setErrObj({status:'poor Internet',message:'poor internet connection.'})
+      setShowError(!showError)
   }}
 }
 
@@ -57,7 +68,8 @@ function SignIn() {
 
 
   return (
-    <div><div style={{padding:'15px',backgroundColor:'#0d47a1',zIndex:"2",color:'white',boxSizing:"border-box",width:"100vw",height:"100vh",margin:'0px auto'}}>
+    <div style={{position:"relative",height:"100vh",backgroundColor:'#0d47a1',color:'white',boxSizing:"border-box",width:"100vw",margin:'0px auto'}}>
+    {showError && <ErrorPage status={errObj.status} message={errObj.message} />}
     <div className='topSectionland'>
       <div style={{fontFamily:"NexaTextBold",display:"flex",alignItems:"center",justifyContent:"center",fontSize:'35px'}}>BookMark</div>
       <div className='authholder'><p className='pauth'><NavLink to='/' style={{textDecoration:'none',color:'white'}}>Home</NavLink></p><p  className='pauth'><NavLink to='/signup' style={{textDecoration:'none',color:'white'}}>Register</NavLink></p></div>
@@ -72,10 +84,11 @@ function SignIn() {
               <div style={{height:"33.3%",display:"flex",justifyContent:'center',alignItems:"center"}}>{ loading=== false?<input type='button'  onClick={(event)=>submitreg(event)} value='Sign in' style={{width:width>700?'80px':"150px",height:width>700?'30px':"50px",borderRadius:"15px",borderWidth:'0px'}}/>:<i class="fa fa-spinner fa-spin" style={{fontSize:'20px',color:'white'}}></i>}</div>
             </div>
         </div>
-
     </div>
+    
 </div>
-</div>
+
+
   )
 }
 

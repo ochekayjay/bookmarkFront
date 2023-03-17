@@ -21,6 +21,7 @@ export const StateHolder = (props)=> {
     const [textArray, setTextArray] = useState([])
     const [linkArray, setLinkArray] = useState([])
     const [ImageArray, setImageArray] = useState([])
+    const [errObj,setErrObj] = useState()
 
     const [folders,setfolders] = useState()
     
@@ -28,7 +29,7 @@ export const StateHolder = (props)=> {
     return(
         <Statecontext.Provider value={{
      userObject:[userObject,setuserObject],addItemToShow:[addItemToShow,setaddItemToShow],triggerSection:[triggerSection,settriggerSection],folderContent:[folderContent,setfolderContent],folders:[folders,setfolders],folderExists:[folderExists,setfolderExists],alertobj:[alertobj,setalertobj],userPayload:[userPayload,setuserPayload],
-     folderColors:[folderColors,setfolderColors],folderId:[folderId,setfolderId],selectedFolder:[selectedFolder,setselectedFolder],textArray:[textArray, setTextArray],linkArray:[linkArray, setLinkArray],ImageArray:[ImageArray, setImageArray],menuMobile:[menuMobile, setMenuMobile]}}>
+     folderColors:[folderColors,setfolderColors],folderId:[folderId,setfolderId],selectedFolder:[selectedFolder,setselectedFolder],textArray:[textArray, setTextArray],linkArray:[linkArray, setLinkArray],ImageArray:[ImageArray, setImageArray],menuMobile:[menuMobile, setMenuMobile],errObj:[errObj,setErrObj]}}>
             {props.children}
         </Statecontext.Provider>
     )

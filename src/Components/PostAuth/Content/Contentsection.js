@@ -119,22 +119,22 @@ const backToFolder = ()=>{
   
   
     return (
-    <div style={{width:'100%',height:'100%',position:'relative'}}>
+    <div style={{width:'100%',height:'100%',position:'relative',boxSizing:"border-box"}}>
       
     <div style={{position:'absolute',top:'0px',left:'0px',height:'30%',boxSizing:'border-box'}}>
     <p onClick={()=>backToFolder()} style={{borderRadius:'7px',marginTop:'20px',marginLeft:'20px',width:'150px',height:'45px',color:'white',display:'flex',alignItems:'center',justifyContent:"center",backgroundColor:'#0d47a1',boxShadow: '0px 0px 10px #0b1f36',cursor:'pointer'}}>back to folder</p>
         <div style={{margin:'18px 0px 0px 18px',fontFamily:'NexaTextBold',fontSize:'45px',letterSpacing:'2px'}}>
-         <p>{selectedFolder.name}</p>
+         <p style={{fontSize:width>800?'45px':"25px"}}>{selectedFolder.name}</p>
         </div>
     </div>
     
     <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',position:'absolute',bottom:'0px',left:'0px',boxSizing:'border-box',height:'70%',borderRadius:'20px 20px 0px 0px',boxShadow: '0px 0px 15px #0b1f36',width:'100%'}}>
-                <div style={{width:"100%",height:'50px',display:"flex"}}>
-                    <p  style={{display:'flex',cursor:'pointer',color:'white',alignItems:'center',justifyContent:'space-around',fontSize:'25px',width:'100%',height:'50px',border:'1px solid black',borderRadius:'20px 0px 0px 0px',borderWidth:'0px 0px 1px 0px',backgroundColor:'#0d47a1',position:'sticky',top:'0px',left:'0px',zIndex:'10'}}><span  onClick={()=>{setContentMobile({link:true,text:false,image:false})}} style={{display:'flex',alignItems:'center',justifyContent:'space-around'}}><span>Links</span><span style={{display:width>700?'flex':"none",alignItems:'center',justifyContent:'center'}}>{linkIcon}</span></span><span onClick={()=>linkAdder()} style={{display:width>700?'flex':contentMobile.link?"flex":"none",alignItems:'center',justifyContent:'center',cursor:'pointer'}}>{addIcon}</span></p>
-                    <p style={{display:'flex',cursor:'pointer',border:'1px solid black',borderWidth:"0px 1px 1px 1px",color:'white',alignItems:'center',justifyContent:'space-around',fontSize:'25px',width:'100%',height:'50px',borderRadius:'0px 0px 0px 0px',backgroundColor:'#0d47a1',position:'sticky',top:'0px',left:'0px',zIndex:'10'}}><span onClick={()=>{setContentMobile({link:false,text:true,image:false})}} style={{display:'flex',alignItems:'center',justifyContent:'space-around'}}><span>Texts</span><span style={{display:width>700?'flex':"none",alignItems:'center',justifyContent:'center'}}>{textIcon}</span></span><span onClick={()=>textAdder()} style={{display:width>700?'flex':contentMobile.text?"flex":'none',alignItems:'center',justifyContent:'center',cursor:'pointer'}}>{addIcon}</span></p>
-                    <p  style={{display:'flex',cursor:'pointer',color:'white',alignItems:'center',justifyContent:'space-around',fontSize:'25px',width:'100%',height:'50px',border:'1px solid black',borderRadius:' 0px 20px 0px 0px',borderWidth:'0px 0px 1px 0px',backgroundColor:'#0d47a1',position:'sticky',top:'0px',left:'0px',zIndex:'10'}}><span onClick={()=>{setContentMobile({link:false,text:false,image:true})}} style={{display:'flex',alignItems:'center',justifyContent:'space-around'}}><span>Images</span><span style={{display:width>700?'flex':"none",alignItems:'center',justifyContent:'center'}}>{imageIcon}</span></span><span onClick={()=>imageAdder()} style={{display:width>700?'flex':contentMobile.image?"flex":"none",alignItems:'center',justifyContent:'center',cursor:'pointer'}}>{addIcon}</span></p>
+                <div style={{width:"100%",height:'5%',display:"flex"}}>
+                    <p  style={{display:'flex',cursor:'pointer',color:'white',alignItems:'center',justifyContent:'space-around',fontSize:'25px',width:'100%',height:'50px',border:width>800?'1px solid black':"1px solid white",borderRadius:'20px 0px 0px 0px',borderWidth:'0px 0px 1px 0px',backgroundColor:'#0d47a1',position:'sticky',top:'0px',left:'0px',zIndex:'10'}}><span  onClick={()=>{setContentMobile({link:true,text:false,image:false})}} style={{display:'flex',alignItems:'center',justifyContent:'space-around'}}><span style={{fontSize:width>700?"25px":"15px"}}>Links</span><span style={{display:width>700?'flex':"none",alignItems:'center',justifyContent:'center'}}>{linkIcon}</span></span><span onClick={()=>linkAdder()} style={{display:width>700?'flex':contentMobile.link?"flex":"none",alignItems:'center',justifyContent:'center',cursor:'pointer'}}>{addIcon}</span></p>
+                    <p style={{display:'flex',cursor:'pointer',border:width>800?'1px solid black':"1px solid white",borderWidth:"0px 1px 1px 1px",color:'white',alignItems:'center',justifyContent:'space-around',fontSize:'25px',width:'100%',height:'50px',borderRadius:'0px 0px 0px 0px',backgroundColor:'#0d47a1',position:'sticky',top:'0px',left:'0px',zIndex:'10'}}><span onClick={()=>{setContentMobile({link:false,text:true,image:false})}} style={{display:'flex',alignItems:'center',justifyContent:'space-around'}}><span style={{fontSize:width>700?"25px":"15px"}}>Texts</span><span style={{display:width>700?'flex':"none",alignItems:'center',justifyContent:'center'}}>{textIcon}</span></span><span onClick={()=>textAdder()} style={{display:width>700?'flex':contentMobile.text?"flex":'none',alignItems:'center',justifyContent:'center',cursor:'pointer'}}>{addIcon}</span></p>
+                    <p  style={{display:'flex',cursor:'pointer',color:'white',alignItems:'center',justifyContent:'space-around',fontSize:'25px',width:'100%',height:'50px',border:width>800?'1px solid black':"1px solid white",borderRadius:' 0px 20px 0px 0px',borderWidth:'0px 0px 1px 0px',backgroundColor:'#0d47a1',position:'sticky',top:'0px',left:'0px',zIndex:'10'}}><span onClick={()=>{setContentMobile({link:false,text:false,image:true})}} style={{display:'flex',alignItems:'center',justifyContent:'space-around'}}><span style={{fontSize:width>700?"25px":"15px"}}>Images</span><span style={{display:width>700?'flex':"none",alignItems:'center',justifyContent:'center'}}>{imageIcon}</span></span><span onClick={()=>imageAdder()} style={{display:width>700?'flex':contentMobile.image?"flex":"none",alignItems:'center',justifyContent:'center',cursor:'pointer'}}>{addIcon}</span></p>
                 </div>
-                <div style={{width:"100%",display:'flex',height:'100%'}}>
+                <div style={{width:"100%",display:'flex',height:'95%',border:"1px solid black",padding:"10px 0px",boxSizing:"border-box"}}>
                 <div style={{width:width>700?'33.3%':"100%",display:width>700?'block':contentMobile.link?"block":"none",border:'1px solid black',borderWidth:'0px 1px 0px 0px',height:'100%',overflow:'auto',position:'relative'}}>
                     
                     <div style={{width:"100%",padding:'15px',boxSizing:"border-box",display:'flex',flexDirection:"column",alignItems:"center"}}>
@@ -150,9 +150,9 @@ const backToFolder = ()=>{
                   </div>)}
                 </div>
                 </div>
-                <div style={{width:width>700?'33.3%':"100%",display:width>700?'block':contentMobile.text?"block":"none",border:'1px solid black',borderWidth:'0px 1px 0px 0px',height:'100%',overflow:'auto'}}>
+                <div style={{width:width>700?'33.3%':"100%",display:width>700?'block':contentMobile.text?"block":"none",border:'1px solid black',borderWidth:'0px 1px 0px 0px',height:'100%'}}>
                 
-                <div style={{width:"100%",padding:'15px',boxSizing:"border-box",display:'flex',flexDirection:"column",alignItems:"center"}}>
+                <div style={{width:"100%",padding:'15px',boxSizing:"border-box",display:'flex',flexDirection:"column",alignItems:"center",height:"100%",overflow:"auto"}}>
                 {itemState.text && <p style={{width:"100%",boxSizing:'border-box',display:"flex",justifyContent:'center',alignItems:"center"}}><i class="fa fa-spinner fa-spin" style={{fontSize:'20px',color:'blue'}}></i></p>}
                   {textArray.map(textObj => <div style={{width:'95%',padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
                      <div style={{display:'flex',justifyContent:"space-between"}}>
@@ -166,9 +166,9 @@ const backToFolder = ()=>{
                 </div>
                 </div>
                 
-                <div style={{width:width>700?'33.3%':"100%",display:width>700?'block':contentMobile.image?"block":"none",height:'100%',overflow:'auto'}}>
+                <div style={{width:width>700?'33.3%':"100%",display:width>700?'block':contentMobile.image?"block":"none",height:'100%'}}>
                     
-                    <div style={{width:"100%",padding:'15px',boxSizing:"border-box",display:'flex',flexDirection:"column",alignItems:"center"}}>
+                    <div style={{width:"100%",padding:'15px',boxSizing:"border-box",display:'flex',flexDirection:"column",alignItems:"center",height:'100%',overflow:'auto'}}>
                     {itemState.image && <p style={{width:"100%",boxSizing:'border-box',display:"flex",justifyContent:'center',alignItems:"center"}}><i class="fa fa-spinner fa-spin" style={{fontSize:'20px',color:'blue'}}></i></p>}
                   {ImageArray.map(imgObj => <div style={{width:'95%',height:"auto",padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
                     <div style={{display:'flex',justifyContent:"space-between"}}>

@@ -35,14 +35,16 @@ const openFolder = (folder)=>{
 
 
   return (
-    <div style={{width:'100%',height:'100vh',position:'relative',boxSizing:'border-box'}}>
+    <div style={{width:'100%',height:'100%',position:'relative',boxSizing:'border-box'}}>
         
-        <div style={{overflow:"auto",padding:"10px",height:'30%',boxSizing:'border-box',width:"100%",marginTop:"15px"}}>
-        <p onClick={()=>setMenuMobile(!menuMobile)} style={{height:"40px",width:"40px",display:width>700?"none":'flex',justifyContent:"center",alignItems:"center",boxSizing:"border-box",marginTop:"5px",marginLeft:'5px',borderRadius:"50%",boxShadow: '0px 0px 50px #0b1f36'}}>{menuIcon}</p>
-        <div style={{margin:'18px 0px 0px 18px',boxSizing:"border-box",height:"90%",width:"100%",fontFamily:'NexaTextBold',boxSizing:"border-box",fontSize:'45px',letterSpacing:'2px'}}>
+        <div style={{overflow:"auto",padding:"10px",height:'30%',boxSizing:'border-box',width:"100%",marginTop:"0px"}}>
+        <div style={{display:width>700?'none':"block",paddingBottom:'10px',position:"absolute",top:'5px',backgroundColor:"white",zIndex:"4",left:"5px",width:"100%",boxSizing:"border-box"}}>
+            <p onClick={()=>setMenuMobile(!menuMobile)} style={{height:"40px",width:"40px",display:width>700?"none":'flex',justifyContent:"center",alignItems:"center",boxSizing:"border-box",marginTop:"5px",marginLeft:'5px',borderRadius:"50%",boxShadow: '0px 0px 50px #0b1f36'}}>{menuIcon}</p>   
+        </div>
+        <div style={{margin:width>700?"18px 0px 0px 18px":'40px 0px 0px 18px',boxSizing:"border-box",height:"90%",width:"100%",fontFamily:'NexaTextBold',boxSizing:"border-box",fontSize:'45px',letterSpacing:'2px'}}>
             
-            <p style={{color:'#6c9de6',fontWeight:'800'}}>Folder Section</p>
-            <div style={{boxSizing:"border-box",fontSize:"30px",fontFamily:"NexaTextLight"}}>{folderContent.map(folder=><p>{folder.name}</p>)}</div>
+            <p style={{color:'#6c9de6',fontWeight:'400',fontSize:width>700?"45px":"30px"}}>Folder Section</p>
+            <div style={{boxSizing:"border-box",fontSize:width>700?"30px":"15px",fontFamily:"NexaTextLight"}}>{folderContent.map(folder=><p style={{letterSpacing:'4px'}}>{folder.name}</p>)}</div>
             </div>
             
         </div>
@@ -51,7 +53,7 @@ const openFolder = (folder)=>{
                 <div style={{border:'',height:'10%',border:'0.1px solid black',borderWidth:'0px 0px 0.1px',display:'flex',justifyContent:'center',alignItems:'center',letterSpacing:'2px',fontSize:'40px',borderRadius:'20px 20px 0px 0px'}}><p style={{color:'#6c9de6',fontWeight:'850'}}>FOLDERS</p><p onClick={()=>setfolderSelector(true)} className='smallbuttonToAddNewFolder'>+</p></div>
                 <div style={{padding:'30px',height:'90%',overflow:"auto",boxSizing:"border-box"}}>
                     <div style={{color:'black',display:width>700?"grid":"flex",flexDirection:'column',gridTemplateColumns:"auto auto",padding:"10px"}}>{folderContent.map(folder=><div onClick={()=>openFolder(folder)} style={{width:`calc(50%-20px)`,margin:"10px",boxSizing:"border-box",height:'250px',borderRadius:'10px',boxShadow: '0px 0px 15px #0b1f36',display:'flex',alignItems:"center",justifyContent:"center",backgroundColor:'#6c9de6',cursor:"pointer",color:'white',letterSpacing:'1.5px'}}>
-                        <p style={{color:'white',fontWeight:"400",fontSize:"25px",letterSpacing:"1.5px"}}>{folder.name}</p>
+                        <p style={{color:'white',fontWeight:"400",fontSize:width>700?"25px":"15px",letterSpacing:"1.5px"}}>{folder.name}</p>
                         
                         </div>)}
                     </div>

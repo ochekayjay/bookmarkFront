@@ -1,6 +1,7 @@
 import React,{useContext,useEffect,useState,useRef} from 'react'
 import {Statecontext} from '../ContextBookmark'
 import useWindowResize from '../../hooks/useWindowSize'
+import './biosection.css'
 function BioSection() {
     const [userPayload,setuserPayload] = useContext(Statecontext).userPayload
     const [biodata,setbiodata] = useState({imageLink:'',collectionName:''})
@@ -128,7 +129,7 @@ const setProTitle = async() =>{
     const urlHolder = 'https://savemyfile.onrender.com'
     useEffect( ()=>{loadFunction() },[userPayload.token,rerender,width])
   return (
-    <div style={{backgroundColor:'#0d47a1',position:width>700?"relative":'absolute',transition:"width 1s ease2-in-out",display:width>700?'block':menuMobile?'block':'none',left:'0px',zIndex:"300",width:width>700?'25%':menuMobile?"65%":'0px',boxShadow: '0px 0px 50px #0b1f36',border:'0.5px solid #0d47a1',height:'100%'}}>
+    <div className= {width>700?'bioMainClass':menuMobile?'bioMainMobile':"bioMobileOff"} >
       <p onClick={()=>setMenuMobile(!menuMobile)} style={{padding:"10px",display:width>700?"none":'flex',justifyContent:"center",alignItems:"center",boxSizing:"border-box",position:'absolute',top:"10px",right:'10px',borderRadius:"50%",boxShadow: '0px 0px 50px #0b1f36'}}>{closeicon}</p>
       <p style={{margin:'15px',textAlign:'left',paddingLeft:"15px",fontFamily:'NexaTextBold',fontSize:'30px',color:'white'}}>buukmark</p>
       <div style={{width:'100%',boxSizing:'border-box',textAlign:'center'}}>
