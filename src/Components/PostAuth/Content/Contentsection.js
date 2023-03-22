@@ -65,15 +65,19 @@ function Contentsection() {
   
     console.log('in trig')
    const fixFolder = async()=>{
-    console.log('babab')
+    setItemState({image:true,text:true,link:true})
     const textjson = await GetFolderTexts(folderId,userPayload)
     const linkjson = await GetFolderLinks(folderId,userPayload)
     const imagejson = await GetFolderImage(folderId,userPayload)
     //console.log(`trying out in images ${imagejson.folderImages[0].nameofimage}`)
     //console.log(`images here ${imagejson.folderImages[0].image}`)
+    //console.log(textjson.folderTexts.length)
+    console.log(linkjson.folderLinks[0])
+    console.log(imagejson)
     setTextArray(textjson.folderTexts)
     setLinkArray(linkjson.folderLinks)
     setImageArray(imagejson.folderImages)
+    setItemState({image:false,text:false,link:false})
     
     }
 
@@ -138,8 +142,8 @@ const backToFolder = ()=>{
                 <div style={{width:width>700?'33.3%':"100%",display:width>700?'block':contentMobile.link?"block":"none",border:'1px solid black',borderWidth:'0px 1px 0px 0px',height:'100%',overflow:'auto',position:'relative'}}>
                     
                     <div style={{width:"100%",padding:'15px',boxSizing:"border-box",display:'flex',flexDirection:"column",alignItems:"center"}}>
-                    {itemState.link && <p style={{width:"100%",boxSizing:'border-box',display:"flex",justifyContent:'center',alignItems:"center"}}><i class="fa fa-spinner fa-spin" style={{fontSize:'20px',color:'blue'}}></i></p>}
-                  {linkArray.map(linkObj => <div key={linkObj._id} style={{width:'95%',padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
+                    {itemState.link && <p style={{width:"100%",boxSizing:'border-box',display:"flex",justifyContent:'center',alignItems:"center",marginTop:'15px'}}><i class="fa fa-spinner fa-spin" style={{fontSize:'20px',color:'blue'}}></i></p>}
+                  {linkArray[0]? linkArray.map(linkObj => <div key={linkObj._id} style={{width:'95%',padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
                     <div style={{display:"flex",justifyContent:"space-between"}}>
                       <p style={{fontFamily:"NexaTextBold",marginBottom:"10px"}}>{linkObj.title}</p>
                       <p style={{cursor:"pointer"}}><span onClick={()=>deleteItem('link',linkObj)} style={{cursor:'pointer'}}>{del}</span>&nbsp; &nbsp;&nbsp;<span onClick={()=>shareData(linkObj)} style={{cursor:'pointer'}}>{forward}</span></p>
@@ -147,14 +151,14 @@ const backToFolder = ()=>{
                     <p><a  target="_blank" href={linkObj.link} style={{textDecoration:'none',color:"white"}}>Visit Site</a></p>
                     <p>{linkObj.source}</p>
                     <p>{linkObj.description}</p>
-                  </div>)}
+                  </div>): itemState.link?<p> </p>:<p style={{color:"black",marginTop:'15px'}}>No Link Document Available here!</p>}
                 </div>
                 </div>
                 <div style={{width:width>700?'33.3%':"100%",display:width>700?'block':contentMobile.text?"block":"none",border:'1px solid black',borderWidth:'0px 1px 0px 0px',height:'100%'}}>
                 
                 <div style={{width:"100%",padding:'15px',boxSizing:"border-box",display:'flex',flexDirection:"column",alignItems:"center",height:"100%",overflow:"auto"}}>
-                {itemState.text && <p style={{width:"100%",boxSizing:'border-box',display:"flex",justifyContent:'center',alignItems:"center"}}><i class="fa fa-spinner fa-spin" style={{fontSize:'20px',color:'blue'}}></i></p>}
-                  {textArray.map(textObj => <div style={{width:'95%',padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
+                {itemState.text && <p style={{width:"100%",boxSizing:'border-box',display:"flex",justifyContent:'center',alignItems:"center",marginTop:'15px'}}><i class="fa fa-spinner fa-spin" style={{fontSize:'20px',color:'blue'}}></i></p>}
+                  {textArray[0]? textArray.map(textObj => <div style={{width:'95%',padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
                      <div style={{display:'flex',justifyContent:"space-between"}}>
                       <p style={{fontFamily:"NexaTextBold",marginBottom:"10px"}}>{textObj.title}</p>
                       <p style={{cursor:"pointer"}}><span style={{cursor:'pointer'}} onClick={()=>deleteItem('text',textObj)} >{del}</span>&nbsp; &nbsp;&nbsp;<span style={{cursor:'pointer'}}>{forward}</span></p>
@@ -162,15 +166,15 @@ const backToFolder = ()=>{
                     <p>{textObj.text}</p>
                     <p>{textObj.source}</p>
                     <p>{textObj.description}</p>
-                  </div>)}
+                  </div>): itemState.text?<p> </p>:<p style={{color:"black",marginTop:"15px"}}>No Text Document Available here!</p>}
                 </div>
                 </div>
                 
                 <div style={{width:width>700?'33.3%':"100%",display:width>700?'block':contentMobile.image?"block":"none",height:'100%'}}>
                     
                     <div style={{width:"100%",padding:'15px',boxSizing:"border-box",display:'flex',flexDirection:"column",alignItems:"center",height:'100%',overflow:'auto'}}>
-                    {itemState.image && <p style={{width:"100%",boxSizing:'border-box',display:"flex",justifyContent:'center',alignItems:"center"}}><i class="fa fa-spinner fa-spin" style={{fontSize:'20px',color:'blue'}}></i></p>}
-                  {ImageArray.map(imgObj => <div style={{width:'95%',height:"auto",padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
+                    {itemState.image && <p style={{width:"100%",boxSizing:'border-box',display:"flex",justifyContent:'center',alignItems:"center",marginTop:'15px'}}><i class="fa fa-spinner fa-spin" style={{fontSize:'20px',color:'blue'}}></i></p>}
+                  {ImageArray[0]? ImageArray.map(imgObj => <div style={{width:'95%',height:"auto",padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
                     <div style={{display:'flex',justifyContent:"space-between"}}>
                       <p style={{fontFamily:"NexaTextBold",marginBottom:"10px"}}>{imgObj.title}</p>
                       <p style={{cursor:"pointer"}}><span onClick={()=>deleteItem('image',imgObj)}  style={{cursor:'pointer'}}>{del}</span>&nbsp; &nbsp;&nbsp;<span style={{cursor:'pointer'}}>{forward}</span></p>
@@ -178,7 +182,7 @@ const backToFolder = ()=>{
                     </div>
                     <p style={{textAlign:"left",}}>{imgObj.source}</p>
                     <p style={{width:'100%',marginTop:"15px"}}><img src = {`https://savemyfile.onrender.com/image/getImage/${imgObj?.id?imgObj.id:imgObj._id}`} style={{width:"100%",borderRadius:'15px',height:"150px",objectFit:"cover"}}/></p>
-                  </div>)}
+                  </div>) : itemState.image?<p> </p>:<p style={{color:"black",marginTop:'15px'}}>No Image Document Available here!</p>}
                 </div>
                 </div>
                 </div>

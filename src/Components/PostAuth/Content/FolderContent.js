@@ -16,7 +16,7 @@ function FolderContent({setfolderSelector}) {
     const { width } = useWindowResize()
     
     return (<div style={{width:width>700?'75%':'100%',height:'100%'}}>
-  {triggerSection==='folder'?<Foldersection setfolderSelector={setfolderSelector} folderContent={folderContent}/>:<Contentsection/>}
+  {triggerSection==='folder'?<Foldersection setfolderSelector={setfolderSelector} setfolderContent={setfolderContent} folderContent={folderContent}/>:<Contentsection/>}
   </div>
   )
 }

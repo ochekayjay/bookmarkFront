@@ -35,9 +35,6 @@ useEffect(()=>{
 
 
   const folderCallFunc = async()=>{
- 
-    
-
     try{
     const folderObj = await fetch('https://savemyfile.onrender.com/folder',{
       method:'GET',
@@ -58,9 +55,8 @@ useEffect(()=>{
       }
         }
     catch(error){
-
+          console.log(error)
             }
-    
       }
 
   useEffect(()=>{ folderCallFunc()

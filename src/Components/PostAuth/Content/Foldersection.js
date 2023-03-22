@@ -1,14 +1,17 @@
 import React ,{useContext,useState,useEffect}from 'react'
 import {Statecontext} from '../../ContextBookmark'
 import useWindowResize from '../../../hooks/useWindowSize'
+import { folderCallFunc } from '../FolderSetter'
 
 
-function Foldersection({folderContent, setfolderSelector}) {
+function Foldersection({folderContent, setfolderSelector, setfolderContent}) {
     const [folderId,setfolderId] = useContext(Statecontext).folderId
     const [userPayload,setuserPayload] = useContext(Statecontext).userPayload
     const [selectedFolder,setselectedFolder] = useContext(Statecontext).selectedFolder
     const [triggerSection,settriggerSection] = useContext(Statecontext).triggerSection
+    const [searchvalue,setsearchvalue] = useState('')
     const [menuMobile, setMenuMobile] = useContext(Statecontext).menuMobile
+    const [folderLoad,setfolderLoad] = useState(false)
     const newfoldericon = <svg xmlns="http://www.w3.org/2000/svg" height="30" width="30"><path d="M28.5 32h3v-4.5H36v-3h-4.5V20h-3v4.5H24v3h4.5ZM7.05 40q-1.2 0-2.1-.925-.9-.925-.9-2.075V11q0-1.15.9-2.075Q5.85 8 7.05 8h14l3 3h17q1.15 0 2.075.925.925.925.925 2.075v23q0 1.15-.925 2.075Q42.2 40 41.05 40Zm0-29v26h34V14H22.8l-3-3H7.05Zm0 0v26Z"/></svg>;
     const { width } = useWindowResize()
 
@@ -31,6 +34,50 @@ const openFolder = (folder)=>{
 }
 
 
+const changeSearch = async (e)=>{
+    
+    setsearchvalue(e.target.value)
+    //console.log(searchvalue)
+    const folderSearchFunc = async(searchvalue)=>{
+        try{
+        const folderObj = await fetch(`https://savemyfile.onrender.com/folder/search?message=${searchvalue}`,{
+          method:'GET',
+          headers:{
+                    'Accept': 'application/json',
+                    Authorization: `Bearer ${userPayload.token}`
+                  }
+                  })
+          const folderdat = await folderObj.json()
+          
+          if(folderdat.length === 0){
+            console.log(folderdat.length)   
+            setfolderLoad(true)
+              //setfolderExists(false)
+          }
+          else{
+            setfolderContent(folderdat)
+            setfolderLoad(false)
+          }
+            }
+        catch(error){
+              console.log(error)
+                }
+          }
+          if(e.target.value===''){
+            const data = await folderCallFunc(userPayload.token)
+            console.log(data)
+            if(data?.state){
+                setfolderContent(data.data)
+                setfolderLoad(false)
+                //console.log()
+            }
+            else{console.log('here')}
+          }
+          else{
+            folderSearchFunc(e.target.value)
+          }
+          
+ }
 
 
 
@@ -52,7 +99,13 @@ const openFolder = (folder)=>{
             <div style={{width:'100%',fontFamily:'NexaTextLight',boxSizing:'border-box',height:'100%',boxShadow: '0px 0px 15px #0b1f36',borderWidth:'0px 0px 0.3px',borderRadius:'20px 20px 0px 0px'}}>
                 <div style={{border:'',height:'10%',border:'0.1px solid black',borderWidth:'0px 0px 0.1px',display:'flex',justifyContent:'center',alignItems:'center',letterSpacing:'2px',fontSize:'40px',borderRadius:'20px 20px 0px 0px'}}><p style={{color:'#6c9de6',fontWeight:'850'}}>FOLDERS</p><p onClick={()=>setfolderSelector(true)} className='smallbuttonToAddNewFolder'>+</p></div>
                 <div style={{padding:'30px',height:'90%',overflow:"auto",boxSizing:"border-box"}}>
-                    <div style={{color:'black',display:width>700?"grid":"flex",flexDirection:'column',gridTemplateColumns:"auto auto",padding:"10px"}}>{folderContent.map(folder=><div onClick={()=>openFolder(folder)} style={{width:`calc(50%-20px)`,margin:"10px",boxSizing:"border-box",height:'250px',borderRadius:'10px',boxShadow: '0px 0px 15px #0b1f36',display:'flex',alignItems:"center",justifyContent:"center",backgroundColor:'#6c9de6',cursor:"pointer",color:'white',letterSpacing:'1.5px'}}>
+                        {folderLoad && <div style={{height:"auto",width:width>700?"80%":"90%",margin:"30px auto",display:"flex",justifyContent:"center",alignItems:"center"}}><i class="fa fa-spinner fa-spin" style={{fontSize:'20px',color:'#6c9de6'}}></i></div>}
+                        <div style={{height:"auto",width:width>700?"80%":"90%",margin:"30px auto",display:"flex",justifyContent:"center",alignItems:"center"}}>
+                            <input  placeholder='Search Folders' onChange={changeSearch} type='search' value={searchvalue} style={{width:width>700?'70%':"90%",marginTop:'15px',marginRight:'25px',paddingLeft:'10px',height:'45px',letterSpacing:'1.5px',fontSize:'13px',boxSizing:'border-box',outline:'none',color:'white',border:"1px solid #02050a", borderRadius:'9px',backgroundColor:'white',color:"black"}}/>
+                        </div>
+                    <div style={{color:'black',display:width>700?"grid":"flex",flexDirection:'column',gridTemplateColumns:"auto auto",padding:"10px"}}>
+                        
+                        {folderContent.map(folder=><div onClick={()=>openFolder(folder)} style={{width:`calc(50%-20px)`,margin:"10px",boxSizing:"border-box",height:'250px',borderRadius:'10px',boxShadow: '0px 0px 15px #0b1f36',display:'flex',alignItems:"center",justifyContent:"center",backgroundColor:'#6c9de6',cursor:"pointer",color:'white',letterSpacing:'1.5px'}}>
                         <p style={{color:'white',fontWeight:"400",fontSize:width>700?"25px":"15px",letterSpacing:"1.5px"}}>{folder.name}</p>
                         
                         </div>)}
