@@ -68,7 +68,7 @@ function SignIn() {
 
 
   return (
-    <div style={{position:"relative",height:"100vh",backgroundColor:'#0d47a1',padding:"50px",color:'white',boxSizing:"border-box",width:"100vw",margin:'0px auto'}}>
+    <div style={{position:"relative",height:"100vh",backgroundColor:'#0d47a1',padding:width>700?"50px":'15px',color:'white',boxSizing:"border-box",width:"100vw",margin:'0px auto'}}>
     {showError && <ErrorPage status={errObj.status} message={errObj.message} />}
     <div className='topSectionland'>
       <div style={{fontFamily:"NexaTextBold",display:"flex",alignItems:"center",justifyContent:"center",fontSize:'35px'}}>BookMark</div>
