@@ -2,6 +2,7 @@ import React,{useContext,useEffect,useState,useRef} from 'react'
 import {Statecontext} from '../ContextBookmark'
 import useWindowResize from '../../hooks/useWindowSize'
 import './biosection.css'
+import { ImageCallFunc, TextCallFunc, LinkCallFunc, folderCallFunc } from './FolderSetter'
 function BioSection() {
     const [userPayload,setuserPayload] = useContext(Statecontext).userPayload
     const [biodata,setbiodata] = useState({imageLink:'',collectionName:''})
@@ -11,6 +12,13 @@ function BioSection() {
     const [menuMobile, setMenuMobile] = useContext(Statecontext).menuMobile
     const [biowidth,setbiowidth] = useState(0)
     const [imageObj,setimageObj] = useState({myFile:''})
+    const [sectionShow,setSectionShow] = useContext(Statecontext).sectionShow
+    const [folderContent,setfolderContent] = useContext(Statecontext).folderContent
+    const [textArray, setTextArray] = useContext(Statecontext).textArray
+    const [linkArray, setLinkArray] = useContext(Statecontext).linkArray
+    const [ImageArray, setImageArray] = useContext(Statecontext).ImageArray
+    const [triggerSection,settriggerSection] = useContext(Statecontext).triggerSection
+    const [sectionLoad,setSectionLoad] = useContext(Statecontext).sectionLoad
     
     const { width } = useWindowResize()
     
@@ -34,6 +42,51 @@ function BioSection() {
     setbiowidth(-200)
   }
 
+
+  //function to declare section
+
+  const sectionDeclare = async(token,type)=>{
+      if(type==='folder'){
+        const folderData = await folderCallFunc(token)
+        setfolderContent(folderData.data)
+        settriggerSection('folder')
+        setSectionShow(type)
+        
+      }
+      else if(type === 'text'){
+          setTextArray([])
+          setSectionLoad({...sectionLoad,...{text:true}})
+          settriggerSection('folder')
+          setSectionShow(type)
+          const textData = await TextCallFunc(token)
+          console.log(textData)
+          setTextArray(textData.data)
+          
+          setSectionLoad({...sectionLoad,...{text:false}})
+      }
+      else if(type === 'link'){
+        setLinkArray([])
+        setSectionLoad({...sectionLoad,...{link:true}})
+        settriggerSection('folder')
+        setSectionShow(type)
+        const linkData = await LinkCallFunc(token)
+        console.log(linkData)
+        setLinkArray(linkData.data)
+        
+        setSectionLoad({...sectionLoad,...{link:false}})
+      }
+      else{
+        setImageArray([])
+        setSectionLoad({...sectionLoad,...{image:true}})
+        settriggerSection('folder')
+        setSectionShow(type)
+        const imageData = await ImageCallFunc(token)
+        console.log(imageData)
+        setImageArray(imageData.data)
+        
+        setSectionLoad({...sectionLoad,...{image:false}})
+      }
+  }
 
     const uploadImage = async(event)=>{
       event.preventDefault()
@@ -115,9 +168,8 @@ const setProTitle = async() =>{
                       },
               
    })
-      console.log(addCoinCredentials)
+    
       const bioHolder = await addCoinCredentials.json()
-      console.log(bioHolder)
       setbiodata({imageLink:bioHolder.avatarName,collectionName:bioHolder.projectTitle})
       }
 
@@ -152,10 +204,10 @@ const setProTitle = async() =>{
       </div>
 
       <div style={{fontFamily:'NexaTextLight',marginTop:'65px',paddingLeft:'30px',color:'white',fontSize:'20px'}}>
-          <p>Folders</p>
-          <p>All Images</p>
-          <p>All Links</p>
-          <p>All Texts</p>
+          <p style={{marginTop:'30px',cursor:'pointer',padding:'10px',textAlign:'left',backgroundColor:sectionShow==="folder"?"#6c9de6":"#0d47a1",width:'60%',margin:'10px auto',borderRadius:'10px'}} onClick={()=>sectionDeclare(userPayload.token,'folder')}>Folders</p>
+          <p style={{marginTop:'30px',cursor:'pointer',padding:'10px',textAlign:'left',backgroundColor:sectionShow==="image"?"#6c9de6":"#0d47a1",width:'60%',margin:'10px auto',borderRadius:'10px'}} onClick={()=>sectionDeclare(userPayload.token,'image')}>All Images</p>
+          <p style={{marginTop:'30px',cursor:'pointer',padding:'10px',textAlign:'left',backgroundColor:sectionShow==="link"?"#6c9de6":"#0d47a1",width:'60%',margin:'10px auto',borderRadius:'10px'}} onClick={()=>sectionDeclare(userPayload.token,'link')}>All Links</p>
+          <p style={{marginTop:'30px',cursor:'pointer',padding:'10px',textAlign:'left',backgroundColor:sectionShow==="text"?"#6c9de6":"#0d47a1",width:'60%',margin:'10px auto',borderRadius:'10px'}} onClick={()=>sectionDeclare(userPayload.token,'text')}>All Texts</p>
       </div>
       
     </div>

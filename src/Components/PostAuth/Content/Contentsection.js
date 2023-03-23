@@ -47,10 +47,22 @@ function Contentsection() {
  
 
   //function to share data
-  const shareData = async(obj)=>{
+  const shareLink = async(obj)=>{
     console.log(obj)
-    if(navigator.canShare(obj)){
-          await window.navigator.share(obj)
+    const shareObj = {title:obj.title,source:obj.source,description:obj.description,link:obj.link}
+    if(navigator.canShare(shareObj)){
+          await window.navigator.share(shareObj)
+    }
+    else{
+      console.log('not possible')
+    }
+  }
+
+  const shareText = async(obj)=>{
+    console.log(obj)
+    const shareObj = {title:obj.title,source:obj.source,description:obj.description,text:obj.text}
+    if(navigator.canShare(shareObj)){
+          await window.navigator.share(shareObj)
     }
     else{
       console.log('not possible')
@@ -146,7 +158,7 @@ const backToFolder = ()=>{
                   {linkArray[0]? linkArray.map(linkObj => <div key={linkObj._id} style={{width:'95%',padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
                     <div style={{display:"flex",justifyContent:"space-between"}}>
                       <p style={{fontFamily:"NexaTextBold",marginBottom:"10px"}}>{linkObj.title}</p>
-                      <p style={{cursor:"pointer"}}><span onClick={()=>deleteItem('link',linkObj)} style={{cursor:'pointer'}}>{del}</span>&nbsp; &nbsp;&nbsp;<span onClick={()=>shareData(linkObj)} style={{cursor:'pointer'}}>{forward}</span></p>
+                      <p style={{cursor:"pointer"}}><span onClick={()=>deleteItem('link',linkObj)} style={{cursor:'pointer'}}>{del}</span>&nbsp; &nbsp;&nbsp;<span onClick={()=>shareLink(linkObj)} style={{cursor:'pointer'}}>{forward}</span></p>
                     </div>
                     <p><a  target="_blank" href={linkObj.link} style={{textDecoration:'none',color:"white"}}>Visit Site</a></p>
                     <p>{linkObj.source}</p>
@@ -161,7 +173,7 @@ const backToFolder = ()=>{
                   {textArray[0]? textArray.map(textObj => <div style={{width:'95%',padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
                      <div style={{display:'flex',justifyContent:"space-between"}}>
                       <p style={{fontFamily:"NexaTextBold",marginBottom:"10px"}}>{textObj.title}</p>
-                      <p style={{cursor:"pointer"}}><span style={{cursor:'pointer'}} onClick={()=>deleteItem('text',textObj)} >{del}</span>&nbsp; &nbsp;&nbsp;<span style={{cursor:'pointer'}}>{forward}</span></p>
+                      <p style={{cursor:"pointer"}}><span style={{cursor:'pointer'}} onClick={()=>deleteItem('text',textObj)} >{del}</span>&nbsp; &nbsp;&nbsp;<span style={{cursor:'pointer'}} onClick={()=>shareText(textObj)}>{forward}</span></p>
                      </div>
                     <p>{textObj.text}</p>
                     <p>{textObj.source}</p>

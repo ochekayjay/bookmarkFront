@@ -54,8 +54,78 @@
           }
     
     
-    
+          export async function LinkCallFunc(token){
+            try{
+            const folderObj = await fetch('https://savemyfile.onrender.com/link/getAllLinks',{
+              method:'GET',
+              headers:{
+                        'Accept': 'application/json',
+                        Authorization: `Bearer ${token}`
+                      }
+                      })
+              const folderdat = await folderObj.json()
+              if(folderdat.allLinks.length === 0){
+                  return false
+              }
+              else{
+                
+                return {state:true,data:folderdat.allLinks}
+              }
+                }
+            catch(error){
+                  console.log(error)
+                    }
+              }
     
       
-    
-    
+              export async function TextCallFunc(token){
+                try{
+                const folderObj = await fetch('https://savemyfile.onrender.com/text/getAllTexts',{
+                  method:'GET',
+                  headers:{
+                            'Accept': 'application/json',
+                            Authorization: `Bearer ${token}`
+                          }
+                          })
+                  const folderdat = await folderObj.json()
+                  if(folderdat.allTexts.length === 0){
+                      return false
+                  }
+                  else{
+                    
+                    return {state:true,data:folderdat.allTexts}
+                  }
+                    }
+                catch(error){
+                      console.log(error)
+                        }
+                  }
+
+                  export async function ImageCallFunc(token){
+                    try{
+                    const folderObj = await fetch('https://savemyfile.onrender.com/image/getUserImages',{
+                      method:'GET',
+                      headers:{
+                                'Accept': 'application/json',
+                                Authorization: `Bearer ${token}`
+                              }
+                              })
+                      const folderdat = await folderObj.json()
+                      if(folderdat.userImages.length === 0){
+                          return false
+                      }
+                      else{
+                        
+                        return {state:true,data:folderdat.userImages}
+                      }
+                        }
+                    catch(error){
+                          console.log(error)
+                            }
+                      }
+
+                  
+        
+          
+        
+        
