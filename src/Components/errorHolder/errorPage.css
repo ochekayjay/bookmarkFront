@@ -4,7 +4,7 @@
     position: absolute;
     background-color: rgba(0, 0, 0, 0.475);
     box-sizing: border-box;
-    height: 100vh;
+    height: 100%;
     top:"0px";
     left:"0px";
     width: 100%;
@@ -16,14 +16,15 @@
 
 .errorSection{
     width:160px;
-    height:160px;
+    height:200px;
+    
     border-radius:14px;
     box-shadow: 0px 0px 15px #0b1f36;
     background-color:#0d47a1;
     position:absolute;
-
+    box-sizing: border-box;
     transform:translate(-50%,-50%);
-    padding-top:40px;
+    padding-top:5px;
     animation-name: errorShow;
     animation-duration: 1s;
     animation-fill-mode: forwards;
