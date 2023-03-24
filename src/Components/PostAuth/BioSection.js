@@ -38,7 +38,7 @@ function BioSection() {
   //set biowidth
 
   const scrollbio = ()=>{
-    console.log(biowidth)
+    
     setbiowidth(-200)
   }
 
@@ -48,7 +48,7 @@ function BioSection() {
   const sectionDeclare = async(token,type)=>{
       if(type==='folder'){
         const folderData = await folderCallFunc(token)
-        setfolderContent(folderData.data)
+        setfolderContent(folderData)
         settriggerSection('folder')
         setSectionShow(type)
         
@@ -59,8 +59,8 @@ function BioSection() {
           settriggerSection('folder')
           setSectionShow(type)
           const textData = await TextCallFunc(token)
-          console.log(textData)
-          setTextArray(textData.data)
+          
+          setTextArray(textData)
           
           setSectionLoad({...sectionLoad,...{text:false}})
       }
@@ -70,8 +70,8 @@ function BioSection() {
         settriggerSection('folder')
         setSectionShow(type)
         const linkData = await LinkCallFunc(token)
-        console.log(linkData)
-        setLinkArray(linkData.data)
+        
+        setLinkArray(linkData)
         
         setSectionLoad({...sectionLoad,...{link:false}})
       }
@@ -81,8 +81,8 @@ function BioSection() {
         settriggerSection('folder')
         setSectionShow(type)
         const imageData = await ImageCallFunc(token)
-        console.log(imageData)
-        setImageArray(imageData.data)
+        
+        setImageArray(imageData)
         
         setSectionLoad({...sectionLoad,...{image:false}})
       }
@@ -93,11 +93,11 @@ function BioSection() {
       
 
       try{
-        console.log('a')
+        
         const formData = new FormData();
         formData.append('myFile', imageObj.myFile)
         
-        console.log('b')
+        
         const addCoinCredentials = await fetch('https://savemyfile.onrender.com/bio/imagePush', {
             method: 'POST',                    
             headers: {  
@@ -105,9 +105,9 @@ function BioSection() {
                     },
             body: formData
   }); 
-    console.log(addCoinCredentials)
+    
     const addnewCoinObject = await addCoinCredentials.json();
-    console.log(addnewCoinObject)
+    
     if(addnewCoinObject.success){
       setrerender(!rerender)
     }
@@ -119,7 +119,7 @@ function BioSection() {
 
 const setTitle = (event)=>{
   //setbiodata({...biodata,...{collectionName:event.target.value}})
-  console.log(projectTitle)
+  
   setprojectTitle({projectTitle:event.target.value})
 }
 
@@ -129,7 +129,7 @@ const setTitle = (event)=>{
 
 const setProTitle = async() =>{
     try{
-      console.log(projectTitle)
+      
       const userTitle = await fetch('https://savemyfile.onrender.com/bio/usernamePush', {
               method: 'POST',
               headers: {
@@ -139,9 +139,9 @@ const setProTitle = async() =>{
                       },
                       body: JSON.stringify(projectTitle)
    })
-   console.log(`a in ${userTitle}`)
+  
    const userHolder = await userTitle.json()
-   console.log(`b in ${userHolder.projectTitle}`)
+   
       
       setbiodata({...biodata,...{collectionName:userHolder.projectTitle}})
     }
@@ -158,7 +158,7 @@ const setProTitle = async() =>{
 
     const loadFunction = async ()=>{
       try{
-          console.log(userPayload.token===null)
+          
           const addCoinCredentials = await fetch('https://savemyfile.onrender.com/bio/bioUpdate', {
               method: 'GET',
               headers: {

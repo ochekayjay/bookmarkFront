@@ -30,7 +30,7 @@ function SignIn() {
     else{
       setLoading(true)
       try{
-    console.log('a')
+    
     const addCoinCredentials = await fetch('https://savemyfile.onrender.com/auth/login', {
             method: 'POST',
             headers: {
@@ -39,9 +39,9 @@ function SignIn() {
                     },
             body: JSON.stringify(formObject)
  })
- console.log('b')
+ 
  const payloadData = await addCoinCredentials.json()
- console.log(payloadData)
+ 
  if(payloadData?.status==='error'){
   setErrObj(payloadData)
   setShowError(!showError)

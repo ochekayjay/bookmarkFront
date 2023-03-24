@@ -73,7 +73,7 @@ const changeSearch = async (e)=>{
             const data = await folderCallFunc(userPayload.token)
             console.log(data)
             if(data?.state){
-                setfolderContent(data.data)
+                setfolderContent(data)
                 setfolderLoad(false)
                 //console.log()
             }
@@ -92,12 +92,12 @@ const changeSearch = async (e)=>{
         
         <div style={{overflow:"auto",padding:"10px",height:'30%',boxSizing:'border-box',width:"100%",marginTop:"0px"}}>
         <div style={{display:width>700?'none':"block",paddingBottom:'10px',position:"absolute",top:'5px',backgroundColor:"white",zIndex:"4",left:"5px",width:"100%",boxSizing:"border-box"}}>
-            <p onClick={()=>setMenuMobile(!menuMobile)} style={{height:"40px",width:"40px",display:width>700?"none":'flex',justifyContent:"center",alignItems:"center",boxSizing:"border-box",marginTop:"5px",marginLeft:'5px',borderRadius:"50%",boxShadow: '0px 0px 50px #0b1f36'}}>{menuIcon}</p>   
+            <p onClick={()=>setMenuMobile(!menuMobile)} style={{height:"40px",width:"40px",display:width>700?"none":'flex',justifyContent:"center",alignItems:"center",boxSizing:"border-box",marginTop:"5px",marginLeft:'5px',borderRadius:"50%",boxShadow: '0px 0px 5px #0b1f36'}}>{menuIcon}</p>   
         </div>
         <div style={{margin:width>700?"18px 0px 0px 18px":'40px 0px 0px 18px',boxSizing:"border-box",height:"90%",width:"100%",fontFamily:'NexaTextBold',boxSizing:"border-box",fontSize:'45px',letterSpacing:'2px'}}>
             
             <p style={{color:'#6c9de6',fontWeight:'400',fontSize:width>700?"45px":"30px"}}>Folder Section</p>
-            <div style={{boxSizing:"border-box",fontSize:width>700?"30px":"15px",fontFamily:"NexaTextLight"}}>{folderContent.map(folder=><p style={{letterSpacing:'4px'}}>{folder.name}</p>)}</div>
+            <div style={{boxSizing:"border-box",fontSize:width>700?"30px":"15px",fontFamily:"NexaTextLight"}}>{folderContent.data.map(folder=><p style={{letterSpacing:'4px'}}>{folder.name}</p>)}</div>
             </div>
             
         </div>
@@ -111,7 +111,7 @@ const changeSearch = async (e)=>{
                         </div>
                     <div style={{color:'black',display:width>700?"grid":"flex",flexDirection:'column',gridTemplateColumns:"auto auto",padding:"10px"}}>
                         
-                        {folderContent.map(folder=><div onClick={()=>openFolder(folder)} style={{width:`calc(50%-20px)`,margin:"10px",boxSizing:"border-box",height:'250px',borderRadius:'10px',boxShadow: '0px 0px 15px #0b1f36',display:'flex',alignItems:"center",justifyContent:"center",backgroundColor:'#6c9de6',cursor:"pointer",color:'white',letterSpacing:'1.5px'}}>
+                        {folderContent.data.map(folder=><div onClick={()=>openFolder(folder)} style={{width:`calc(50%-20px)`,margin:"10px",boxSizing:"border-box",height:'250px',borderRadius:'10px',boxShadow: '0px 0px 15px #0b1f36',display:'flex',alignItems:"center",justifyContent:"center",backgroundColor:'#6c9de6',cursor:"pointer",color:'white',letterSpacing:'1.5px'}}>
                         <p style={{color:'white',fontWeight:"400",fontSize:width>700?"25px":"15px",letterSpacing:"1.5px"}}>{folder.name}</p>
                         
                         </div>)}
@@ -125,7 +125,7 @@ const changeSearch = async (e)=>{
                        
                     <div style={{color:'black',display:width>700?"grid":"flex",flexDirection:'column',gridTemplateColumns:"auto auto",padding:"10px"}}>
                         
-                    {textArray[0]? textArray.map(textObj => <div style={{width:`calc(50%-20px)`,margin:"10px",padding:"15px",boxSizing:"border-box",}}>
+                    {textArray.state? textArray.data.map(textObj => <div style={{width:`calc(50%-20px)`,margin:"10px",padding:"15px",boxSizing:"border-box",}}>
                      <div style={{boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px",padding:"15px"}}>
                     <div style={{display:'flex',justifyContent:"space-between"}}>
                       <p style={{fontFamily:"NexaTextBold",marginBottom:"10px"}}>{textObj.title}</p>
@@ -145,7 +145,7 @@ const changeSearch = async (e)=>{
                        
                        <div style={{color:'black',display:width>700?"grid":"flex",flexDirection:'column',gridTemplateColumns:"1fr 1fr",padding:"10px"}}>
                            
-                       {linkArray[0]? linkArray.map(linkObj => <div key={linkObj._id} style={{width:'100%',margin:"10px",boxSizing:"border-box",padding:"15px"}}>
+                       {linkArray.state? linkArray.data.map(linkObj => <div key={linkObj._id} style={{width:'100%',margin:"10px",boxSizing:"border-box",padding:"15px"}}>
                     <div style={{boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px",padding:"15px"}}>
                     <div style={{display:"flex",justifyContent:"space-between"}}>
                       <p style={{fontFamily:"NexaTextBold",marginBottom:"10px"}}>{linkObj.title}</p>
@@ -167,7 +167,7 @@ const changeSearch = async (e)=>{
                        
                        <div style={{color:'black',display:width>700?"grid":"flex",flexDirection:'column',gridTemplateColumns:"1fr 1fr",padding:"10px"}}>
                            
-                       {ImageArray[0]? ImageArray.map(imgObj => <div style={{width:'100%',margin:"10px",height:"auto",boxSizing:"border-box",padding:'15px'}}>
+                       {ImageArray?.state? ImageArray.data.map(imgObj => <div style={{width:'100%',margin:"10px",height:"auto",boxSizing:"border-box",padding:'15px'}}>
                        <div style={{boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px",padding:"15px",height:'auto'}}>
                     <div style={{display:'flex',justifyContent:"space-between"}}>
                       <p style={{fontFamily:"NexaTextBold",marginBottom:"10px"}}>{imgObj.title}</p>

@@ -64,13 +64,16 @@
                       }
                       })
               const folderdat = await folderObj.json()
-              if(folderdat.allLinks.length === 0){
-                  return false
+
+              if(folderdat.message){
+                return {state:false,data:folderdat.message}
               }
-              else{
-                
+
+             else if(folderdat.allLinks.length > 0){
                 return {state:true,data:folderdat.allLinks}
+                  
               }
+             
                 }
             catch(error){
                   console.log(error)
@@ -88,12 +91,14 @@
                           }
                           })
                   const folderdat = await folderObj.json()
-                  if(folderdat.allTexts.length === 0){
-                      return false
+              
+                  if(folderdat.message){
+                    return {state:false,data:folderdat.message}
                   }
-                  else{
-                    
+
+                 else if(folderdat.allTexts.length > 0){
                     return {state:true,data:folderdat.allTexts}
+                      
                   }
                     }
                 catch(error){
@@ -111,13 +116,17 @@
                               }
                               })
                       const folderdat = await folderObj.json()
-                      if(folderdat.userImages.length === 0){
-                          return false
+
+                      if(folderdat.message){
+                        return {state:false,data:folderdat.message}
                       }
-                      else{
-                        
+    
+                     else if(folderdat.userImages.length > 0){
                         return {state:true,data:folderdat.userImages}
+                          
                       }
+
+                    
                         }
                     catch(error){
                           console.log(error)

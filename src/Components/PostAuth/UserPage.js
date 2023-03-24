@@ -30,7 +30,8 @@ useEffect(()=>{
   const {_id, Username,Email,Token} = userDetail
   console.log(_id)
   setuserPayload({...userPayload,...{id:_id,userName:Username,email:Email,token:Token}})*/
-  setuserPayload({...userPayload})
+  
+  setuserPayload({id:userDetail._id,userName:userDetail.Username,email:userDetail.Email,token:userDetail.Token})
 
 },[])
 
@@ -52,7 +53,7 @@ useEffect(()=>{
       else{
         
         setfolderExists(true)
-        setfolderContent(folderdat.folderdata)
+        setfolderContent({state:true,data:folderdat.folderdata})
       }
         }
     catch(error){
@@ -112,7 +113,7 @@ useEffect(()=>{
     else{
       setfolderExists(false)
     }
-              console.log(FolderObjectCreated)
+          
   }
   catch(error){
 
