@@ -123,7 +123,7 @@ useEffect(()=>{
   return (
     <div style={{ height:'100vh',display:'flex',position:'relative',boxSizing:'border-box'}}>{
         folderExists==='none'?
-        <div style={{width:"100%",height:'100%',display:"flex",justifyContent:'center',alignItems:"center"}}>
+        <div style={{width:"100%",height:'100%',display:"flex",justifyContent:'center',backgroundColor:'#6c9de6',alignItems:"center"}}>
             <i class="fa fa-spinner fa-spin" style={{fontSize:'200px',color:'#0d47a1'}}></i>
         </div>:
         <div style={{width:"100%",height:'100%',display:'flex'}}>
