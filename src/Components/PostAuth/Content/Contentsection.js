@@ -49,9 +49,14 @@ function Contentsection() {
   //function to share data
   const shareLink = async(obj)=>{
     console.log(obj)
-    const shareObj = {title:obj.title,source:obj.source,description:obj.description,link:obj.link}
-    if(navigator.canShare(shareObj)){
-          await window.navigator.share(shareObj)
+    let shareObj = {title:obj.title,source:obj.source,description:obj.description,link:obj.link}
+    let convertedObj = encodeURIComponent(JSON.stringify(shareObj))
+    const entireObj = {
+      title: 'Link Data',
+      text: convertedObj
+    }
+    if(navigator.canShare(entireObj)){
+          await window.navigator.share(entireObj)
     }
     else{
       console.log('not possible')
@@ -61,8 +66,13 @@ function Contentsection() {
   const shareText = async(obj)=>{
     console.log(obj)
     const shareObj = {title:obj.title,source:obj.source,description:obj.description,text:obj.text}
-    if(navigator.canShare(shareObj)){
-          await window.navigator.share(shareObj)
+    let convertedObj = encodeURIComponent(JSON.stringify(shareObj))
+    const entireObj = {
+      title: 'Text Data',
+      text: convertedObj
+    }
+    if(navigator.canShare(entireObj)){
+          await window.navigator.share(entireObj)
     }
     else{
       console.log('not possible')
