@@ -47,7 +47,7 @@ const TextSection  = ({setaddItemToShow, textArray, setTextArray})=>{
     else{
       setaddItemToShow('text')
     }
-              console.log(textObjectCreated)
+            
   }
   catch(error){
 

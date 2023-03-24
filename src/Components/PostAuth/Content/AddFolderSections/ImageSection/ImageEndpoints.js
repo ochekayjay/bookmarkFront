@@ -1,7 +1,7 @@
 
 
 export async function GetFolderImage(folderId,userPayload){
-  console.log(folderId)
+  
     
     try{
     const imageObjectCreated = await fetch(`https://savemyfile.onrender.com/image/getFolderImages`,{

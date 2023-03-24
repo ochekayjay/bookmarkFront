@@ -2,7 +2,7 @@
 
 export async function GetFolderLinks(folderId,userPayload){
 
-    console.log('im tryying text endpoint')
+  
       try{
           const linkObjectCreated = await fetch(`https://savemyfile.onrender.com/link/folder/${folderId}`,{
             method:'GET',

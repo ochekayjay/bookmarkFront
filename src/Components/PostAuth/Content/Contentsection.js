@@ -48,7 +48,7 @@ function Contentsection() {
 
   //function to share data
   const shareLink = async(obj)=>{
-    console.log(obj)
+    
     let shareObj = {title:obj.title,source:obj.source,description:obj.description,link:obj.link}
     let convertedObj = encodeURIComponent(JSON.stringify(shareObj))
     const entireObj = {
@@ -64,7 +64,7 @@ function Contentsection() {
   }
 
   const shareText = async(obj)=>{
-    console.log(obj)
+    
     const shareObj = {title:obj.title,source:obj.source,description:obj.description,text:obj.text}
     let convertedObj = encodeURIComponent(JSON.stringify(shareObj))
     const entireObj = {
@@ -83,9 +83,9 @@ function Contentsection() {
    */
 
   useEffect( ()=>{
-    console.log('abcd')
+    
   
-    console.log('in trig')
+    
    const fixFolder = async()=>{
     setItemState({image:true,text:true,link:true})
     const textjson = await GetFolderTexts(folderId,userPayload)
@@ -94,8 +94,8 @@ function Contentsection() {
     //console.log(`trying out in images ${imagejson.folderImages[0].nameofimage}`)
     //console.log(`images here ${imagejson.folderImages[0].image}`)
     //console.log(textjson.folderTexts.length)
-    console.log(linkjson.folderLinks[0])
-    console.log(imagejson)
+    
+    
     setTextArray(textjson.folderTexts)
     setLinkArray(linkjson.folderLinks)
     setImageArray(imagejson.folderImages)
@@ -128,7 +128,7 @@ const deleteItem = async(item,obj)=>{
       let identity = obj?.id?obj.id:obj._id
       const newImages = await DeleteFolderImage(userPayload,identity,folderId)
       setItemState({...itemState,...{image:false}})
-      console.log(`checkout ${ImageArray}`)
+      
       setImageArray(newImages.folderImages)
     }
 }

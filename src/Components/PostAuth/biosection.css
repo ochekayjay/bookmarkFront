@@ -54,6 +54,6 @@
   }
 
   @keyframes menuClose{
-    from{ transform: translateX(0px)}
+    from{ transform: translateX(-400px)}
     to{ transform: translateX(-400px)}
   }

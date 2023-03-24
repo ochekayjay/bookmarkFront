@@ -5,7 +5,7 @@ import { Statecontext } from '../../../../ContextBookmark'
 
 export async function GetFolderTexts(folderId,userPayload){
 
-  console.log('im tryying text endpoint')
+  
     try{
         const textObjectCreated = await fetch(`https://savemyfile.onrender.com/text/${folderId}`,{
           method:'GET',
