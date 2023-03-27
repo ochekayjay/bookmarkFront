@@ -56,23 +56,16 @@
     
           export async function LinkCallFunc(token){
             try{
-            const folderObj = await fetch('https://savemyfile.onrender.com/link/getAllLinks',{
+            const linkObj = await fetch('https://savemyfile.onrender.com/link/getAllLinks',{
               method:'GET',
               headers:{
                         'Accept': 'application/json',
                         Authorization: `Bearer ${token}`
                       }
                       })
-              const folderdat = await folderObj.json()
+              const linkdat = await linkObj.json()
 
-              if(folderdat.message){
-                return {state:false,data:folderdat.message}
-              }
-
-             else if(folderdat.allLinks.length > 0){
-                return {state:true,data:folderdat.allLinks}
-                  
-              }
+             return linkdat
              
                 }
             catch(error){
@@ -83,23 +76,16 @@
       
               export async function TextCallFunc(token){
                 try{
-                const folderObj = await fetch('https://savemyfile.onrender.com/text/getAllTexts',{
+                const textObj = await fetch('https://savemyfile.onrender.com/text/getAllTexts',{
                   method:'GET',
                   headers:{
                             'Accept': 'application/json',
                             Authorization: `Bearer ${token}`
                           }
                           })
-                  const folderdat = await folderObj.json()
+                  const textdat = await textObj.json()
               
-                  if(folderdat.message){
-                    return {state:false,data:folderdat.message}
-                  }
-
-                 else if(folderdat.allTexts.length > 0){
-                    return {state:true,data:folderdat.allTexts}
-                      
-                  }
+                 return textdat
                     }
                 catch(error){
                       console.log(error)
@@ -108,23 +94,16 @@
 
                   export async function ImageCallFunc(token){
                     try{
-                    const folderObj = await fetch('https://savemyfile.onrender.com/image/getUserImages',{
+                    const imageObj = await fetch('https://savemyfile.onrender.com/image/getUserImages',{
                       method:'GET',
                       headers:{
                                 'Accept': 'application/json',
                                 Authorization: `Bearer ${token}`
                               }
                               })
-                      const folderdat = await folderObj.json()
+                      const imagedat = await imageObj.json()
 
-                      if(folderdat.message){
-                        return {state:false,data:folderdat.message}
-                      }
-    
-                     else if(folderdat.userImages.length > 0){
-                        return {state:true,data:folderdat.userImages}
-                          
-                      }
+                      return imagedat
 
                     
                         }

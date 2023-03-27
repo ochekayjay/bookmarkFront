@@ -19,9 +19,9 @@ export const StateHolder = (props)=> {
     const [triggerSection,settriggerSection]  = useState('folder')
     const [menuMobile, setMenuMobile] = useState(false)
     const [folderId,setfolderId] = useState('')
-    const [textArray, setTextArray] = useState([])
-    const [linkArray, setLinkArray] = useState([])
-    const [ImageArray, setImageArray] = useState([])
+    const [textArray, setTextArray] = useState({state:false,data:[]})
+    const [linkArray, setLinkArray] = useState({state:false,data:[]})
+    const [ImageArray, setImageArray] = useState({state:false,data:[]})
     const [errObj,setErrObj] = useState()
     const [sectionShow,setSectionShow] = useState('folder')
 

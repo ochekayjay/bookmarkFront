@@ -30,9 +30,9 @@ const menuIcon = <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" 
 
 
 const openFolder = (folder)=>{
-    setLinkArray([])
-    setImageArray([])
-    setTextArray([])
+    setLinkArray({state:false,data:[]})
+    setImageArray({state:false,data:[]})
+    setTextArray({state:false,data:[]})
     setfolderId(folder._id);
     settriggerSection('section');
     setselectedFolder(folder)

@@ -17,7 +17,10 @@ export async function GetFolderTexts(folderId,userPayload){
                 
                   })
         const textjson = await textObjectCreated.json()
-        return textjson
+        
+          return textjson
+       
+        
         
       }
       catch(error){

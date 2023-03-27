@@ -8,6 +8,7 @@ import {GetFolderTexts,DeleteFolderText,GetAllTexts} from './AddFolderSections/T
 import {GetFolderLinks,DeleteFolderLink} from './AddFolderSections/LinkSection/LinkEndpoints'
 import { GetFolderImage, DeleteFolderImage } from './AddFolderSections/ImageSection/ImageEndpoints'
 import useWindowResize from '../../../hooks/useWindowSize'
+import './contentSection.css'
 
 function Contentsection() {
   const [userPayload,setuserPayload] = useContext(Statecontext).userPayload
@@ -50,7 +51,7 @@ function Contentsection() {
   const shareLink = async(obj)=>{
     
     let shareObj = {title:obj.title,source:obj.source,description:obj.description,link:obj.link}
-    let convertedObj = encodeURIComponent(JSON.stringify(shareObj))
+    let convertedObj = `title: ${encodeURIComponent(shareObj.title)}\nsource: ${encodeURIComponent(shareObj.source)}\ndescription: ${encodeURIComponent(shareObj.description)}\nlink: ${encodeURIComponent(shareObj.link)}`
     const entireObj = {
       title: 'Link Data',
       text: convertedObj
@@ -66,7 +67,7 @@ function Contentsection() {
   const shareText = async(obj)=>{
     
     const shareObj = {title:obj.title,source:obj.source,description:obj.description,text:obj.text}
-    let convertedObj = encodeURIComponent(JSON.stringify(shareObj))
+    let convertedObj = `title: ${encodeURIComponent(shareObj.title)}\nsource: ${encodeURIComponent(shareObj.source)}\ndescription: ${encodeURIComponent(shareObj.description)}\ntext: ${encodeURIComponent(shareObj.text)}`
     const entireObj = {
       title: 'Text Data',
       text: convertedObj
@@ -94,11 +95,13 @@ function Contentsection() {
     //console.log(`trying out in images ${imagejson.folderImages[0].nameofimage}`)
     //console.log(`images here ${imagejson.folderImages[0].image}`)
     //console.log(textjson.folderTexts.length)
+    console.log(textjson)
+    console.log(linkjson)
+    console.log(imagejson)
     
-    
-    setTextArray(textjson.folderTexts)
-    setLinkArray(linkjson.folderLinks)
-    setImageArray(imagejson.folderImages)
+    textjson.state?setTextArray({state:true,data:textjson.textdata}):setTextArray({state:false,data:[]}) 
+    linkjson.state?setLinkArray({state:true,data:linkjson.linkdata}):setLinkArray({state:false,data:[]}) 
+    imagejson.state?setImageArray({state:true,data:imagejson.imagedata}):setImageArray({state:false,data:[]}) 
     setItemState({image:false,text:false,link:false})
     
     }
@@ -114,31 +117,51 @@ const deleteItem = async(item,obj)=>{
       setItemState({...itemState,...{link:true}})
       const newLinks = await DeleteFolderLink(userPayload,obj._id,folderId)
       setItemState({...itemState,...{link:false}})
-      setLinkArray(newLinks.folderLinks)
+      if(newLinks.state){
+        setLinkArray({state:true,data:newLinks.linkdata})
+      }
+      else{
+        setLinkArray({state:false,data:[]})
+      }
+      
     }
     else if(item==='text'){
       setItemState({...itemState,...{text:true}})
       const newTexts = await DeleteFolderText(userPayload,obj._id,folderId)
-      setItemState({...itemState,...{text:false}})
-      setTextArray(newTexts.folderTexts)
+      if(newTexts.state){
+        setItemState({...itemState,...{text:false}})
+        setTextArray({state:true,data:newTexts.textdata})
+      }
+      else{
+        setItemState({...itemState,...{text:false}})
+        setTextArray({state:false,data:''})
+      }
+      
     }
 
     else if(item==='image'){
       setItemState({...itemState,...{image:true}})
       let identity = obj?.id?obj.id:obj._id
       const newImages = await DeleteFolderImage(userPayload,identity,folderId)
-      setItemState({...itemState,...{image:false}})
       
-      setImageArray(newImages.folderImages)
+      if(newImages.state){
+        setItemState({...itemState,...{image:false}})
+        setImageArray({state:true,data:newImages.imagedata})
+      }
+      else{
+        setItemState({...itemState,...{image:false}})
+        setImageArray({state:false,data:[]})
+      }
+      
     }
 }
 
 const backToFolder = ()=>{
   settriggerSection('folder')
   setfolderId('')
-  setImageArray([])
-  setLinkArray([])
-  setTextArray([])
+  setImageArray({state:false,data:[]})
+  setLinkArray({state:false,data:[]})
+  setTextArray({state:false,data:[]})
 }
   
 
@@ -165,7 +188,7 @@ const backToFolder = ()=>{
                     
                     <div style={{width:"100%",padding:'15px',boxSizing:"border-box",display:'flex',flexDirection:"column",alignItems:"center"}}>
                     {itemState.link && <p style={{width:"100%",boxSizing:'border-box',display:"flex",justifyContent:'center',alignItems:"center",marginTop:'15px'}}><i class="fa fa-spinner fa-spin" style={{fontSize:'20px',color:'blue'}}></i></p>}
-                  {linkArray[0]? linkArray.map(linkObj => <div key={linkObj._id} style={{width:'95%',padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
+                  {linkArray.state? linkArray.data.map(linkObj => <div key={linkObj._id} style={{width:'95%',padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
                     <div style={{display:"flex",justifyContent:"space-between"}}>
                       <p style={{fontFamily:"NexaTextBold",marginBottom:"10px"}}>{linkObj.title}</p>
                       <p style={{cursor:"pointer"}}><span onClick={()=>deleteItem('link',linkObj)} style={{cursor:'pointer'}}>{del}</span>&nbsp; &nbsp;&nbsp;<span onClick={()=>shareLink(linkObj)} style={{cursor:'pointer'}}>{forward}</span></p>
@@ -180,7 +203,7 @@ const backToFolder = ()=>{
                 
                 <div style={{width:"100%",padding:'15px',boxSizing:"border-box",display:'flex',flexDirection:"column",alignItems:"center",height:"100%",overflow:"auto"}}>
                 {itemState.text && <p style={{width:"100%",boxSizing:'border-box',display:"flex",justifyContent:'center',alignItems:"center",marginTop:'15px'}}><i class="fa fa-spinner fa-spin" style={{fontSize:'20px',color:'blue'}}></i></p>}
-                  {textArray[0]? textArray.map(textObj => <div style={{width:'95%',padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
+                  {textArray.state? textArray.data.map(textObj => <div style={{width:'95%',padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
                      <div style={{display:'flex',justifyContent:"space-between"}}>
                       <p style={{fontFamily:"NexaTextBold",marginBottom:"10px"}}>{textObj.title}</p>
                       <p style={{cursor:"pointer"}}><span style={{cursor:'pointer'}} onClick={()=>deleteItem('text',textObj)} >{del}</span>&nbsp; &nbsp;&nbsp;<span style={{cursor:'pointer'}} onClick={()=>shareText(textObj)}>{forward}</span></p>
@@ -196,7 +219,7 @@ const backToFolder = ()=>{
                     
                     <div style={{width:"100%",padding:'15px',boxSizing:"border-box",display:'flex',flexDirection:"column",alignItems:"center",height:'100%',overflow:'auto'}}>
                     {itemState.image && <p style={{width:"100%",boxSizing:'border-box',display:"flex",justifyContent:'center',alignItems:"center",marginTop:'15px'}}><i class="fa fa-spinner fa-spin" style={{fontSize:'20px',color:'blue'}}></i></p>}
-                  {ImageArray[0]? ImageArray.map(imgObj => <div style={{width:'95%',height:"auto",padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
+                  {ImageArray.state? ImageArray.data.map(imgObj => <div style={{width:'95%',height:"auto",padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
                     <div style={{display:'flex',justifyContent:"space-between"}}>
                       <p style={{fontFamily:"NexaTextBold",marginBottom:"10px"}}>{imgObj.title}</p>
                       <p style={{cursor:"pointer"}}><span onClick={()=>deleteItem('image',imgObj)}  style={{cursor:'pointer'}}>{del}</span>&nbsp; &nbsp;&nbsp;<span style={{cursor:'pointer'}}>{forward}</span></p>

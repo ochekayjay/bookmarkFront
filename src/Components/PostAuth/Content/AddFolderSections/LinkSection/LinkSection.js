@@ -8,7 +8,8 @@ function LinkSection({setaddItemToShow}) {
     const [linkState,setlinkState] = useState({link:'',description:'',title:'',source:''});
     const folderId = useContext(Statecontext).folderId[0]
     const [userPayload,setuserPayload] = useContext(Statecontext).userPayload
-
+    const [folderLoad,setFolderLoad] = useState(false)
+    
     const addIcon = <svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" fill='#FFFFFF'><path d="M18.625 31.667V21.375H8.333v-2.75h10.292V8.333h2.75v10.292h10.292v2.75H21.375v10.292Z"/></svg>;
     const cancelIcon = <svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" fill='#FFFFFF'><path d="m10.458 31.458-1.916-1.916 9.5-9.542-9.5-9.542 1.916-1.916 9.542 9.5 9.542-9.5 1.916 1.916-9.5 9.542 9.5 9.542-1.916 1.916-9.542-9.5Z"/></svg>
 
@@ -36,12 +37,13 @@ function LinkSection({setaddItemToShow}) {
       const linkjson = await linkObjectCreated.json()
       console.log(linkjson)
       console.log(folderId)
-      if(linkjson.link){
+      if(linkjson.state){
         
-      setLinkArray([...linkArray,linkjson])
+      setLinkArray({state:true,data:[...linkArray.data,{...linkjson.linkdata}]})
       setaddItemToShow('none')
       }
       else{
+        setLinkArray({...linkArray})
         setaddItemToShow('link')
       }
                 console.log(linkjson)
@@ -72,10 +74,11 @@ function LinkSection({setaddItemToShow}) {
                       <input onChange={(event)=> changeFieldData(event)} name='source' value={linkState.source} placeholder='source...' style={{boxSizing : 'border-box',height:'50px',marginTop:"15px",paddingLeft:'7px',boxShadow: '0px 0px 15px #0b1f36',borderRadius:'10px',width:'100%',outline:'none',fontSize:'15px',backgroundColor:'transparent',borderWidth:'0px 0px 0px' ,color:'white'}}/>
 
                   </div>
+                  {folderLoad?<p style={{width:"100%",boxSizing:'border-box',display:"flex",justifyContent:'center',alignItems:"center",marginTop:'30px'}}><i class="fa fa-spinner fa-spin" style={{fontSize:'30px',color:'white'}}></i></p>:
                   <div style={{display:'flex',justifyContent:'space-around'}}>
-                      <p onClick={()=>setaddItemToShow('none')} style={{fontSize:'40px',cursor:'pointer',color:'white',height:'55px',width:'55px',boxShadow: '0px 0px 15px #0b1f36',display:'flex',alignItems:'center',borderRadius:'50%',justifyContent:'center',margin:'25px auto'}}>{cancelIcon}</p>
-                      <p onClick={(event)=>createLink(event)} style={{fontSize:'40px',cursor:'pointer',color:'white',height:'55px',width:'55px',boxShadow: '0px 0px 15px #0b1f36',display:'flex',alignItems:'center',borderRadius:'50%',justifyContent:'center',margin:'25px auto'}}>{addIcon}</p>
-                  </div>
+                      <p onClick={()=>{setFolderLoad(true);setaddItemToShow('none')}} style={{fontSize:'40px',cursor:'pointer',color:'white',height:'55px',width:'55px',boxShadow: '0px 0px 15px #0b1f36',display:'flex',alignItems:'center',borderRadius:'50%',justifyContent:'center',margin:'25px auto'}}>{cancelIcon}</p>
+                      <p onClick={(event)=>{setFolderLoad(true);createLink(event)}} style={{fontSize:'40px',cursor:'pointer',color:'white',height:'55px',width:'55px',boxShadow: '0px 0px 15px #0b1f36',display:'flex',alignItems:'center',borderRadius:'50%',justifyContent:'center',margin:'25px auto'}}>{addIcon}</p>
+                  </div>}
               </div>
         </div>
   )

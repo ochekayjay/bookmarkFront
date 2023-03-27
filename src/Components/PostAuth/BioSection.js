@@ -54,37 +54,57 @@ function BioSection() {
         
       }
       else if(type === 'text'){
-          setTextArray([])
+          setTextArray({state:false,data:[]})
           setSectionLoad({...sectionLoad,...{text:true}})
           settriggerSection('folder')
           setSectionShow(type)
           const textData = await TextCallFunc(token)
+          console.log(textData)
+          if(textData.state){
+            setTextArray({state:true,data:textData.textdata})
+            setSectionLoad({...sectionLoad,...{text:false}})
+          }
+          else{
+            setTextArray({state:false,data:[]})
+            setSectionLoad({...sectionLoad,...{text:false}})
+          }
           
-          setTextArray(textData)
-          
-          setSectionLoad({...sectionLoad,...{text:false}})
       }
       else if(type === 'link'){
-        setLinkArray([])
+        setLinkArray({state:false,data:[]})
         setSectionLoad({...sectionLoad,...{link:true}})
         settriggerSection('folder')
         setSectionShow(type)
         const linkData = await LinkCallFunc(token)
-        
-        setLinkArray(linkData)
-        
-        setSectionLoad({...sectionLoad,...{link:false}})
+        if(linkData.state){
+          setLinkArray({state:true,data:linkData.linkdata})
+          
+          setSectionLoad({...sectionLoad,...{link:false}})
+        }
+        else{
+
+          setLinkArray({state:false,data:[]})
+          
+          setSectionLoad({...sectionLoad,...{link:false}})
+        }
       }
       else{
-        setImageArray([])
+        setImageArray({state:false,data:[]})
         setSectionLoad({...sectionLoad,...{image:true}})
         settriggerSection('folder')
         setSectionShow(type)
         const imageData = await ImageCallFunc(token)
-        
-        setImageArray(imageData)
+        if(imageData.state){
+          setImageArray({state:true,data:imageData.imagedata})
         
         setSectionLoad({...sectionLoad,...{image:false}})
+        }
+        else{
+          setImageArray({state:false,data:[]})
+        
+          setSectionLoad({...sectionLoad,...{image:false}})
+        }
+        
       }
   }
 

@@ -15,12 +15,9 @@ export async function GetFolderImage(folderId,userPayload){
     
               })
     const imagejson = await imageObjectCreated.json()
-    if(imagejson){
+  
       return imagejson
-    }
-    else{
-      
-    }
+   
 
   }
   catch(error){
