@@ -46,12 +46,15 @@ function Contentsection() {
     setaddItemToShow('text')
   }
  
+  const formatString = (data)=>{
+        return data.replace(/\s/g, '%20')
+  }
 
   //function to share data
   const shareLink = async(obj)=>{
     
     let shareObj = {title:obj.title,source:obj.source,description:obj.description,link:obj.link}
-    let convertedObj = `title: ${encodeURI(shareObj.title)}\nsource: ${encodeURI(shareObj.source)}\ndescription: ${encodeURI(shareObj.description)}\nurl: ${encodeURI(shareObj.link)}`
+    let convertedObj = `title: ${formatString(shareObj.title)}\nsource: ${formatString(shareObj.source)}\ndescription: ${formatString(shareObj.description)}\nurl: ${encodeURI(shareObj.link)}`
     const entireObj = {
       title: 'Link Data',
       text: convertedObj
@@ -67,7 +70,7 @@ function Contentsection() {
   const shareText = async(obj)=>{
     
     const shareObj = {title:obj.title,source:obj.source,description:obj.description,text:obj.text}
-    let convertedObj = `title: ${encodeURI(shareObj.title)}\nsource: ${encodeURI(shareObj.source)}\ndescription: ${encodeURI(shareObj.description)}\ntext: ${encodeURI(shareObj.text)}`
+    let convertedObj = `title: ${formatString(shareObj.title)}\nsource: ${formatString(shareObj.source)}\ndescription: ${formatString(shareObj.description)}\ntext: ${formatString(shareObj.text)}`
     const entireObj = {
       title: 'Text Data',
       text: convertedObj
