@@ -47,7 +47,8 @@ useEffect(()=>{
               }
               })
       const folderdat = await folderObj.json()
-      if(folderdat?.folderdata.length === 0){
+  
+      if(!folderdat.state){
           setfolderExists(false)
       }
       else{
@@ -103,11 +104,11 @@ useEffect(()=>{
               body: JSON.stringify(foldertitle)
               })
     const folderjson = await FolderObjectCreated.json()
-    if(folderjson.success){
+    if(folderjson.state){
       console.log(folderjson)
       //console.log(`${folderjson[0]} tested here`)
       //setfolderContent([...folderContent, {state:true,data:folderjson.folderfile}])
-      setfolderContent({...{folderContent},data:[...folderContent?.data,{...folderjson.folderfile}]})
+      setfolderContent({state:true,data:[...folderContent.data,{...folderjson.folderdata}]})
       setfolderSelector(false)
       setfoldercalltrigger(true)
       setfolderExists(true)

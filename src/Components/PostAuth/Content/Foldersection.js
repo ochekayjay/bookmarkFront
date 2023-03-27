@@ -11,7 +11,7 @@ function Foldersection({folderContent, setfolderSelector, setfolderContent}) {
     const [triggerSection,settriggerSection] = useContext(Statecontext).triggerSection
     const [searchvalue,setsearchvalue] = useState('')
     const [menuMobile, setMenuMobile] = useContext(Statecontext).menuMobile
-    const [folderLoad,setfolderLoad] = useState(false)
+    const [folderLoad,setfolderLoad] = useContext(Statecontext).folderLoad
     const [sectionShow,setSectionShow] = useContext(Statecontext).sectionShow
     const [textArray, setTextArray] = useContext(Statecontext).textArray
     const [sectionLoad,setSectionLoad] = useContext(Statecontext).sectionLoad
@@ -40,40 +40,44 @@ const openFolder = (folder)=>{
 }
 
 
+//search folder
+const folderSearchFunc = async(searchvalue)=>{
+  try{
+  const folderObj = await fetch(`https://savemyfile.onrender.com/folder/search?message=${searchvalue}`,{
+    method:'GET',
+    headers:{
+              'Accept': 'application/json',
+              Authorization: `Bearer ${userPayload.token}`
+            }
+            })
+    const folderdat = await folderObj.json()
+    
+    if(!folderdat.state){
+         
+      setfolderLoad(true)
+        //setfolderExists(false)
+    }
+    else{
+      setfolderContent({state:true,data:folderdat.folderdata})
+      setfolderLoad(false)
+    }
+      }
+  catch(error){
+        console.log(error)
+          }
+    }
+   
+
+
 const changeSearch = async (e)=>{
     
     setsearchvalue(e.target.value)
     //console.log(searchvalue)
-    const folderSearchFunc = async(searchvalue)=>{
-        try{
-        const folderObj = await fetch(`https://savemyfile.onrender.com/folder/search?message=${searchvalue}`,{
-          method:'GET',
-          headers:{
-                    'Accept': 'application/json',
-                    Authorization: `Bearer ${userPayload.token}`
-                  }
-                  })
-          const folderdat = await folderObj.json()
-          
-          if(folderdat.length === 0){
-            console.log(folderdat.length)   
-            setfolderLoad(true)
-              //setfolderExists(false)
-          }
-          else{
-            setfolderContent(folderdat)
-            setfolderLoad(false)
-          }
-            }
-        catch(error){
-              console.log(error)
-                }
-          }
-          if(e.target.value===''){
+        if(e.target.value===''){
             const data = await folderCallFunc(userPayload.token)
             console.log(data)
-            if(data?.state){
-                setfolderContent(data)
+            if(data.state){
+                setfolderContent({state:true,data:data.folderdata})
                 setfolderLoad(false)
                 //console.log()
             }
@@ -111,10 +115,10 @@ const changeSearch = async (e)=>{
                         </div>
                     <div style={{color:'black',display:width>700?"grid":"flex",flexDirection:'column',gridTemplateColumns:"auto auto",padding:"10px"}}>
                         
-                        {folderContent.data.map(folder=><div onClick={()=>openFolder(folder)} style={{width:`calc(50%-20px)`,margin:"10px",boxSizing:"border-box",height:'250px',borderRadius:'10px',boxShadow: '0px 0px 15px #0b1f36',display:'flex',alignItems:"center",justifyContent:"center",backgroundColor:'#6c9de6',cursor:"pointer",color:'white',letterSpacing:'1.5px'}}>
+                        {folderContent.state? folderContent.data.map(folder=><div onClick={()=>openFolder(folder)} style={{width:`calc(50%-20px)`,margin:"10px",boxSizing:"border-box",height:'250px',borderRadius:'10px',boxShadow: '0px 0px 15px #0b1f36',display:'flex',alignItems:"center",justifyContent:"center",backgroundColor:'#6c9de6',cursor:"pointer",color:'white',letterSpacing:'1.5px'}}>
                         <p style={{color:'white',fontWeight:"400",fontSize:width>700?"25px":"15px",letterSpacing:"1.5px"}}>{folder.name}</p>
                         
-                        </div>)}
+                        </div>): folderLoad?<p> </p>:<p style={{color:"black",marginTop:"15px"}}>No Folder Available here!</p>}
                     </div>
                 </div>
             </div>}

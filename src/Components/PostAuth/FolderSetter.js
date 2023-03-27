@@ -40,13 +40,13 @@
                   }
                   })
           const folderdat = await folderObj.json()
-          if(folderdat.folderdata.length === 0){
-              return false
+          if(folderdat.state){
+            return folderdat
           }
           else{
-            
-            return {state:true,data:folderdat.folderdata}
+
           }
+            
             }
         catch(error){
               console.log(error)
