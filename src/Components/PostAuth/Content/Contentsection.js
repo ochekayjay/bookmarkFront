@@ -51,7 +51,7 @@ function Contentsection() {
   const shareLink = async(obj)=>{
     
     let shareObj = {title:obj.title,source:obj.source,description:obj.description,link:obj.link}
-    let convertedObj = `title: ${encodeURIComponent(shareObj.title)}\nsource: ${encodeURIComponent(shareObj.source)}\ndescription: ${encodeURIComponent(shareObj.description)}\nlink: ${encodeURIComponent(shareObj.link)}`
+    let convertedObj = `title: ${encodeURI(shareObj.title)}\nsource: ${encodeURI(shareObj.source)}\ndescription: ${encodeURI(shareObj.description)}\nurl: ${encodeURI(shareObj.link)}`
     const entireObj = {
       title: 'Link Data',
       text: convertedObj
@@ -67,7 +67,7 @@ function Contentsection() {
   const shareText = async(obj)=>{
     
     const shareObj = {title:obj.title,source:obj.source,description:obj.description,text:obj.text}
-    let convertedObj = `title: ${encodeURIComponent(shareObj.title)}\nsource: ${encodeURIComponent(shareObj.source)}\ndescription: ${encodeURIComponent(shareObj.description)}\ntext: ${encodeURIComponent(shareObj.text)}`
+    let convertedObj = `title: ${encodeURI(shareObj.title)}\nsource: ${encodeURI(shareObj.source)}\ndescription: ${encodeURI(shareObj.description)}\ntext: ${encodeURI(shareObj.text)}`
     const entireObj = {
       title: 'Text Data',
       text: convertedObj
