@@ -1,0 +1,26 @@
+.ViewImageMain{
+    position:absolute;
+    background-color: black;
+    box-sizing:border-box;
+    transform:translate(-50%,-50%);
+    top:50%;
+    left:50%;
+    height:0;
+    font-size: 20px;
+    font-family: NexaTextLight;
+    width:0;
+    z-index:100;
+    animation-name: viewImageShow;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+
+@keyframes viewImageShow{
+    from{ transform: scale(0)}
+    to{ transform: scale(1);
+        height:100vh;
+        width:100%;
+        top:0%;
+        left:0%;}
+  }

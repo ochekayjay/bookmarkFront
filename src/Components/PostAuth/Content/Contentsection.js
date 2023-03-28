@@ -7,6 +7,9 @@ import { ImageSection } from './AddFolderSections/ImageSection/ImageSection'
 import {GetFolderTexts,DeleteFolderText,GetAllTexts} from './AddFolderSections/TextSection/TextEndpoints'
 import {GetFolderLinks,DeleteFolderLink} from './AddFolderSections/LinkSection/LinkEndpoints'
 import { GetFolderImage, DeleteFolderImage } from './AddFolderSections/ImageSection/ImageEndpoints'
+import ViewText from '../viewContent/ViewText'
+import ViewLink from '../viewContent/ViewLink'
+import ViewImage from '../viewContent/ViewImage'
 import useWindowResize from '../../../hooks/useWindowSize'
 import './contentSection.css'
 
@@ -21,6 +24,7 @@ function Contentsection() {
     const [linkArray, setLinkArray] = useContext(Statecontext).linkArray
     const [itemState,setItemState] = useState({link:false,text:false,image:false})
     const [ImageArray, setImageArray] = useContext(Statecontext).ImageArray
+    const [viewContent,setViewContent] = useState({type:'none',content:''})
     const imageIcon = <svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" fill='#FFFFFF'><path d="M10 29.458q-1.125 0-1.958-.833-.834-.833-.834-1.958V6.125q0-1.125.834-1.958.833-.834 1.958-.834h9.583l2.792 2.792h13.167q1.125 0 1.958.813.833.812.833 1.937v17.792q0 1.125-.833 1.958t-1.958.833Zm0-2.791h25.542V8.875H21.208l-2.791-2.75H10v20.542ZM33.625 35H4.458q-1.125 0-1.958-.833-.833-.834-.833-1.959V8.875h2.791v23.333h29.167ZM14.292 22.458h17l-5.542-7.375-4.542 6-3.083-3.583ZM10 26.667V6.125v20.542Z"/></svg>
     const textIcon = <svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" fill='#FFFFFF'><path d="M7.792 35q-1.125 0-1.959-.833Q5 33.333 5 32.208V7.792q0-1.125.833-1.959Q6.667 5 7.792 5h15.916v2.792H7.792v24.416h24.416V16.292H35v15.916q0 1.125-.833 1.959-.834.833-1.959.833Zm5.583-6.583v-2.792h13.292v2.792Zm0-5.209v-2.75h13.292v2.75Zm0-5.166V15.25h13.292v2.792Zm15.292-3.167v-3.542h-3.542V8.542h3.542V5h2.791v3.542H35v2.791h-3.542v3.542Z"/></svg>
     const linkIcon = <svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" fill='#FFFFFF'><path d="M18.625 28.333h-6.958q-3.459 0-5.896-2.437Q3.333 23.458 3.333 20q0-3.458 2.438-5.896 2.437-2.437 5.896-2.437h6.958v2.791h-6.958q-2.334 0-3.938 1.604Q6.125 17.667 6.125 20q0 2.292 1.604 3.917t3.938 1.625h6.958Zm-5.167-6.958v-2.75h13.084v2.75Zm7.917 6.958v-2.791h6.958q2.334 0 3.938-1.604 1.604-1.605 1.604-3.938 0-2.292-1.604-3.917t-3.938-1.625h-6.958v-2.791h6.958q3.459 0 5.896 2.437 2.438 2.438 2.438 5.896 0 3.458-2.438 5.896-2.437 2.437-5.896 2.437Z"/></svg>
@@ -199,6 +203,7 @@ const backToFolder = ()=>{
                     <p><a  target="_blank" href={linkObj.link} style={{textDecoration:'none',color:"white"}}>Visit Site</a></p>
                     <p>{linkObj.source}</p>
                     <p>{linkObj.description}</p>
+                    <p onClick={()=>{setViewContent({type:'link',content:linkObj})}} style={{width:'70px',cursor:'pointer',backgroundColor:'white',color:'#0d47a1',display:'flex',alignItems:"center",justifyContent:"center",height:"35px",borderRadius:'20px',border:"1px solid white",margin:'10px auto'}}>View</p>
                   </div>): itemState.link?<p> </p>:<p style={{color:"black",marginTop:'15px'}}>No Link Document Available here!</p>}
                 </div>
                 </div>
@@ -214,6 +219,7 @@ const backToFolder = ()=>{
                     <p>{textObj.text}</p>
                     <p>{textObj.source}</p>
                     <p>{textObj.description}</p>
+                    <p onClick={()=>{setViewContent({type:'text',content:textObj})}} style={{width:'70px',cursor:'pointer',backgroundColor:'white',color:'#0d47a1',display:'flex',alignItems:"center",justifyContent:"center",height:"35px",borderRadius:'20px',border:"1px solid white",margin:'10px auto'}}>View</p>
                   </div>): itemState.text?<p> </p>:<p style={{color:"black",marginTop:"15px"}}>No Text Document Available here!</p>}
                 </div>
                 </div>
@@ -230,11 +236,17 @@ const backToFolder = ()=>{
                     </div>
                     <p style={{textAlign:"left",}}>{imgObj.source}</p>
                     <p style={{width:'100%',marginTop:"15px"}}><img src = {`https://savemyfile.onrender.com/image/getImage/${imgObj?.id?imgObj.id:imgObj._id}`} style={{width:"100%",borderRadius:'15px',height:"150px",objectFit:"cover"}}/></p>
+                    <p onClick={()=>{setViewContent({type:'image',content:imgObj})}} style={{width:'70px',cursor:'pointer',backgroundColor:'white',color:'#0d47a1',display:'flex',alignItems:"center",justifyContent:"center",height:"35px",borderRadius:'20px',border:"1px solid white",margin:'10px auto'}}>View</p>
                   </div>) : itemState.image?<p> </p>:<p style={{color:"black",marginTop:'15px'}}>No Image Document Available here!</p>}
                 </div>
                 </div>
                 </div>
       </div>
+      {viewContent.type==='text' && <ViewText viewContent={viewContent} setViewContent={setViewContent}/>}
+      {viewContent.type==='link' && <ViewLink viewContent={viewContent} setViewContent={setViewContent}/>}
+      {viewContent.type==='image' && <ViewImage viewContent={viewContent} setViewContent={setViewContent}/>}
+
+
       {addItemToShow==='link' && <LinkSection setaddItemToShow={setaddItemToShow} linkArray={linkArray} setLinkArray={setLinkArray}/> }
       {addItemToShow==='text' && <TextSection setaddItemToShow={setaddItemToShow} textArray={textArray} setTextArray={setTextArray}/> }
       {addItemToShow==='image' && <ImageSection setaddItemToShow={setaddItemToShow} ImageArray={ImageArray} setImageArray={setImageArray}/> }
