@@ -20,6 +20,7 @@ function BioSection() {
     const [triggerSection,settriggerSection] = useContext(Statecontext).triggerSection
     const [sectionLoad,setSectionLoad] = useContext(Statecontext).sectionLoad
     const [folderLoad,setfolderLoad] = useContext(Statecontext).folderLoad
+    const [searchvalue,setsearchvalue] = useContext(Statecontext).searchvalue
     
     const { width } = useWindowResize()
     
@@ -48,11 +49,12 @@ function BioSection() {
 
   const sectionDeclare = async(token,type)=>{
       if(type==='folder'){
+        setsearchvalue('')
         setfolderLoad(true)
         settriggerSection('folder')
         setSectionShow(type)
         const folderData = await folderCallFunc(token)
-        if(folderData.state){
+        if(folderData?.state){
           setfolderLoad(false)
           setfolderContent({state:true,data:folderData.folderdata})
         }
@@ -65,6 +67,7 @@ function BioSection() {
         
       }
       else if(type === 'text'){
+          setsearchvalue('')
           setTextArray({state:false,data:[]})
           setSectionLoad({...sectionLoad,...{text:true}})
           settriggerSection('folder')
@@ -82,6 +85,7 @@ function BioSection() {
           
       }
       else if(type === 'link'){
+        setsearchvalue('')
         setLinkArray({state:false,data:[]})
         setSectionLoad({...sectionLoad,...{link:true}})
         settriggerSection('folder')
@@ -100,6 +104,7 @@ function BioSection() {
         }
       }
       else{
+        setsearchvalue('')
         setImageArray({state:false,data:[]})
         setSectionLoad({...sectionLoad,...{image:true}})
         settriggerSection('folder')

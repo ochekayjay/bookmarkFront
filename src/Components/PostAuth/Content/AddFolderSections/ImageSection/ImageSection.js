@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect,useRef } from "react";
 import { Statecontext } from "../../../../ContextBookmark";
 import { createImage } from "./ImageEndpoints";
-
+import './imagesection.css'
 const { navigator }  = window;
 
 export function ImageSection({setaddItemToShow,ImageArray,setImageArray}) {
@@ -84,7 +84,7 @@ export function ImageSection({setaddItemToShow,ImageArray,setImageArray}) {
 
     
     return(
-      <div style={{position:'absolute',backgroundColor:'rgba(0, 0, 0, 0.475)',boxSizing:'border-box',height:'100vh',width:'100%',zIndex:'100'}}>
+      <div className="imagesectionMain">
                 <div style={{width:'300px',height:'500px',borderRadius:'14px',boxShadow: '0px 0px 15px #0b1f36',backgroundColor:'#0d47a1',position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',paddingTop:'40px'}}>
                     <div style={{borderRadius:'10px',height:'auto',width:'250px',margin:'15px auto'}}>
                         <input onChange={(event)=> updateImageObj(event)} ref={fileref} type='file' id='myFile' name='myFile'  style={{boxSizing : 'border-box',marginTop:"15px",boxShadow: '0px 0px 15px #0b1f36',height:'50px',paddingLeft:'7px',borderRadius:'10px',width:'100%',outline:'none',fontSize:'15px',backgroundColor:'transparent',borderWidth:'0px 0px 0px' ,color:'white'}}/>
@@ -93,11 +93,11 @@ export function ImageSection({setaddItemToShow,ImageArray,setImageArray}) {
                         <input onChange={(event)=> changeFieldData(event)} name='source' value={imageState.source} placeholder='source...' style={{boxSizing : 'border-box',boxShadow: '0px 0px 15px #0b1f36',height:'50px',marginTop:"15px",paddingLeft:'7px',borderRadius:'10px',width:'100%',outline:'none',fontSize:'15px',backgroundColor:'transparent',borderWidth:'0px 0px 0px' ,color:'white'}}/>
   
                     </div>
-                    {folderLoad?<p style={{width:"100%",boxSizing:'border-box',display:"flex",justifyContent:'center',alignItems:"center",marginTop:'30px'}}><i class="fa fa-spinner fa-spin" style={{fontSize:'30px',color:'white'}}></i></p>
-                      :<div style={{display:'flex',justifyContent:'space-around'}}>
+                    {folderLoad && <p style={{width:"100%",boxSizing:'border-box',display:"flex",justifyContent:'center',alignItems:"center",marginTop:'30px'}}><i class="fa fa-spinner fa-spin" style={{fontSize:'30px',color:'white'}}></i></p>}
+                      <div style={{display:'flex',justifyContent:'space-around'}}>
                         <p onClick={()=>{setFolderLoad(true) ;setaddItemToShow('none')}} style={{fontSize:'40px',cursor:'pointer',color:'white',height:'55px',width:'55px',boxShadow: '0px 0px 15px #0b1f36',display:'flex',alignItems:'center',borderRadius:'50%',justifyContent:'center',margin:'25px auto'}}>{cancelIcon}</p>
                         <p onClick={(event)=>{setFolderLoad(true); createImage(event)}} style={{fontSize:'40px',cursor:'pointer',color:'white',height:'55px',width:'55px',boxShadow: '0px 0px 15px #0b1f36',display:'flex',alignItems:'center',borderRadius:'50%',justifyContent:'center',margin:'25px auto'}}>{addIcon}</p>
-                    </div>}
+                    </div>
                 </div>
           </div>
     )

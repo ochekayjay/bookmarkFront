@@ -13,6 +13,7 @@ function UserPage() {
   const [foldertitle,setfoldertitle] = useState({name:''});
   const [folderExists,setfolderExists] = useContext(Statecontext).folderExists
   const [folderContent,setfolderContent] = useContext(Statecontext).folderContent
+  const [folderLoad,setfolderLoad] = useContext(Statecontext).folderLoad
   
   
   
@@ -37,6 +38,8 @@ useEffect(()=>{
 
 
   const folderCallFunc = async()=>{
+    console.log(userPayload.token)
+    console.log(userPayload)
     try{
     const folderObj = await fetch('https://savemyfile.onrender.com/folder',{
       method:'GET',
@@ -47,7 +50,7 @@ useEffect(()=>{
               }
               })
       const folderdat = await folderObj.json()
-  
+      console.log(folderdat)
       if(!folderdat.state){
           setfolderExists(false)
       }
@@ -104,16 +107,21 @@ useEffect(()=>{
               body: JSON.stringify(foldertitle)
               })
     const folderjson = await FolderObjectCreated.json()
+
+    console.log(folderjson)
+
     if(folderjson.state){
       console.log(folderjson)
       //console.log(`${folderjson[0]} tested here`)
       //setfolderContent([...folderContent, {state:true,data:folderjson.folderfile}])
       setfolderContent({state:true,data:[...folderContent.data,{...folderjson.folderdata}]})
       setfolderSelector(false)
+      setfolderLoad(false)
       setfoldercalltrigger(true)
       setfolderExists(true)
     }
     else{
+      setfolderLoad(false)
       setfolderExists(false)
     }
           

@@ -1,6 +1,6 @@
 import { Statecontext } from "../../../../ContextBookmark";
 import React, {useContext, useState, useEffect} from "react";
-
+import './textsection.css'
 
 
 const TextSection  = ({ textArray, setaddItemToShow,setTextArray})=>{
@@ -63,7 +63,7 @@ const TextSection  = ({ textArray, setaddItemToShow,setTextArray})=>{
 
 
     return(
-    <div style={{position:'absolute',backgroundColor:'rgba(0, 0, 0, 0.475)',boxSizing:'border-box',height:'100vh',width:'100%',zIndex:'100'}}>
+    <div className="textsectionMain">
               <div style={{width:'300px',height:'500px',borderRadius:'14px',boxShadow: '0px 0px 15px #0b1f36',backgroundColor:'#0d47a1',position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',paddingTop:'40px'}}>
                   <div style={{borderRadius:'10px',height:'auto',width:'250px',margin:'15px auto'}}>
                       <input onChange={(event)=> changeFieldData(event)} name='text' value={textState.text} placeholder='text...' style={{boxSizing : 'border-box',marginTop:"15px",height:'50px',boxShadow: '0px 0px 15px #0b1f36',paddingLeft:'7px',borderRadius:'10px',width:'100%',outline:'none',fontSize:'15px',backgroundColor:'transparent',borderWidth:'0px 0px 0px' ,color:'white'}}/>

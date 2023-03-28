@@ -25,6 +25,7 @@ export const StateHolder = (props)=> {
     const [ImageArray, setImageArray] = useState({state:false,data:[]})
     const [errObj,setErrObj] = useState()
     const [sectionShow,setSectionShow] = useState('folder')
+    const [searchvalue,setsearchvalue] = useState('')
 
     const [folders,setfolders] = useState()
     
@@ -32,7 +33,7 @@ export const StateHolder = (props)=> {
     return(
         <Statecontext.Provider value={{
      userObject:[userObject,setuserObject],addItemToShow:[addItemToShow,setaddItemToShow],triggerSection:[triggerSection,settriggerSection],folderContent:[folderContent,setfolderContent],folders:[folders,setfolders],folderExists:[folderExists,setfolderExists],alertobj:[alertobj,setalertobj],userPayload:[userPayload,setuserPayload],
-     folderColors:[folderColors,setfolderColors],folderLoad:[folderLoad,setfolderLoad],folderId:[folderId,setfolderId],selectedFolder:[selectedFolder,setselectedFolder],textArray:[textArray, setTextArray],linkArray:[linkArray, setLinkArray],ImageArray:[ImageArray, setImageArray],menuMobile:[menuMobile, setMenuMobile],errObj:[errObj,setErrObj],sectionShow:[sectionShow,setSectionShow],sectionLoad:[sectionLoad,setSectionLoad]}}>
+     folderColors:[folderColors,setfolderColors],searchvalue:[searchvalue,setsearchvalue],folderLoad:[folderLoad,setfolderLoad],folderId:[folderId,setfolderId],selectedFolder:[selectedFolder,setselectedFolder],textArray:[textArray, setTextArray],linkArray:[linkArray, setLinkArray],ImageArray:[ImageArray, setImageArray],menuMobile:[menuMobile, setMenuMobile],errObj:[errObj,setErrObj],sectionShow:[sectionShow,setSectionShow],sectionLoad:[sectionLoad,setSectionLoad]}}>
             {props.children}
         </Statecontext.Provider>
     )

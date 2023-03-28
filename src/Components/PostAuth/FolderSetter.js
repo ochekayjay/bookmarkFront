@@ -53,6 +53,31 @@
                 }
           }
     
+
+          export async function folderDeleteFunc(token,id){
+            try{
+            const folderObj = await fetch(`https://savemyfile.onrender.com/folder/${id}`,{
+              method:'DELETE',
+              headers:{
+                        'Accept': 'application/json',
+                        Authorization: `Bearer ${token}`
+                      }
+                      })
+              const folderdat = await folderObj.json()
+              if(folderdat.state){
+                return folderdat
+              }
+              else{
+    
+              }
+                
+                }
+            catch(error){
+                  console.log(error)
+                    }
+              }
+    
+              
     
           export async function LinkCallFunc(token){
             try{
