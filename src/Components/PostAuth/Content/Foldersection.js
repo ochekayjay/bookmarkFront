@@ -32,6 +32,21 @@ function Foldersection({setfolderSelector}) {
 //function to open folder
 const menuIcon = <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="#0d47a1"><path d="M3 18v-2h18v2Zm0-5v-2h18v2Zm0-5V6h18v2Z"/></svg>
 
+
+useEffect(()=>{
+  const userDetail = JSON.parse(window.localStorage.getItem('Userdata'));
+  /*console.log(userDetail)
+  console.log(userDetail._id)
+  console.log(userDetail.Username)
+  console.log(userDetail.Email)
+  const {_id, Username,Email,Token} = userDetail
+  console.log(_id)
+  setuserPayload({...userPayload,...{id:_id,userName:Username,email:Email,token:Token}})*/
+  
+  setuserPayload({id:userDetail._id,userName:userDetail.Username,email:userDetail.Email,token:userDetail.Token})
+
+},[])
+
 //delete folder
 const deleteFolder = async(obj)=>{
   

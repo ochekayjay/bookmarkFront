@@ -108,6 +108,22 @@ function Contentsection() {
 
     
   }
+
+  useEffect(()=>{
+    const userDetail = JSON.parse(window.localStorage.getItem('Userdata'));
+    /*console.log(userDetail)
+    console.log(userDetail._id)
+    console.log(userDetail.Username)
+    console.log(userDetail.Email)
+    const {_id, Username,Email,Token} = userDetail
+    console.log(_id)
+    setuserPayload({...userPayload,...{id:_id,userName:Username,email:Email,token:Token}})*/
+    
+    setuserPayload({id:userDetail._id,userName:userDetail.Username,email:userDetail.Email,token:userDetail.Token})
+  
+  },[])
+
+  
   /*
 
    */
