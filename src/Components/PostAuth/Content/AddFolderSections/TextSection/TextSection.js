@@ -1,6 +1,7 @@
 import { Statecontext } from "../../../../ContextBookmark";
 import React, {useContext, useState, useEffect} from "react";
 import './textsection.css'
+import ErrorPage from "../../../../errorHolder/ErrorPage";
 
 
 const TextSection  = ({ textArray, setaddItemToShow,setTextArray})=>{
@@ -10,7 +11,8 @@ const TextSection  = ({ textArray, setaddItemToShow,setTextArray})=>{
     const [folderLoad,setFolderLoad] = useState(false)
     const addIcon = <svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" fill='#FFFFFF'><path d="M18.625 31.667V21.375H8.333v-2.75h10.292V8.333h2.75v10.292h10.292v2.75H21.375v10.292Z"/></svg>;
     const cancelIcon = <svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" fill='#FFFFFF'><path d="m10.458 31.458-1.916-1.916 9.5-9.542-9.5-9.542 1.916-1.916 9.542 9.5 9.542-9.5 1.916 1.916-9.5 9.542 9.5 9.542-1.916 1.916-9.542-9.5Z"/></svg>
-
+    const [showError,setShowError] = useState(false)
+   const [errObj,setErrObj] = useContext(Statecontext).errObj
     
 
     const changeFieldData = (event)=>{
@@ -24,7 +26,9 @@ const TextSection  = ({ textArray, setaddItemToShow,setTextArray})=>{
   const createText = async(event)=>{
     event.preventDefault()
     if(textState.text===''||textState.description===''||textState.title===''||textState.source===''){
-          console.log('empty')
+      setFolderLoad(false)
+      setShowError(true)
+      setErrObj({status:'fill',message:'fill neccessary fields'})
     }
     else{
 
@@ -64,6 +68,7 @@ const TextSection  = ({ textArray, setaddItemToShow,setTextArray})=>{
 
     return(
     <div className="textsectionMain">
+              {showError && <ErrorPage status={errObj.status} message={errObj.message} setShowError={setShowError} showError={showError}/>}
               <div style={{width:'300px',height:'500px',borderRadius:'14px',boxShadow: '0px 0px 15px #0b1f36',backgroundColor:'#0d47a1',position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',paddingTop:'40px'}}>
                   <div style={{borderRadius:'10px',height:'auto',width:'250px',margin:'15px auto'}}>
                       <input onChange={(event)=> changeFieldData(event)} name='text' value={textState.text} placeholder='text...' style={{boxSizing : 'border-box',marginTop:"15px",height:'50px',boxShadow: '0px 0px 15px #0b1f36',paddingLeft:'7px',borderRadius:'10px',width:'100%',outline:'none',fontSize:'15px',backgroundColor:'transparent',borderWidth:'0px 0px 0px' ,color:'white'}}/>

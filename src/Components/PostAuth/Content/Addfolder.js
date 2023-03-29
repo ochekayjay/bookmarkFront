@@ -1,9 +1,18 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import './addfolder.css'
+import ErrorPage from "../../errorHolder/ErrorPage";
 
 
 
-const AddFolder  = ({changeFieldData, setfolderSelector ,createFolder, foldertitle})=>{
+const AddFolder  = ({changeFieldData, setfolderSelector ,createFolder, foldertitle,errObj,showError,setShowError})=>{
+
+
+useEffect(()=>{
+    if(showError){
+        setFolderLoad(false)
+    }
+},[showError])
+
 
 const [folderLoad,setFolderLoad] = useState(false)
 const addIcon = <svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" fill='#FFFFFF'><path d="M18.625 31.667V21.375H8.333v-2.75h10.292V8.333h2.75v10.292h10.292v2.75H21.375v10.292Z"/></svg>;
@@ -12,6 +21,7 @@ const addIcon = <svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" f
 
     return(
         <div className="folderaddMain" >
+            {showError && <ErrorPage status={errObj.status} message={errObj.message} setShowError={setShowError} showError={showError}/>}
               <div style={{width:'300px',height:'300px',borderRadius:'14px',boxShadow: '0px 0px 15px #0b1f36',backgroundColor:'#0d47a1',position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',paddingTop:'40px'}}>
                   <div style={{borderRadius:'10px',height:'50px',boxShadow: '0px 0px 15px #0b1f36',width:'250px',margin:'15px auto',display:'flex'}}>
                       <input onChange={(event)=> changeFieldData(event)} name='name' value={foldertitle.name} placeholder='Folder title...' style={{boxSizing : 'border-box',height:'100%',paddingLeft:'7px',borderRadius:'10px',width:'100%',outline:'none',fontSize:'15px',backgroundColor:'transparent',borderWidth:'0px 0px 0px' ,color:'white'}}/>

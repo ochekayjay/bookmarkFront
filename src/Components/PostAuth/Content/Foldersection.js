@@ -36,10 +36,9 @@ const menuIcon = <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" 
 const deleteFolder = async(obj)=>{
   
     setfolderLoad(true)
-    console.log(obj)
-    console.log(obj._id)
+    
     const newFolders = await folderDeleteFunc(userPayload.token,obj._id)
-    console.log(newFolders)
+    
     if(newFolders?.state){
       setfolderLoad(false)
       setfolderContent({state:true,data:newFolders.folderdata})
@@ -102,7 +101,7 @@ const openFolder = (folder)=>{
 //search folder
 const folderSearchFunc = async(searchvalue)=>{
   try{
-    console.log(searchvalue)
+    
   const folderObj = await fetch(`https://savemyfile.onrender.com/folder/search?message=${searchvalue}`,{
     method:'GET',
     headers:{
@@ -111,7 +110,7 @@ const folderSearchFunc = async(searchvalue)=>{
             }
             })
     const folderdat = await folderObj.json()
-    console.log(folderdat)
+    
     if(!folderdat.state){
       setfolderContent({data:[...folderContent.data],state:false})  
       setfolderLoad(true)
@@ -140,14 +139,14 @@ const changeSearch = async (e)=>{
           else{
         
             const data = await folderCallFunc(userPayload.token)
-            console.log(data)
+          
             if(data.state){
           
                 setfolderContent({state:true,data:data.folderdata})
                 setfolderLoad(false)
                 //console.log()
             }
-            else{setfolderLoad(false);console.log('here')}
+            else{setfolderLoad(false)}
           }
           
  }
@@ -165,7 +164,7 @@ const changeSearch = async (e)=>{
 
         setSectionLoad({...sectionLoad,text:true})
         const data = await TextSearchFunc(userPayload.token,event.target.value)
-        console.log(data)
+        
         if(data.state){
             setTextArray({state:true,data:data.textdata})
             setSectionLoad({...sectionLoad,text:false})
@@ -189,7 +188,7 @@ const changeSearch = async (e)=>{
       if(event.target.value){
         setSectionLoad({...sectionLoad,link:true})
         const data = await LinkSearchFunc(userPayload.token,event.target.value)
-        console.log(data)
+    
         if(data.state){
             setLinkArray({state:true,data:data.linkdata})
             setSectionLoad({...sectionLoad,link:false})
@@ -197,7 +196,7 @@ const changeSearch = async (e)=>{
           
             //console.log()
         }
-        else{setSectionLoad({...sectionLoad,link:true});setLinkArray({state:false,data:[...linkArray.data]});console.log('here')}
+        else{setSectionLoad({...sectionLoad,link:true});setLinkArray({state:false,data:[...linkArray.data]});}
      }
      else{
       const linkdata = await LinkCallFunc(userPayload.token)
@@ -209,7 +208,28 @@ const changeSearch = async (e)=>{
     }
 
     else if(type==='image'){
+      if(event.target.value){
 
+        setSectionLoad({...sectionLoad,image:true})
+        const data = await ImageSearchFunc(userPayload.token,event.target.value)
+        
+        if(data.state){
+            setImageArray({state:true,data:data.imagedata})
+            setSectionLoad({...sectionLoad,image:false})
+          
+          
+            //console.log()
+        }
+        else{setSectionLoad({...sectionLoad,image:true});setImageArray({state:false,data:[...ImageArray.data]})}
+      }
+      else{
+        const imagedata = await ImageCallFunc(userPayload.token)
+
+         if(imagedata.state){
+          setSectionLoad({...sectionLoad,image:false})
+          setImageArray({state:true,data:imagedata.imagedata})
+         }
+      }
     }
   
   //console.log(searchvalue)
@@ -288,7 +308,7 @@ const changeSearch = async (e)=>{
 
                        <div style={{color:'black',display:width>700?"grid":"flex",flexDirection:'column',gridTemplateColumns:"1fr 1fr",padding:"10px"}}>
                            
-                       {linkArray.state? linkArray.data.map(linkObj => <div key={linkObj._id} style={{width:'90%',backgroundColor:'#0d47a1',borderRadius:"15px",margin:"10px",boxSizing:"border-box",padding:'10px'}}>
+                       {linkArray.state? linkArray.data.map(linkObj => <div key={linkObj._id} style={{width:'90%',backgroundColor:'#0d47a1',borderRadius:"15px",margin:"10px auto",boxSizing:"border-box",padding:'10px'}}>
                        <p style={{cursor:"pointer",width:'100%',paddingLeft:'15px',boxSizing:'border-box',textAlign:'right'}}><span onClick={()=>shareLink(linkObj)} style={{cursor:'pointer'}}>{forward}</span></p>
                     <div style={{boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px",padding:"15px"}}>
                     <div style={{display:"flex",justifyContent:"space-between"}}>
@@ -309,10 +329,12 @@ const changeSearch = async (e)=>{
                 <div style={{border:'',height:'10%',border:'0.1px solid black',borderWidth:'0px 0px 0.1px',display:'flex',justifyContent:'center',alignItems:'center',letterSpacing:'2px',fontSize:'40px',borderRadius:'20px 20px 0px 0px'}}><p style={{color:'#6c9de6',fontWeight:'850'}}>IMAGES</p></div>
                 <div style={{padding:width>700?'30px':'5px',height:'90%',overflow:"auto",boxSizing:"border-box"}}>
                 {sectionLoad.image && <div style={{height:"auto",width:width>700?"80%":"90%",margin:"30px auto",display:"flex",justifyContent:"center",alignItems:"center"}}><i class="fa fa-spinner fa-spin" style={{fontSize:'20px',color:'#6c9de6'}}></i></div>}
-                       
+                {ImageArray.data[0] && <div style={{height:"auto",width:width>700?"80%":"90%",margin:"30px auto",display:"flex",justifyContent:"center",alignItems:"center"}}>
+                            <input  placeholder='Search Images' onChange={(event)=>contentSearch(event,'image')} type='search' value={searchvalue} style={{width:width>700?'70%':"90%",marginTop:'15px',marginRight:'25px',paddingLeft:'10px',height:'45px',letterSpacing:'1.5px',fontSize:'13px',boxSizing:'border-box',outline:'none',color:'white',border:"1px solid #02050a", borderRadius:'9px',backgroundColor:'white',color:"black"}}/>
+                        </div>}
                        <div style={{color:'black',display:width>700?"grid":"flex",flexDirection:'column',gridTemplateColumns:"1fr 1fr",padding:"5px"}}>
                            
-                       {ImageArray?.state? ImageArray.data.map(imgObj => <div style={{width:'90%',borderRadius:"15px",backgroundColor:"#0d47a1",margin:"10px",height:"auto",boxSizing:"border-box",padding:'15px'}}>
+                       {ImageArray?.state? ImageArray.data.map(imgObj => <div style={{width:'90%',borderRadius:"15px",backgroundColor:"#0d47a1",margin:"10px auto",height:"auto",boxSizing:"border-box",padding:'15px'}}>
                       
                       <p style={{cursor:"pointer",width:'100%',paddingLeft:'15px',boxSizing:'border-box',textAlign:'right'}}><span onClick={()=>shareLink()} style={{cursor:'pointer'}}>{forward}</span></p>
     

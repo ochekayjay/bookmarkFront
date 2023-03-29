@@ -122,9 +122,7 @@ function Contentsection() {
     //console.log(`trying out in images ${imagejson.folderImages[0].nameofimage}`)
     //console.log(`images here ${imagejson.folderImages[0].image}`)
     //console.log(textjson.folderTexts.length)
-    console.log(textjson)
-    console.log(linkjson)
-    console.log(imagejson)
+ 
     
     textjson.state?setTextArray({state:true,data:textjson.textdata}):setTextArray({state:false,data:[]}) 
     linkjson.state?setLinkArray({state:true,data:linkjson.linkdata}):setLinkArray({state:false,data:[]}) 
@@ -251,7 +249,7 @@ const backToFolder = ()=>{
                   {ImageArray.state? ImageArray.data.map(imgObj => <div style={{width:'95%',height:"auto",padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
                     <div style={{display:'flex',justifyContent:"space-between"}}>
                       <p style={{fontFamily:"NexaTextBold",marginBottom:"10px"}}>{imgObj.title}</p>
-                      <p style={{cursor:"pointer"}}><span onClick={()=>deleteItem('image',imgObj)}  style={{cursor:'pointer'}}>{del}</span>&nbsp; &nbsp;&nbsp;<span style={{cursor:'pointer'}} onClick = {()=>{console.log(imgObj);shareImage(imgObj)}}>{forward}</span></p>
+                      <p style={{cursor:"pointer"}}><span onClick={()=>deleteItem('image',imgObj)}  style={{cursor:'pointer'}}>{del}</span>&nbsp; &nbsp;&nbsp;<span style={{cursor:'pointer'}} onClick = {()=>{shareImage(imgObj)}}>{forward}</span></p>
                       
                     </div>
                     <p style={{textAlign:"left",}}>{imgObj.source}</p>

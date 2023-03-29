@@ -14,6 +14,8 @@ function UserPage() {
   const [folderExists,setfolderExists] = useContext(Statecontext).folderExists
   const [folderContent,setfolderContent] = useContext(Statecontext).folderContent
   const [folderLoad,setfolderLoad] = useContext(Statecontext).folderLoad
+  const [showError,setShowError] = useState(false)
+  const [errObj,setErrObj] = useContext(Statecontext).errObj
   
   
   
@@ -92,7 +94,9 @@ useEffect(()=>{
   const createFolder = async(event)=>{
     event.preventDefault()
     if(foldertitle.name===''){
-          console.log('empty')
+  
+      setShowError(true)
+      setErrObj({status:'fill',message:'fill neccessary fields'})
     }
     else{
 
@@ -141,8 +145,8 @@ useEffect(()=>{
         <div style={{width:"100%",height:'100%',display:'flex'}}>
             <BioSection />
             
-            {folderExists ? <FolderContent setfolderSelector={setfolderSelector}/>: <NoFolders folderSelector={folderSelector} setfolderSelector={setfolderSelector}/>}
-            { folderSelector && <Addfolder setfolderContent={setfolderContent} folderContent={folderContent} setfolderSelector={setfolderSelector} changeFieldData={changeFieldData} foldertitle={foldertitle} createFolder={createFolder} />}
+            {folderExists ? <FolderContent setfolderSelector={setfolderSelector} setShowError={setShowError} showError={showError}/>: <NoFolders folderSelector={folderSelector} setfolderSelector={setfolderSelector}/>}
+            { folderSelector && <Addfolder setShowError={setShowError} showError={showError} errObj={errObj} setfolderContent={setfolderContent} folderContent={folderContent} setfolderSelector={setfolderSelector} changeFieldData={changeFieldData} foldertitle={foldertitle} createFolder={createFolder} />}
             </div>}
     </div>
   )

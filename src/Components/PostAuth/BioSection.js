@@ -2,6 +2,9 @@ import React,{useContext,useEffect,useState,useRef} from 'react'
 import {Statecontext} from '../ContextBookmark'
 import useWindowResize from '../../hooks/useWindowSize'
 import './biosection.css'
+import twitter from './bioImages/twitter.png'
+import gmail from './bioImages/gmail.png'
+import linkedin from './bioImages/linkedin.png'
 import { ImageCallFunc, TextCallFunc, LinkCallFunc, folderCallFunc } from './FolderSetter'
 function BioSection() {
     const [userPayload,setuserPayload] = useContext(Statecontext).userPayload
@@ -73,7 +76,7 @@ function BioSection() {
           settriggerSection('folder')
           setSectionShow(type)
           const textData = await TextCallFunc(token)
-          console.log(textData)
+          
           if(textData.state){
             setTextArray({state:true,data:textData.textdata})
             setSectionLoad({...sectionLoad,...{text:false}})
@@ -244,6 +247,13 @@ const setProTitle = async() =>{
           <p style={{marginTop:'30px',cursor:'pointer',padding:'10px',textAlign:'left',backgroundColor:sectionShow==="image"?"#6c9de6":"#0d47a1",width:'60%',margin:'10px auto',borderRadius:'10px'}} onClick={()=>sectionDeclare(userPayload.token,'image')}>All Images</p>
           <p style={{marginTop:'30px',cursor:'pointer',padding:'10px',textAlign:'left',backgroundColor:sectionShow==="link"?"#6c9de6":"#0d47a1",width:'60%',margin:'10px auto',borderRadius:'10px'}} onClick={()=>sectionDeclare(userPayload.token,'link')}>All Links</p>
           <p style={{marginTop:'30px',cursor:'pointer',padding:'10px',textAlign:'left',backgroundColor:sectionShow==="text"?"#6c9de6":"#0d47a1",width:'60%',margin:'10px auto',borderRadius:'10px'}} onClick={()=>sectionDeclare(userPayload.token,'text')}>All Texts</p>
+          <div style={{width:"100%",margin:'10px auto',marginTop:"25px",display:'flex',flexDirection:'column',justifyContent:'space-around'}}>
+            <p style={{fontSize:'15px',paddingLeft:'30px',marginBottom:"10px"}}>Contact Developer</p>
+            <div style={{display:'flex',justifyContent:'space-around'}}><p><a style={{color:'white' ,textDecoration:"none"}} href='https://twitter.com/kjay_wonder?t=_fHZMNnjunlghRfsxZS-VA&s=09' target="_blank" ><img src={twitter}/></a></p>
+                                          <p><a style={{color:'white' ,textDecoration:"none"}} href='https://www.linkedin.com/in/joseph-dickson-a66b9a1a2/' target="_blank" ><img src={linkedin}/></a></p>
+                                          <p><a style={{color:'white' ,textDecoration:"none"}} href='https://mail.google.com/mail/u/1/#inbox?compose=CllgCJfscdngHVNXffhZZZtBkBXBlLVRkqpCBfMpXjDJkhcSDSKlfcNbNMtqWBMJljkWqPKpDHL' target="_blank" ><img src={gmail}/></a></p>
+            </div>
+          </div>
       </div>
       
     </div>

@@ -1,10 +1,14 @@
 import React, {useState,useEffect,useContext} from 'react'
 import { Statecontext } from '../ContextBookmark';
+import ErrorPage from '../errorHolder/ErrorPage';
+
 
 function Additem({setaddItemToShow}) {
     const [linkState,setlinkState] = useState({link:'',description:'',title:'',source:''});
     const folderId = useContext(Statecontext).folderId[0]
     const [userPayload,setuserPayload] = useContext(Statecontext).userPayload
+    const [showError,setShowError] = useState(false)
+   const [errObj,setErrObj] = useContext(Statecontext).errObj
 
 
 
@@ -12,8 +16,10 @@ function Additem({setaddItemToShow}) {
     const createLink = async(event)=>{
       const linkdata = {'linkholder':linkState}
       event.preventDefault()
-      if(linkState.link===''||linkState.description===''||linkState.title===''||linkState.source===''){
-            console.log('empty')
+      if(linkState.link===''||linkState.title===''){
+            setShowError(true)
+            setErrObj({status:'fill',message:'fill neccessary fields'})
+          
       }
       else{
         console.log(linkState)
@@ -29,8 +35,7 @@ function Additem({setaddItemToShow}) {
                 body: JSON.stringify(linkdata)
                 })
       const linkjson = await linkObjectCreated.json()
-      console.log(linkjson)
-      console.log(folderId)
+     
       if(linkjson.success){
         setaddItemToShow('none')
       }
@@ -57,6 +62,7 @@ function Additem({setaddItemToShow}) {
   const cancelIcon = <svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" fill='#FFFFFF'><path d="m10.458 31.458-1.916-1.916 9.5-9.542-9.5-9.542 1.916-1.916 9.542 9.5 9.542-9.5 1.916 1.916-9.5 9.542 9.5 9.542-1.916 1.916-9.542-9.5Z"/></svg>
   return (
     <div style={{position:'absolute',backgroundColor:'rgba(0, 0, 0, 0.475)',boxSizing:'border-box',height:'100vh',width:'100%',zIndex:'100'}}>
+              {showError && <ErrorPage status={errObj.status} message={errObj.message} setShowError={setShowError} showError={showError}/>}
               <div style={{width:'300px',height:'500px',borderRadius:'14px',boxShadow: '0px 0px 15px #0b1f36',backgroundColor:'#0d47a1',position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',paddingTop:'40px'}}>
                   <div style={{borderRadius:'10px',height:'auto',width:'250px',margin:'15px auto'}}>
                       <input onChange={(event)=> changeFieldData(event)} name='link' value={linkState.link} placeholder='link...' style={{boxSizing : 'border-box',boxShadow: '0px 0px 15px #0b1f36',marginTop:"15px",height:'50px',paddingLeft:'7px',borderRadius:'10px',width:'100%',outline:'none',fontSize:'15px',backgroundColor:'transparent',borderWidth:'0px 0px 0px' ,color:'white'}}/>
@@ -83,7 +89,8 @@ export function Addtexts({setaddItemToShow}) {
     const [textState,settextState] = useState({text:'',description:'',title:'',source:''});
     const addIcon = <svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" fill='#FFFFFF'><path d="M18.625 31.667V21.375H8.333v-2.75h10.292V8.333h2.75v10.292h10.292v2.75H21.375v10.292Z"/></svg>;
     const cancelIcon = <svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" fill='#FFFFFF'><path d="m10.458 31.458-1.916-1.916 9.5-9.542-9.5-9.542 1.916-1.916 9.542 9.5 9.542-9.5 1.916 1.916-9.5 9.542 9.5 9.542-1.916 1.916-9.542-9.5Z"/></svg>
-
+    const [showError,setShowError] = useState(false)
+   const [errObj,setErrObj] = useContext(Statecontext).errObj
     
 
     const changeFieldData = (event)=>{
@@ -96,8 +103,10 @@ export function Addtexts({setaddItemToShow}) {
 
   const createText = async(event)=>{
     event.preventDefault()
-    if(textState.text===''||textState.description===''||textState.title===''||textState.source===''){
-          console.log('empty')
+    if(!textState.text||!textState.description||!textState.title||!textState.source){
+      console.log('aaaa')
+      setShowError(true)
+      setErrObj({status:'fill',message:'fill neccessary fields'})
     }
     else{
 
@@ -133,6 +142,7 @@ export function Addtexts({setaddItemToShow}) {
 
     return(
     <div style={{position:'absolute',backgroundColor:'rgba(0, 0, 0, 0.475)',boxSizing:'border-box',height:'100vh',width:'100%',zIndex:'100'}}>
+                            {showError && <ErrorPage status={errObj.status} message={errObj.message} setShowError={setShowError} showError={showError}/>}
               <div style={{width:'300px',height:'500px',borderRadius:'14px',boxShadow: '0px 0px 15px #0b1f36',backgroundColor:'#0d47a1',position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',paddingTop:'40px'}}>
                   <div style={{borderRadius:'10px',height:'auto',width:'250px',margin:'15px auto'}}>
                       <input onChange={(event)=> changeFieldData(event)} name='text' value={textState.text} placeholder='text...' style={{boxSizing : 'border-box',marginTop:"15px",height:'50px',boxShadow: '0px 0px 15px #0b1f36',paddingLeft:'7px',borderRadius:'10px',width:'100%',outline:'none',fontSize:'15px',backgroundColor:'transparent',borderWidth:'0px 0px 0px' ,color:'white'}}/>
@@ -157,7 +167,8 @@ export function Addimages({setaddItemToShow}) {
   const [imageState,setimageState] = useState({nameofimage:'',title:'',source:''});
     const addIcon = <svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" fill='#FFFFFF'><path d="M18.625 31.667V21.375H8.333v-2.75h10.292V8.333h2.75v10.292h10.292v2.75H21.375v10.292Z"/></svg>;
     const cancelIcon = <svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" fill='#FFFFFF'><path d="m10.458 31.458-1.916-1.916 9.5-9.542-9.5-9.542 1.916-1.916 9.542 9.5 9.542-9.5 1.916 1.916-9.5 9.542 9.5 9.542-1.916 1.916-9.542-9.5Z"/></svg>
-
+    const [showError,setShowError] = useState(false)
+   const [errObj,setErrObj] = useContext(Statecontext).errObj
 
   const changeFieldData = (event)=>{
         event.preventDefault()
@@ -169,7 +180,8 @@ export function Addimages({setaddItemToShow}) {
 const createImage = async(event)=>{
     event.preventDefault()
     if(imageState.nameofimage===''||imageState.title===''||imageState.source===''){
-          console.log('empty')
+      setShowError(true)
+      setErrObj({status:'fill',message:'fill neccessary fields'})
     }
     else{
 
@@ -200,6 +212,7 @@ const createImage = async(event)=>{
   
   return(
     <div style={{position:'absolute',backgroundColor:'rgba(0, 0, 0, 0.475)',boxSizing:'border-box',height:'100vh',width:'100%',zIndex:'100'}}>
+                            {showError && <ErrorPage status={errObj.status} message={errObj.message} setShowError={setShowError} showError={showError}/>}
               <div style={{width:'300px',height:'500px',borderRadius:'14px',boxShadow: '0px 0px 15px #0b1f36',backgroundColor:'#0d47a1',position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',paddingTop:'40px'}}>
                   <div style={{borderRadius:'10px',height:'auto',width:'250px',margin:'15px auto'}}>
                       <input onChange={(event)=> changeFieldData(event)} name='nameofimage' value={imageState.nameofimage} placeholder='nameOfImage...' style={{boxSizing : 'border-box',marginTop:"15px",boxShadow: '0px 0px 15px #0b1f36',height:'50px',paddingLeft:'7px',borderRadius:'10px',width:'100%',outline:'none',fontSize:'15px',backgroundColor:'transparent',borderWidth:'0px 0px 0px' ,color:'white'}}/>
