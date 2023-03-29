@@ -86,6 +86,26 @@ function Contentsection() {
       console.log('not possible')
     }
   }
+
+
+  const shareImage = async(obj)=>{
+        const blob = new Blob([obj.image.buffer],{type:obj.imageType})
+        const shareData = {
+          file:[blob],
+          title:'image from buukmark',
+          text: 'Nice !'
+        }
+
+        if(navigator.canShare(shareData)){
+        
+          await window.navigator.share(shareData)
+    }
+    else{
+      console.log('not possible')
+    }
+
+    
+  }
   /*
 
    */
@@ -231,7 +251,7 @@ const backToFolder = ()=>{
                   {ImageArray.state? ImageArray.data.map(imgObj => <div style={{width:'95%',height:"auto",padding:"15px",boxSizing:"border-box",boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px"}}>
                     <div style={{display:'flex',justifyContent:"space-between"}}>
                       <p style={{fontFamily:"NexaTextBold",marginBottom:"10px"}}>{imgObj.title}</p>
-                      <p style={{cursor:"pointer"}}><span onClick={()=>deleteItem('image',imgObj)}  style={{cursor:'pointer'}}>{del}</span>&nbsp; &nbsp;&nbsp;<span style={{cursor:'pointer'}}>{forward}</span></p>
+                      <p style={{cursor:"pointer"}}><span onClick={()=>deleteItem('image',imgObj)}  style={{cursor:'pointer'}}>{del}</span>&nbsp; &nbsp;&nbsp;<span style={{cursor:'pointer'}} onClick = {()=>{console.log(imgObj);shareImage(imgObj)}}>{forward}</span></p>
                       
                     </div>
                     <p style={{textAlign:"left",}}>{imgObj.source}</p>
