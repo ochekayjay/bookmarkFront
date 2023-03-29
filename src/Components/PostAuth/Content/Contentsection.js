@@ -89,7 +89,7 @@ function Contentsection() {
 
 
   const shareImage = async(obj)=>{
-
+        console.log(obj?.id?obj.id:obj._id)
         const imagedata = await fetch(`https://savemyfile.onrender.com/image/getImage/${obj?.id?obj.id:obj._id}`,{
           method:'GET',
           headers:{
@@ -100,7 +100,7 @@ function Contentsection() {
         )
         const blob = imagedata.blob()
         const shareData = {
-          file:[blob],
+          files:[blob],
           title: `${obj.title}`,
           text: `${obj.source}`
         }
