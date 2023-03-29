@@ -95,7 +95,7 @@ function Contentsection() {
           headers:{
                     'Accept': '*/*',
                   },
-                  body: JSON.stringify(textState)
+                
                   }
         )
         const blob = imagedata.blob()
