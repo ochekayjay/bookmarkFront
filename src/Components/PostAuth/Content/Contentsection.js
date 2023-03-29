@@ -91,7 +91,7 @@ function Contentsection() {
   const shareImage = async(obj)=>{
         const blob = new Blob([obj.image.buffer],{type:obj.imageType})
         const shareData = {
-          file:[blob],
+          file:[obj.image.buffer],
           title:'image from buukmark',
           text: 'Nice !'
         }
