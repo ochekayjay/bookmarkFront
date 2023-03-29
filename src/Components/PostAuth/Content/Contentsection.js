@@ -89,11 +89,20 @@ function Contentsection() {
 
 
   const shareImage = async(obj)=>{
-        const blob = new Blob([obj.image.buffer],{type:obj.imageType})
+
+        const imagedata = await fetch(`https://savemyfile.onrender.com/image/getImage/${obj?.id?obj.id:obj._id}`,{
+          method:'GET',
+          headers:{
+                    'Accept': '*/*',
+                  },
+                  body: JSON.stringify(textState)
+                  }
+        )
+        const blob = imagedata.blob()
         const shareData = {
-          file:[obj.image.buffer],
-          title:'image from buukmark',
-          text: 'Nice !'
+          file:[blob],
+          title: `${obj.title}`,
+          text: `${obj.source}`
         }
 
         if(navigator.canShare(shareData)){
