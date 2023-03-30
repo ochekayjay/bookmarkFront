@@ -90,19 +90,6 @@ function Contentsection() {
 
   const shareImage = async(obj)=>{
     
-        
-        //const blo = new Blob([obj.image],{type: `${obj.imageType}`})
-        
-
-        /*const uint8Array = new Uint8Array(obj.image.data)
-        
-        const blob = new Blob([uint8Array],{type:`${obj.imageType}`})
-        console.log(blob)
-        const shareData = {
-          file: blob,
-          title: `${obj.title}`,
-          text: `${obj.source}`
-        }*/
 
         const image = await fetch(`https://savemyfile.onrender.com/image/getImage/${obj?.id?obj.id:obj._id}`,{
           'Accept': '*/*'

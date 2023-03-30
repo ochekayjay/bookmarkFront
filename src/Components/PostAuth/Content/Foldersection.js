@@ -65,6 +65,38 @@ const deleteFolder = async(obj)=>{
      
   }
 
+
+  const shareImage = async(obj)=>{
+    
+
+    const image = await fetch(`https://savemyfile.onrender.com/image/getImage/${obj?.id?obj.id:obj._id}`,{
+      'Accept': '*/*'
+    })
+
+    const blob = await image.blob()
+    console.log(blob)
+
+    const file = new File([blob],'image.jpg',{type: blob.type})
+    console.log(file)
+    const shareData = {
+      files: [file],
+      title: `${obj.title}`,
+      text: `${obj.source}`
+    }
+
+    if(navigator.canShare(shareData)){
+    
+      await window.navigator.share(shareData)
+}
+else{
+  console.log('not possible')
+}
+
+
+}
+
+
+
 //function to share data
 const shareLink = async(obj)=>{
     
@@ -351,7 +383,7 @@ const changeSearch = async (e)=>{
                            
                        {ImageArray?.state? ImageArray.data.map(imgObj => <div style={{width:'90%',borderRadius:"15px",backgroundColor:"#0d47a1",margin:"10px auto",height:"auto",boxSizing:"border-box",padding:'15px'}}>
                       
-                      <p style={{cursor:"pointer",width:'100%',paddingLeft:'15px',boxSizing:'border-box',textAlign:'right'}}><span onClick={()=>shareLink()} style={{cursor:'pointer'}}>{forward}</span></p>
+                      <p style={{cursor:"pointer",width:'100%',paddingLeft:'15px',boxSizing:'border-box',textAlign:'right'}}><span onClick = {()=>{shareImage(imgObj)}} style={{cursor:'pointer'}}>{forward}</span></p>
     
                        <div style={{boxShadow: '0px 0px 15px #0b1f36',backgroundColor:"#0d47a1",color:"white",margin:"10px 0px",borderRadius:"15px",padding:"15px",height:'auto'}}>
                     <div style={{display:'flex',justifyContent:"space-between"}}>
