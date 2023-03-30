@@ -57,8 +57,8 @@ function Contentsection() {
   //function to share data
   const shareLink = async(obj)=>{
     
-    let shareObj = {title:obj.title,source:obj.source,description:obj.description,link:obj.link}
-    let convertedObj = `title: ${shareObj.title}\nsource: ${shareObj.source}\ndescription: ${shareObj.description}\nurl: ${encodeURI(shareObj.link)}`
+    let shareObj = {title:obj.title,source:obj?.source,description:obj.description,link:obj.link}
+    let convertedObj = `title: ${shareObj.title}\nsource: ${shareObj?.source}\ndescription: ${shareObj.description}\nurl: ${encodeURI(shareObj.link)}`
     const entireObj = {
       title: 'Link Data',
       text: convertedObj
@@ -73,8 +73,8 @@ function Contentsection() {
 
   const shareText = async(obj)=>{
     
-    const shareObj = {title:obj.title,source:obj.source,description:obj.description,text:obj.text}
-    let convertedObj = `title: ${shareObj.title}\nsource: ${shareObj.source}\ndescription: ${shareObj.description}\ntext: ${shareObj.text}`
+    const shareObj = {title:obj.title,description:obj.description,text:obj.text}
+    let convertedObj = `title: ${shareObj.title}\ndescription: ${shareObj.description}\ntext: ${shareObj.text}`
     const entireObj = {
       title: 'Text Data',
       text: convertedObj
@@ -245,7 +245,7 @@ const backToFolder = ()=>{
                       <p style={{cursor:"pointer"}}><span onClick={()=>deleteItem('link',linkObj)} style={{cursor:'pointer'}}>{del}</span>&nbsp; &nbsp;&nbsp;<span onClick={()=>shareLink(linkObj)} style={{cursor:'pointer'}}>{forward}</span></p>
                     </div>
                     <p><a  target="_blank" href={linkObj.link} style={{textDecoration:'none',color:"white"}}>Visit Site</a></p>
-                    <p>{linkObj.source}</p>
+                    <p>{linkObj?.source}</p>
                     <p>{linkObj.description}</p>
                     <p onClick={()=>{setViewContent({type:'link',content:linkObj})}} style={{width:'70px',cursor:'pointer',backgroundColor:'white',color:'#0d47a1',display:'flex',alignItems:"center",justifyContent:"center",height:"35px",borderRadius:'20px',border:"1px solid white",margin:'10px auto'}}>View</p>
                   </div>): itemState.link?<p> </p>:<p style={{color:"black",marginTop:'15px'}}>No Link Document Available here!</p>}
@@ -261,7 +261,7 @@ const backToFolder = ()=>{
                       <p style={{cursor:"pointer"}}><span style={{cursor:'pointer'}} onClick={()=>deleteItem('text',textObj)} >{del}</span>&nbsp; &nbsp;&nbsp;<span style={{cursor:'pointer'}} onClick={()=>shareText(textObj)}>{forward}</span></p>
                      </div>
                     <p>{textObj.text}</p>
-                    <p>{textObj.source}</p>
+                
                     <p>{textObj.description}</p>
                     <p onClick={()=>{setViewContent({type:'text',content:textObj})}} style={{width:'70px',cursor:'pointer',backgroundColor:'white',color:'#0d47a1',display:'flex',alignItems:"center",justifyContent:"center",height:"35px",borderRadius:'20px',border:"1px solid white",margin:'10px auto'}}>View</p>
                   </div>): itemState.text?<p> </p>:<p style={{color:"black",marginTop:"15px"}}>No Text Document Available here!</p>}

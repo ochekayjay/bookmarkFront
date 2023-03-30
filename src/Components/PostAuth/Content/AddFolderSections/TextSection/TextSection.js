@@ -5,7 +5,7 @@ import ErrorPage from "../../../../errorHolder/ErrorPage";
 
 
 const TextSection  = ({ textArray, setaddItemToShow,setTextArray})=>{
-    const [textState,setTextState] = useState({text:'',description:'',title:'',source:''})
+    const [textState,setTextState] = useState({text:'',description:'',title:''})
     const [userPayload,setuserPayload] = useContext(Statecontext).userPayload
     const folderId = useContext(Statecontext).folderId[0]
     const [folderLoad,setFolderLoad] = useState(false)
@@ -25,7 +25,7 @@ const TextSection  = ({ textArray, setaddItemToShow,setTextArray})=>{
 
   const createText = async(event)=>{
     event.preventDefault()
-    if(textState.text===''||textState.description===''||textState.title===''||textState.source===''){
+    if(textState.text===''||textState.description===''||textState.title===''){
       setFolderLoad(false)
       setShowError(true)
       setErrObj({status:'fill',message:'fill neccessary fields'})
@@ -72,9 +72,9 @@ const TextSection  = ({ textArray, setaddItemToShow,setTextArray})=>{
               <div style={{width:'300px',height:'500px',borderRadius:'14px',boxShadow: '0px 0px 15px #0b1f36',backgroundColor:'#0d47a1',position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',paddingTop:'40px'}}>
                   <div style={{borderRadius:'10px',height:'auto',width:'250px',margin:'15px auto'}}>
                       <input onChange={(event)=> changeFieldData(event)} name='text' value={textState.text} placeholder='text...' style={{boxSizing : 'border-box',marginTop:"15px",height:'50px',boxShadow: '0px 0px 15px #0b1f36',paddingLeft:'7px',borderRadius:'10px',width:'100%',outline:'none',fontSize:'15px',backgroundColor:'transparent',borderWidth:'0px 0px 0px' ,color:'white'}}/>
-                      <input onChange={(event)=> changeFieldData(event)} name='description' value={textState.description} placeholder='description...' style={{boxSizing : 'border-box',marginTop:"15px",height:'50px',boxShadow: '0px 0px 15px #0b1f36',paddingLeft:'7px',borderRadius:'10px',width:'100%',outline:'none',fontSize:'15px',backgroundColor:'transparent',borderWidth:'0px 0px 0px' ,color:'white'}}/>
+                      <textarea onChange={(event)=> changeFieldData(event)} name='description' value={textState.description} placeholder='description...' style={{boxSizing : 'border-box',height:'130px',padding:"7px",marginTop:"15px",height:'50px',boxShadow: '0px 0px 15px #0b1f36',paddingLeft:'7px',borderRadius:'10px',width:'100%',outline:'none',fontSize:'15px',backgroundColor:'transparent',borderWidth:'0px 0px 0px' ,color:'white'}}>{textState.description}</textarea>
                       <input onChange={(event)=> changeFieldData(event)} name='title' value={textState.title} placeholder='title...' style={{boxSizing : 'border-box',height:'50px',boxShadow: '0px 0px 15px #0b1f36',marginTop:"15px",paddingLeft:'7px',borderRadius:'10px',width:'100%',outline:'none',fontSize:'15px',backgroundColor:'transparent',borderWidth:'0px 0px 0px' ,color:'white'}}/>
-                      <input onChange={(event)=> changeFieldData(event)} name='source' value={textState.source} placeholder='source...' style={{boxSizing : 'border-box',height:'50px',boxShadow: '0px 0px 15px #0b1f36',marginTop:"15px",paddingLeft:'7px',borderRadius:'10px',width:'100%',outline:'none',fontSize:'15px',backgroundColor:'transparent',borderWidth:'0px 0px 0px' ,color:'white'}}/>
+                      
 
                   </div>
                   {folderLoad && <p style={{width:"100%",boxSizing:'border-box',display:"flex",justifyContent:'center',alignItems:"center",marginTop:'30px'}}><i class="fa fa-spinner fa-spin" style={{fontSize:'30px',color:'white'}}></i></p>}

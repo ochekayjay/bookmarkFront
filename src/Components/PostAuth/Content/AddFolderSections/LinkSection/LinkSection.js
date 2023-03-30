@@ -21,7 +21,7 @@ function LinkSection({setaddItemToShow}) {
     const createLink = async(event)=>{
       const linkdata = {'linkholder':linkState}
       event.preventDefault()
-      if(linkState.link===''||linkState.description===''||linkState.title===''){
+      if(linkState.link===''||linkState.title===''){
         setFolderLoad(false)
         setShowError(true)
         setErrObj({status:'fill',message:'fill neccessary fields'})
@@ -75,9 +75,9 @@ function LinkSection({setaddItemToShow}) {
               <div style={{width:'300px',height:'500px',borderRadius:'14px',boxShadow: '0px 0px 15px #0b1f36',backgroundColor:'#0d47a1',position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',paddingTop:'40px'}}>
                   <div style={{borderRadius:'10px',height:'auto',width:'250px',margin:'15px auto'}}>
                       <input onChange={(event)=> changeFieldData(event)} name='link' value={linkState.link} placeholder='link...' style={{boxSizing : 'border-box',boxShadow: '0px 0px 15px #0b1f36',marginTop:"15px",height:'50px',paddingLeft:'7px',borderRadius:'10px',width:'100%',outline:'none',fontSize:'15px',backgroundColor:'transparent',borderWidth:'0px 0px 0px' ,color:'white'}}/>
-                      <input onChange={(event)=> changeFieldData(event)} name='description' value={linkState.description} placeholder='description...' style={{boxSizing : 'border-box',boxShadow: '0px 0px 15px #0b1f36',marginTop:"15px",height:'50px',paddingLeft:'7px',borderRadius:'10px',width:'100%',outline:'none',fontSize:'15px',backgroundColor:'transparent',borderWidth:'0px 0px 0px' ,color:'white'}}/>
+                      <input onChange={(event)=> changeFieldData(event)} name='description' value={linkState?.description} placeholder='description...' style={{boxSizing : 'border-box',boxShadow: '0px 0px 15px #0b1f36',marginTop:"15px",height:'50px',paddingLeft:'7px',borderRadius:'10px',width:'100%',outline:'none',fontSize:'15px',backgroundColor:'transparent',borderWidth:'0px 0px 0px' ,color:'white'}}/>
                       <input onChange={(event)=> changeFieldData(event)} name='title' value={linkState.title} placeholder='title...' style={{boxSizing : 'border-box',height:'50px',marginTop:"15px",boxShadow: '0px 0px 15px #0b1f36',paddingLeft:'7px',borderRadius:'10px',width:'100%',outline:'none',fontSize:'15px',backgroundColor:'transparent',borderWidth:'0px 0px 0px' ,color:'white'}}/>
-                      <input onChange={(event)=> changeFieldData(event)} name='source' value={linkState.source} placeholder='source...' style={{boxSizing : 'border-box',height:'50px',marginTop:"15px",paddingLeft:'7px',boxShadow: '0px 0px 15px #0b1f36',borderRadius:'10px',width:'100%',outline:'none',fontSize:'15px',backgroundColor:'transparent',borderWidth:'0px 0px 0px' ,color:'white'}}/>
+                      <input onChange={(event)=> changeFieldData(event)} name='source' value={linkState?.source} placeholder='source...' style={{boxSizing : 'border-box',height:'50px',marginTop:"15px",paddingLeft:'7px',boxShadow: '0px 0px 15px #0b1f36',borderRadius:'10px',width:'100%',outline:'none',fontSize:'15px',backgroundColor:'transparent',borderWidth:'0px 0px 0px' ,color:'white'}}/>
 
                   </div>
                   {folderLoad && <p style={{width:"100%",boxSizing:'border-box',display:"flex",justifyContent:'center',alignItems:"center",marginTop:'30px'}}><i class="fa fa-spinner fa-spin" style={{fontSize:'30px',color:'white'}}></i></p>}

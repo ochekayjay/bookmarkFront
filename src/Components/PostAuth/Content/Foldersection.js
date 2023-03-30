@@ -100,8 +100,8 @@ else{
 //function to share data
 const shareLink = async(obj)=>{
     
-  let shareObj = {title:obj.title,source:obj.source,description:obj.description,link:obj.link}
-  let convertedObj = `title: ${shareObj.title}\nsource: ${shareObj.source}\ndescription: ${shareObj.description}\nurl: ${encodeURI(shareObj.link)}`
+  let shareObj = {title:obj.title,source:obj?.source,description:obj?.description,link:obj.link}
+  let convertedObj = `title: ${shareObj.title}\nsource: ${shareObj?.source}\ndescription: ${shareObj?.description}\nurl: ${encodeURI(shareObj.link)}`
   const entireObj = {
     title: 'Link Data',
     text: convertedObj
@@ -116,8 +116,8 @@ const shareLink = async(obj)=>{
 
 const shareText = async(obj)=>{
   
-  const shareObj = {title:obj.title,source:obj.source,description:obj.description,text:obj.text}
-  let convertedObj = `title: ${shareObj.title}\nsource: ${shareObj.source}\ndescription: ${shareObj.description}\ntext: ${shareObj.text}`
+  const shareObj = {title:obj.title,description:obj?.description,text:obj.text}
+  let convertedObj = `title: ${shareObj.title}\ndescription: ${shareObj?.description}\ntext: ${shareObj.text}`
   const entireObj = {
     title: 'Text Data',
     text: convertedObj
@@ -336,8 +336,8 @@ const changeSearch = async (e)=>{
                       <p style={{fontFamily:"NexaTextBold",marginBottom:"10px"}}>{textObj.title}</p>
                      </div>
                     <p>{textObj.text}</p>
-                    <p>{textObj.source}</p>
-                    <p>{textObj.description}</p>
+                    
+                    <p>{textObj?.description}</p>
                     </div>
                     <p onClick={()=>{setViewContent({type:'text',content:textObj})}} style={{width:'70px',cursor:'pointer',backgroundColor:'white',color:'#0d47a1',display:'flex',alignItems:"center",justifyContent:"center",height:"35px",borderRadius:'20px',border:"1px solid white",margin:'10px auto'}}>View</p>
                   </div>): sectionLoad.text?<p> </p>:<p style={{color:"black",marginTop:"15px"}}>No Text Document Available here!</p>}
@@ -363,8 +363,8 @@ const changeSearch = async (e)=>{
                       
                     </div>
                     <p><a  target="_blank" href={linkObj.link} style={{textDecoration:'none',color:"white"}}>Visit Site</a></p>
-                    <p>{linkObj.source}</p>
-                    <p>{linkObj.description}</p>
+                    <p>{linkObj?.source}</p>
+                    <p>{linkObj?.description}</p>
                   </div>
                   <p onClick={()=>{setViewContent({type:'link',content:linkObj})}} style={{width:'70px',cursor:'pointer',backgroundColor:'white',color:'#0d47a1',display:'flex',alignItems:"center",justifyContent:"center",height:"35px",borderRadius:'20px',border:"1px solid white",margin:'10px auto'}}>View</p>
                   </div>): sectionLoad.link?<p> </p>:<p style={{color:"black",marginTop:'15px'}}>No Link Document Available here!</p>}
