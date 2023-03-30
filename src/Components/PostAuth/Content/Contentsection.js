@@ -89,11 +89,17 @@ function Contentsection() {
 
 
   const shareImage = async(obj)=>{
+    
         
+        //const blo = new Blob([obj.image],{type: `${obj.imageType}`})
         
-        const blob = new Blob([obj.image],{type: `${obj.imageType}`})
+
+        const uint8Array = new Uint8Array(obj.image.data)
+
+        const blob = new Blob([uint8Array],{type:`${obj.imageType}`})
         const shareData = {
-          file:[blob],
+          file:[blob
+          ],
           title: `${obj.title}`,
           text: `${obj.source}`
         }
