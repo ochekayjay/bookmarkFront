@@ -251,7 +251,7 @@ const setProTitle = async() =>{
             <p style={{fontSize:'15px',paddingLeft:'30px',marginBottom:"10px"}}>Contact Developer</p>
             <div style={{display:'flex',justifyContent:'space-around'}}><p><a style={{color:'white' ,textDecoration:"none"}} href='https://twitter.com/kjay_wonder?t=_fHZMNnjunlghRfsxZS-VA&s=09' target="_blank" ><img src={twitter}/></a></p>
                                           <p><a style={{color:'white' ,textDecoration:"none"}} href='https://www.linkedin.com/in/joseph-dickson-a66b9a1a2/' target="_blank" ><img src={linkedin}/></a></p>
-                                          <p><a style={{color:'white' ,textDecoration:"none"}} href='https://mail.google.com/mail/u/1/#inbox?compose=CllgCJfscdngHVNXffhZZZtBkBXBlLVRkqpCBfMpXjDJkhcSDSKlfcNbNMtqWBMJljkWqPKpDHL' target="_blank" ><img src={gmail}/></a></p>
+                                          <p><a style={{color:'white' ,textDecoration:"none"}}  ><img src={gmail}/></a></p>
             </div>
           </div>
       </div>
