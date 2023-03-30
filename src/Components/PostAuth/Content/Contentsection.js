@@ -95,11 +95,11 @@ function Contentsection() {
         
 
         const uint8Array = new Uint8Array(obj.image.data)
-
+        
         const blob = new Blob([uint8Array],{type:`${obj.imageType}`})
+        console.log(blob)
         const shareData = {
-          file:[blob
-          ],
+          file: blob,
           title: `${obj.title}`,
           text: `${obj.source}`
         }
