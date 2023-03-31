@@ -7,6 +7,7 @@ import gmail from './bioImages/gmail.png'
 import linkedin from './bioImages/linkedin.png'
 import { ImageCallFunc, TextCallFunc, LinkCallFunc, folderCallFunc } from './FolderSetter'
 function BioSection() {
+    const [sectionClass,setSectionClass] = useState({link:'bioSectionLink',image:'bioSectionImage',text:'bioSectionText',folder:'bioSectionGeneral'})
     const [userPayload,setuserPayload] = useContext(Statecontext).userPayload
     const [biodata,setbiodata] = useState({imageLink:'',collectionName:''})
     const [showsave,setshowsave] = useState(false)
@@ -243,10 +244,10 @@ const setProTitle = async() =>{
       </div>
 
       <div style={{fontFamily:'NexaTextLight',marginTop:'65px',paddingLeft:'30px',color:'white',fontSize:'20px'}}>
-          <p style={{marginTop:'30px',cursor:'pointer',padding:'10px',textAlign:'left',backgroundColor:sectionShow==="folder"?"#6c9de6":"#0d47a1",width:'60%',margin:'10px auto',borderRadius:'10px'}} onClick={()=>sectionDeclare(userPayload.token,'folder')}>Folders</p>
-          <p style={{marginTop:'30px',cursor:'pointer',padding:'10px',textAlign:'left',backgroundColor:sectionShow==="image"?"#6c9de6":"#0d47a1",width:'60%',margin:'10px auto',borderRadius:'10px'}} onClick={()=>sectionDeclare(userPayload.token,'image')}>All Images</p>
-          <p style={{marginTop:'30px',cursor:'pointer',padding:'10px',textAlign:'left',backgroundColor:sectionShow==="link"?"#6c9de6":"#0d47a1",width:'60%',margin:'10px auto',borderRadius:'10px'}} onClick={()=>sectionDeclare(userPayload.token,'link')}>All Links</p>
-          <p style={{marginTop:'30px',cursor:'pointer',padding:'10px',textAlign:'left',backgroundColor:sectionShow==="text"?"#6c9de6":"#0d47a1",width:'60%',margin:'10px auto',borderRadius:'10px'}} onClick={()=>sectionDeclare(userPayload.token,'text')}>All Texts</p>
+          <p className={sectionClass.folder} onClick={()=>{setSectionClass({link:'bioSectionLink',image:'bioSectionImage',text:'bioSectionText',folder:'bioSectionGeneral'});sectionDeclare(userPayload.token,'folder')}}>Folders</p>
+          <p className={sectionClass.image}   onClick={()=>{setSectionClass({link:'bioSectionLink',folder:'bioSectionFolder',text:'bioSectionText',image:'bioSectionGeneral'});sectionDeclare(userPayload.token,'image')}}>All Images</p>
+          <p className={sectionClass.link}  onClick={()=>{setSectionClass({folder:'bioSectionFolder',image:'bioSectionImage',text:'bioSectionText',link:'bioSectionGeneral'});sectionDeclare(userPayload.token,'link')}}>All Links</p>
+          <p className={sectionClass.text}  onClick={()=>{setSectionClass({link:'bioSectionLink',image:'bioSectionImage',folder:'bioSectionFolder',text:'bioSectionGeneral'});sectionDeclare(userPayload.token,'text')}}>All Texts</p>
           <div style={{width:"100%",margin:'10px auto',marginTop:"25px",display:'flex',flexDirection:'column',justifyContent:'space-around'}}>
             <p style={{fontSize:'15px',paddingLeft:'30px',marginBottom:"10px"}}>Contact Developer</p>
             <div style={{display:'flex',justifyContent:'space-around'}}><p><a style={{color:'white' ,textDecoration:"none"}} href='https://twitter.com/kjay_wonder?t=_fHZMNnjunlghRfsxZS-VA&s=09' target="_blank" ><img src={twitter}/></a></p>

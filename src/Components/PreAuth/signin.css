@@ -13,3 +13,61 @@
     font-family:NexaTextLight;
     margin-left:5px
 }
+
+.loadbuttonSignUp{
+    height: 25%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width: 105px;
+    height: 35px;
+    border-radius: 15px;
+    color: #0d47a1;
+    background-color: white;
+}
+
+.loadbuttonSignin{
+    height: 33.3%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width: 105px;
+    height: 35px;
+    border-radius: 15px;
+    color: #0d47a1; 
+    background-color: white;
+}
+
+.loadbuttonSignin:focus, .loadbuttonSignUp:focus {
+    outline :none;
+    background-color: white;
+}
+
+.loadbuttonSignin:active, .loadbuttonSignUp:active{
+    animation-name: signbounce;
+    animation-duration: 1s;
+}
+
+@media(max-width:700px){
+    .loadbutton{
+
+        height: 20%,
+    }
+
+    .loadbuttonSignin{
+        height: 27%
+    }
+}
+
+
+@keyframes signbounce{
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.1);
+    }
+    100%{
+        transform: scale(1);
+    }
+}

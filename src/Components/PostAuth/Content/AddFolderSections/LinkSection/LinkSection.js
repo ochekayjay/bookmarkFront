@@ -44,7 +44,7 @@ function LinkSection({setaddItemToShow}) {
       console.log(folderId)
       if(linkjson.state){
         
-      setLinkArray({state:true,data:[...linkArray.data,{...linkjson.linkdata}]})
+      setLinkArray({state:true,data:[{...linkjson.linkdata}, ...linkArray.data]})
       setaddItemToShow('none')
       }
       else{

@@ -118,7 +118,7 @@ useEffect(()=>{
       console.log(folderjson)
       //console.log(`${folderjson[0]} tested here`)
       //setfolderContent([...folderContent, {state:true,data:folderjson.folderfile}])
-      setfolderContent({state:true,data:[...folderContent.data,{...folderjson.folderdata}]})
+      setfolderContent({state:true,data:[{...folderjson.folderdata}, ...folderContent.data]})
       setfolderSelector(false)
       setfolderLoad(false)
       setfoldercalltrigger(true)

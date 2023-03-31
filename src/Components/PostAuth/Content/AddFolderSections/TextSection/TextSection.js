@@ -48,7 +48,7 @@ const TextSection  = ({ textArray, setaddItemToShow,setTextArray})=>{
     if(textjson.state){
       console.log(textjson)
       setFolderLoad(false)
-      setTextArray({state:true,data:[...textArray.data,{...textjson.textdata}]})
+      setTextArray({state:true,data:[{...textjson.textdata}, ...textArray.data]})
       setaddItemToShow('none')
     }
     else{

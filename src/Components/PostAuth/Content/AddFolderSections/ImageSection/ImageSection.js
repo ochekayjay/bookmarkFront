@@ -71,7 +71,7 @@ export function ImageSection({setaddItemToShow,ImageArray,setImageArray}) {
       const imgjson = await imageObjectCreated.json()
       console.log(imgjson)
       if(imgjson.state){
-        setImageArray({state:true,data:[...ImageArray.data,{...imgjson.imagedata}]})
+        setImageArray({state:true,data:[{...imgjson.imagedata},...ImageArray.data]})
         
         setaddItemToShow('none')
       }
