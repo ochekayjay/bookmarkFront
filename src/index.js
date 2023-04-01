@@ -6,16 +6,17 @@ import './NEXAFONTS/OTF/Nexa-Bold.otf';
 import './NEXAFONTS/OTF/Nexa-Light.otf';
 import { BrowserRouter } from 'react-router-dom';
 import { StateHolder } from './Components/ContextBookmark';
+import { HashRouter } from 'react-router-dom';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <HashRouter>
       <StateHolder>
         <App />
       </StateHolder>
-    </BrowserRouter>
+    </HashRouter>
   </React.StrictMode>
 );
 
