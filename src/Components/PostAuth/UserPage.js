@@ -137,12 +137,12 @@ useEffect(()=>{
 
 
   return (
-    <div style={{ height:'100vh',display:'flex',position:'relative',boxSizing:'border-box'}}>{
+    <div style={{ height:'100vh',display:'flex',position:'relative',boxSizing:'border-box',border:'1px solid green'}}>{
         folderExists==='none'?
         <div style={{width:"100%",height:'100%',display:"flex",justifyContent:'center',backgroundColor:'#6c9de6',alignItems:"center"}}>
             <i class="fa fa-spinner fa-spin" style={{fontSize:'200px',color:'#0d47a1'}}></i>
         </div>:
-        <div style={{width:"100%",height:'100%',display:'flex'}}>
+        <div style={{width:"100%",height:'100%',display:'flex',border:'1px solid red'}}>
             <BioSection />
             
             {folderExists ? <FolderContent setfolderSelector={setfolderSelector} setShowError={setShowError} showError={showError}/>: <NoFolders folderSelector={folderSelector} setfolderSelector={setfolderSelector}/>}
