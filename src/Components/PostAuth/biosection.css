@@ -107,6 +107,7 @@
         display:block;
         left:0px;
         bottom:0px;
+        overflow: auto;
         top:0px;
         z-index:300000;
         width:85%;
