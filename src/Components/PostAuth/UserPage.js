@@ -4,6 +4,7 @@ import './userPage.css'
 import NoFolders from './NoFolders'
 import { Statecontext } from '../ContextBookmark'
 import FolderContent from './Content/FolderContent'
+import Foldersection from './Content/Foldersection'
 import Addfolder from './Content/Addfolder'
 
 function UserPage() {
@@ -36,7 +37,7 @@ useEffect(()=>{
   
   setuserPayload({id:userDetail._id,userName:userDetail.Username,email:userDetail.Email,token:userDetail.Token})
 
-},[])
+},[userPayload])
 
 
   const folderCallFunc = async()=>{
@@ -68,7 +69,7 @@ useEffect(()=>{
       }
 
   useEffect(()=>{ folderCallFunc()
-      },[userPayload.token,foldercalltrigger])
+      },[userPayload.token])
 
   //change function to create title of folder
 
@@ -137,15 +138,15 @@ useEffect(()=>{
 
 
   return (
-    <div style={{ height:'100vh',display:'flex',position:'relative',boxSizing:'border-box',border:'1px solid green'}}>{
+    <div style={{ height:'100vh',display:'flex',position:'relative',boxSizing:'border-box'}}>{
         folderExists==='none'?
         <div style={{width:"100%",height:'100%',display:"flex",justifyContent:'center',backgroundColor:'#6c9de6',alignItems:"center"}}>
             <i class="fa fa-spinner fa-spin" style={{fontSize:'200px',color:'#0d47a1'}}></i>
         </div>:
-        <div style={{width:"100%",height:'100%',display:'flex',border:'1px solid red'}}>
+        <div style={{width:"100%",height:'100%',display:'flex'}}>
             <BioSection />
             
-            {folderExists ? <FolderContent setfolderSelector={setfolderSelector} setShowError={setShowError} showError={showError}/>: <NoFolders folderSelector={folderSelector} setfolderSelector={setfolderSelector}/>}
+            {folderExists ? <Foldersection setfolderSelector={setfolderSelector} />: <NoFolders folderSelector={folderSelector} setfolderSelector={setfolderSelector}/>}
             { folderSelector && <Addfolder setShowError={setShowError} showError={showError} errObj={errObj} setfolderContent={setfolderContent} folderContent={folderContent} setfolderSelector={setfolderSelector} changeFieldData={changeFieldData} foldertitle={foldertitle} createFolder={createFolder} />}
             </div>}
     </div>

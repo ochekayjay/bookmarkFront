@@ -10,10 +10,12 @@ import { GetFolderImage, DeleteFolderImage } from './AddFolderSections/ImageSect
 import ViewText from '../viewContent/ViewText'
 import ViewLink from '../viewContent/ViewLink'
 import ViewImage from '../viewContent/ViewImage'
+import { useNavigate } from 'react-router-dom'
 import useWindowResize from '../../../hooks/useWindowSize'
 import './contentSection.css'
 
 function Contentsection() {
+  const navigate = useNavigate()
   const [userPayload,setuserPayload] = useContext(Statecontext).userPayload
     const [folderId,setfolderId] = useContext(Statecontext).folderId
     const [selectedFolder,setselectedFolder] = useContext(Statecontext).selectedFolder
@@ -118,16 +120,12 @@ function Contentsection() {
   }
 
   useEffect(()=>{
+    const userContents = JSON.parse(window.localStorage.getItem('UserContent'));
     const userDetail = JSON.parse(window.localStorage.getItem('Userdata'));
-    /*console.log(userDetail)
-    console.log(userDetail._id)
-    console.log(userDetail.Username)
-    console.log(userDetail.Email)
-    const {_id, Username,Email,Token} = userDetail
-    console.log(_id)
-    setuserPayload({...userPayload,...{id:_id,userName:Username,email:Email,token:Token}})*/
-    
+
     setuserPayload({id:userDetail._id,userName:userDetail.Username,email:userDetail.Email,token:userDetail.Token})
+    setfolderId(userContents._id)
+    setselectedFolder(userContents)
   
   },[])
 
@@ -149,7 +147,7 @@ function Contentsection() {
     //console.log(`images here ${imagejson.folderImages[0].image}`)
     //console.log(textjson.folderTexts.length)
  
-    
+
     textjson.state?setTextArray({state:true,data:textjson.textdata}):setTextArray({state:false,data:[]}) 
     linkjson.state?setLinkArray({state:true,data:linkjson.linkdata}):setLinkArray({state:false,data:[]}) 
     imagejson.state?setImageArray({state:true,data:imagejson.imagedata}):setImageArray({state:false,data:[]}) 
@@ -159,7 +157,7 @@ function Contentsection() {
 
   fixFolder()
   
-},[]) 
+},[userPayload,folderId]) 
 
 //delete function
 
@@ -208,27 +206,32 @@ const deleteItem = async(item,obj)=>{
 }
 
 const backToFolder = ()=>{
-  settriggerSection('folder')
   setfolderId('')
+  setselectedFolder()
   setImageArray({state:false,data:[]})
   setLinkArray({state:false,data:[]})
   setTextArray({state:false,data:[]})
+  navigate('/landingpage')
 }
   
 
   
   
     return (
-    <div style={{width:'100%',height:'100%',position:'relative',boxSizing:"border-box"}}>
       
-    <div style={{position:'absolute',top:'0px',left:'0px',height:'30%',boxSizing:'border-box'}}>
+    <div style={{width:'100%',height:'100vh',position:'relative',boxSizing:"border-box"}}>
+
+      
+  {selectedFolder?<div style={{width:'100%',height:'100%',position:'relative',boxSizing:"border-box"}}>
+  
+    <div style={{height:'30%',boxSizing:'border-box'}}>
     <p onClick={()=>backToFolder()} style={{borderRadius:'7px',marginTop:'20px',marginLeft:'20px',width:'150px',height:'45px',color:'white',display:'flex',alignItems:'center',justifyContent:"center",backgroundColor:'#0d47a1',boxShadow: '0px 0px 10px #0b1f36',cursor:'pointer'}}>back to folder</p>
         <div style={{margin:'18px 0px 0px 18px',fontFamily:'NexaTextBold',fontSize:'45px',letterSpacing:'2px'}}>
          <p style={{fontSize:width>800?'45px':"25px"}}>{selectedFolder.name}</p>
         </div>
     </div>
     
-    <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',position:'absolute',bottom:'0px',left:'0px',boxSizing:'border-box',height:'70%',borderRadius:'20px 20px 0px 0px',boxShadow: '0px 0px 15px #0b1f36',width:'100%'}}>
+    <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',overflow:'hidden',boxSizing:'border-box',height:'70%',borderRadius:'20px 20px 0px 0px',boxShadow: '0px 0px 15px #0b1f36',width:'100%'}}>
                 <div style={{width:"100%",height:'5%',display:"flex"}}>
                     <p  style={{display:'flex',cursor:'pointer',color:'white',alignItems:'center',justifyContent:'space-around',fontSize:'25px',width:'100%',height:'50px',border:width>800?'1px solid black':"1px solid white",borderRadius:'20px 0px 0px 0px',borderWidth:'0px 0px 1px 0px',backgroundColor:'#0d47a1',position:'sticky',top:'0px',left:'0px',zIndex:'10'}}><span  onClick={()=>{setContentMobile({link:true,text:false,image:false})}} style={{display:'flex',alignItems:'center',justifyContent:'space-around'}}><span style={{fontSize:width>700?"25px":"15px"}}>Links</span><span style={{display:width>700?'flex':"none",alignItems:'center',justifyContent:'center'}}>{linkIcon}</span></span><span onClick={()=>linkAdder()} style={{display:width>700?'flex':contentMobile.link?"flex":"none",alignItems:'center',justifyContent:'center',cursor:'pointer'}}>{addIcon}</span></p>
                     <p style={{display:'flex',cursor:'pointer',border:width>800?'1px solid black':"1px solid white",borderWidth:"0px 1px 1px 1px",color:'white',alignItems:'center',justifyContent:'space-around',fontSize:'25px',width:'100%',height:'50px',borderRadius:'0px 0px 0px 0px',backgroundColor:'#0d47a1',position:'sticky',top:'0px',left:'0px',zIndex:'10'}}><span onClick={()=>{setContentMobile({link:false,text:true,image:false})}} style={{display:'flex',alignItems:'center',justifyContent:'space-around'}}><span style={{fontSize:width>700?"25px":"15px"}}>Texts</span><span style={{display:width>700?'flex':"none",alignItems:'center',justifyContent:'center'}}>{textIcon}</span></span><span onClick={()=>textAdder()} style={{display:width>700?'flex':contentMobile.text?"flex":'none',alignItems:'center',justifyContent:'center',cursor:'pointer'}}>{addIcon}</span></p>
@@ -295,8 +298,11 @@ const backToFolder = ()=>{
       {addItemToShow==='text' && <TextSection setaddItemToShow={setaddItemToShow} textArray={textArray} setTextArray={setTextArray}/> }
       {addItemToShow==='image' && <ImageSection setaddItemToShow={setaddItemToShow} ImageArray={ImageArray} setImageArray={setImageArray}/> }
       
-        
+     </div>:<div style={{width:"100%",height:'100%',display:"flex",justifyContent:'center',backgroundColor:'#6c9de6',alignItems:"center"}}>
+            <i class="fa fa-spinner fa-spin" style={{fontSize:'200px',color:'#0d47a1'}}></i>
+        </div>} 
     </div>
+    
   )
 }
 

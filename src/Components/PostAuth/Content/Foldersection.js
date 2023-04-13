@@ -6,9 +6,10 @@ import { LinkSearchFunc, TextSearchFunc, ImageSearchFunc } from '../searchConten
 import ViewImage from '../viewContent/ViewImage'
 import ViewLink from '../viewContent/ViewLink'
 import ViewText from '../viewContent/ViewText'
-
+import { useNavigate } from 'react-router-dom'
 
 function Foldersection({setfolderSelector}) {
+    const navigate = useNavigate()
     const [folderId,setfolderId] = useContext(Statecontext).folderId
     const [userPayload,setuserPayload] = useContext(Statecontext).userPayload
     const [selectedFolder,setselectedFolder] = useContext(Statecontext).selectedFolder
@@ -140,7 +141,10 @@ const openFolder = (folder)=>{
     setTextArray({state:false,data:[]})
     setfolderId(folder._id);
     settriggerSection('section');
+    console.log(folder)
+    window.localStorage.setItem('UserContent',JSON.stringify(folder))
     setselectedFolder(folder)
+    navigate('/content')
     
 }
 

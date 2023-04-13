@@ -1,5 +1,5 @@
 .ViewTextMain{
-    position:absolute;
+    position:fixed;
     background-color: black;
     box-sizing:border-box;
     transform:translate(-50%,-50%);

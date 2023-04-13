@@ -1,6 +1,6 @@
 
 .linksectionMain{
-    position:absolute;
+    position:fixed;
     background-color:rgba(0, 0, 0, 0.475);
     box-sizing:border-box;
     transform:translate(-50%,-50%);
