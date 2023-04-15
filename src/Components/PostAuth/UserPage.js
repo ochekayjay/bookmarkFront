@@ -37,7 +37,7 @@ useEffect(()=>{
   
   setuserPayload({id:userDetail._id,userName:userDetail.Username,email:userDetail.Email,token:userDetail.Token})
 
-},[userPayload])
+},[])
 
 
   const folderCallFunc = async()=>{
@@ -54,11 +54,17 @@ useEffect(()=>{
               })
       const folderdat = await folderObj.json()
       console.log(folderdat)
-      if(!folderdat.state){
+      if(!folderdat.state && userPayload.token===''){
+        console.log('wrong')
+          setfolderExists('none')
+      }
+
+      else if(!folderdat.state){
+        console.log('wrong-wright')
           setfolderExists(false)
       }
       else{
-        
+        console.log('wright')
         setfolderExists(true)
         setfolderContent({state:true,data:folderdat.folderdata})
       }

@@ -300,7 +300,7 @@ const changeSearch = async (e)=>{
         <div style={{margin:width>700?"18px 0px 0px 18px":'40px 0px 0px 18px',boxSizing:"border-box",height:"90%",width:"100%",fontFamily:'NexaTextBold',boxSizing:"border-box",fontSize:'45px',letterSpacing:'2px'}}>
             
             <p style={{color:'#6c9de6',fontWeight:'400',fontSize:width>700?"45px":"30px"}}>Folder Section</p>
-            <div style={{boxSizing:"border-box",fontSize:width>700?"30px":"15px",fontFamily:"NexaTextLight"}}>{folderContent.data.map(folder=><p style={{letterSpacing:'4px'}}>{folder.name}</p>)}</div>
+            <div style={{boxSizing:"border-box",fontSize:width>700?"30px":"15px",fontFamily:"NexaTextLight"}}>{folderContent.data.map(folder=><p key={folder._id} style={{letterSpacing:'4px'}}>{folder.name}</p>)}</div>
             </div>
             
         </div>
@@ -314,7 +314,7 @@ const changeSearch = async (e)=>{
                         </div>}
                     <div style={{color:'black',display:width>700?"grid":"flex",flexDirection:'column',gridTemplateColumns:"auto auto",padding:"10px"}}>
                         
-                        {folderContent.state? folderContent.data.map(folder=><div  style={{width:`calc(50%-20px)`,margin:"10px",boxSizing:"border-box",height:'250px',borderRadius:'10px',boxShadow: '0px 0px 15px #0b1f36',backgroundColor:'#6c9de6',cursor:"pointer",color:'white',letterSpacing:'1.5px'}}>
+                        {folderContent.state? folderContent.data.map(folder=><div  key={folder._id} style={{width:`calc(50%-20px)`,margin:"10px",boxSizing:"border-box",height:'250px',borderRadius:'10px',boxShadow: '0px 0px 15px #0b1f36',backgroundColor:'#6c9de6',cursor:"pointer",color:'white',letterSpacing:'1.5px'}}>
                         <p style={{cursor:"pointer",height:'30%',width:'100%',padding:'15px 15px 0px 0px',boxSizing:'border-box',textAlign:'right'}}><span onClick={()=>deleteFolder(folder)} style={{cursor:'pointer'}}>{del}</span></p>
                         <div onClick={()=>openFolder(folder)} style={{height:'70%',boxSizing:'border-box',width:'100%',display:'flex',alignItems:'center',justifyContent:'center'}}>
                           <p style={{color:'white',fontWeight:"400",fontSize:width>700?"25px":"15px",letterSpacing:"1.5px"}}>{folder.name}</p>
@@ -333,7 +333,7 @@ const changeSearch = async (e)=>{
                         </div>}
                     <div style={{color:'black',display:width>700?"grid":"flex",flexDirection:'column',gridTemplateColumns:"auto auto",padding:"10px"}}>
                         
-                    {textArray.state? textArray.data.map(textObj => <div style={{width:`calc(50%-20px)`,borderRadius:'15px',backgroundColor:"#0d47a1",margin:"10px",padding:"15px",boxSizing:"border-box",}}>
+                    {textArray.state? textArray.data.map(textObj => <div key={textObj._id} style={{width:`calc(50%-20px)`,borderRadius:'15px',backgroundColor:"#0d47a1",margin:"10px",padding:"15px",boxSizing:"border-box",}}>
                     <p style={{cursor:"pointer",width:'100%',paddingLeft:'15px',boxSizing:'border-box',textAlign:'right'}}><span onClick={()=>shareText(textObj)} style={{cursor:'pointer'}}>{forward}</span></p>
                      <div style={{boxShadow: '0px 0px 15px #0b1f36',color:"white",margin:"10px 0px",borderRadius:"15px",padding:"15px"}}>
                     <div style={{display:'flex',justifyContent:"space-between"}}>
@@ -385,7 +385,7 @@ const changeSearch = async (e)=>{
                         </div>}
                        <div style={{color:'black',display:width>700?"grid":"flex",flexDirection:'column',gridTemplateColumns:"1fr 1fr",padding:"5px"}}>
                            
-                       {ImageArray?.state? ImageArray.data.map(imgObj => <div style={{width:'90%',borderRadius:"15px",backgroundColor:"#0d47a1",margin:"10px auto",height:"auto",boxSizing:"border-box",padding:'15px'}}>
+                       {ImageArray?.state? ImageArray.data.map(imgObj => <div key={imgObj._id} style={{width:'90%',borderRadius:"15px",backgroundColor:"#0d47a1",margin:"10px auto",height:"auto",boxSizing:"border-box",padding:'15px'}}>
                       
                       <p style={{cursor:"pointer",width:'100%',paddingLeft:'15px',boxSizing:'border-box',textAlign:'right'}}><span onClick = {()=>{shareImage(imgObj)}} style={{cursor:'pointer'}}>{forward}</span></p>
     
